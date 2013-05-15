@@ -1,0 +1,18 @@
+img.buscar_campo_ordenado_desc, img.buscar_campo_ordenado_asc {
+	vertical-align: middle;
+	cursor:pointer;
+}
+
+#result_searcher td.options-width a{
+	border: 0 none;
+	text-align:center;
+}
+
+#result_searcher td.options-width, #result_searcher th.option, #result_searcher th.renewal  {
+	text-align:center;
+	width: 90px;
+}
+
+img.puntero{
+	cursor:pointer;
+}

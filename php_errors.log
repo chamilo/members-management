@@ -1,0 +1,10 @@
+[17-Feb-2013 18:00:01] PHP Warning:  mysql_connect(): Too many connections in /var/www/members.chamilo.org/www/funciones.php on line 7
+[17-Feb-2013 18:00:01] PHP Stack trace:
+[17-Feb-2013 18:00:01] PHP   1. {main}() /var/www/members.chamilo.org/www/cron.php:0
+[17-Feb-2013 18:00:01] PHP   2. conectar() /var/www/members.chamilo.org/www/cron.php:5
+[17-Feb-2013 18:00:01] PHP   3. mysql_connect() /var/www/members.chamilo.org/www/funciones.php:7
+[09-Mar-2013 17:25:01] PHP Warning:  mysql_connect(): Too many connections in /var/www/members.chamilo.org/www/funciones.php on line 7
+[09-Mar-2013 17:25:02] PHP Stack trace:
+[09-Mar-2013 17:25:02] PHP   1. {main}() /var/www/members.chamilo.org/www/cron.php:0
+[09-Mar-2013 17:25:02] PHP   2. conectar() /var/www/members.chamilo.org/www/cron.php:5
+[09-Mar-2013 17:25:02] PHP   3. mysql_connect() /var/www/members.chamilo.org/www/funciones.php:7
