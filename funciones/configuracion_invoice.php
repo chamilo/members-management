@@ -283,7 +283,7 @@ if ( $_REQUEST['tab'] == 'download'){
 				$this->Ln(3);
 				$this->SetFont('helvetica','',8);
 				$this->Cell(170,4,$footer,0,1,'C');
-				$this->Cell(0,4,'Página '.$this->PageNo().'/{nb}',0,0,'R');
+				$this->Cell(0,4,'Page '.$this->PageNo().'/{nb}',0,0,'R');
 			}
 		}
 		
@@ -301,7 +301,7 @@ if ( $_REQUEST['tab'] == 'download'){
 			
 		$pdf->Ln(2);
 		$pdf->SetFont('','B','10');
-		$pdf->Cell(0,4,'Nº invoice: '.completar($num_invoice,4)."/".$year,0,0,'R');// Variable
+		$pdf->Cell(0,4,'Num. invoice: '.completar($num_invoice,4)."/".$year,0,0,'R');// Variable
 				
 		$pdf->SetTextColor(0, 106, 157);
 		$pdf->Ln(20);

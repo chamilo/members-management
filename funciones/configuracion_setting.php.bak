@@ -33,7 +33,6 @@ if ( $_REQUEST['tab'] == 'buscar_user'){
 		$contenido = '<br /><div align="center">';
 		$contenido .= '<table class="stylized"  width="100%">';
     	$contenido .= '<tr>
-        <th>N</th>
 		<th class="user">
 		<img class="buscar_campo_ordenado_desc" src="images/down.png" width="16" height="16" border="0" title="Sort Descending" />
 		User
@@ -59,7 +58,6 @@ if ( $_REQUEST['tab'] == 'buscar_user'){
 			}else{
 				$contenido .= '<tr>';
 			}
-            $contenido .= '<td>'.$i.'</td>';
 			$contenido .= '<td>'.htmlspecialchars($row['user']).'</td>';
 			$contenido .= '<td>'.htmlspecialchars($row['name']).'</td>';
 			$contenido .= '<td>'.htmlspecialchars($row['email']).'</td>';
@@ -326,9 +324,9 @@ if ( $_REQUEST['tab'] == 'guardar_message' ){
 	$link = conectar();
 	$type = $_REQUEST['type'];
 	$lang = $_REQUEST['lang'];
-	$message = $_REQUEST['message'];
+	$message = mysql_real_escape_string($_REQUEST['message']);
 	$id = $_REQUEST['id'];
-	$subject = $_REQUEST['subject'];
+	$subject = mysql_real_escape_string($_REQUEST['subject']);
 	if($id == "vacio"){
 		//procedemos a insertar
 		$sql = "INSERT INTO messages (type,language,message,subject) VALUES ('".$type."','".$lang."','".$message."','".$subject."')";
@@ -355,7 +353,7 @@ if ( $_REQUEST['tab'] == 'guardar_message' ){
 
 if ( $_REQUEST['tab'] == 'set_invoice' ){
 	$link = conectar();
-	$text = $_REQUEST['text'];
+	$text = mysql_real_escape_string($_REQUEST['text']);
 	$lang = $_REQUEST['lang'];
 	$campo = $_REQUEST['campo'];
 	$sql = "UPDATE invoice SET ".$campo."='".$text."' WHERE cod='1'";

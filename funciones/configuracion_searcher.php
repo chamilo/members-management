@@ -22,7 +22,7 @@ if ( $_REQUEST['tab'] == 'buscar'){
 	}
 	
 	
-	if($name != ''){
+	if($surname != ''){
 		if($filtro != ''){
 			$filtro .= " AND ";
 		}
@@ -202,7 +202,7 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 	}
 	
 	
-	if($name != ''){
+	if($surname != ''){
 		if($filtro != ''){
 			$filtro .= " AND ";
 		}
@@ -532,7 +532,7 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 		echo json_encode(array("status"=>"false"));
 		die('Invalid query: Problems to insert data into the member table ' . mysql_error());	
 	}else{
-		$link = conectar2();
+		$link = conectar();
 		$sql = "SELECT body, footer, show_signature FROM invoice WHERE cod='1';";
 		$result = mysql_query($sql,$link);
 		$aux = mysql_fetch_assoc($result);
@@ -549,7 +549,7 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 			if($aux['Field']=="renewal"){
 				$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
 			}elseif($aux['Field']=="quota"){
-				$message = str_replace("{{".$aux['Field']."}}", (number_format($fila[$aux['Field']],2 , "," ,".").' €'), $message);
+				$message = str_replace("{{".$aux['Field']."}}", (number_format($fila[$aux['Field']],2 , "," ,".").' E'), $message);
 			}else{
 				$message = str_replace("{{".$aux['Field']."}}", $fila[$aux['Field']], $message);
 			}
@@ -590,7 +590,7 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 				$this->Ln(3);
 				$this->SetFont('helvetica','',8);
 				$this->Cell(170,4,$footer,0,1,'C');
-				$this->Cell(0,4,'Página '.$this->PageNo().'/{nb}',0,0,'R');
+				$this->Cell(0,4,'Page '.$this->PageNo().'/{nb}',0,0,'R');
 			}
 		}
 		
@@ -608,7 +608,7 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 			
 		$pdf->Ln(2);
 		$pdf->SetFont('','B','10');
-		$pdf->Cell(0,4,'Nº invoice: '.completar($num_invoice,4)."/".$year,0,0,'R');// Variable
+		$pdf->Cell(0,4,'Num. invoice: '.completar($num_invoice,4)."/".$year,0,0,'R');// Variable
 				
 		$pdf->SetTextColor(0, 106, 157);
 		$pdf->Ln(20);

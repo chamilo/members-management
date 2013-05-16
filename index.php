@@ -372,7 +372,7 @@ Member renewal notice:
 if(mysql_num_rows($result)>0){
 	echo '<div id="result_searcher" align="center">';
 	echo '<table class="stylized"  width="100%">';
-	echo '<tr><th class="name">Name</th><th class="surname">Surname</th><th class="email">E-mail</th><th class="renewal">Renewal</th><th class="option">Options</th></tr>';
+	echo '<tr><th>N</th><th class="name">Name</th><th class="surname">Surname</th><th class="email">E-mail</th><th class="renewal">Renewal</th><th class="option">Options</th></tr>';
 	$i = 0;
 	while($row = mysql_fetch_assoc($result)){
 		$i += 1;
@@ -381,6 +381,7 @@ if(mysql_num_rows($result)>0){
 		}else{
 			echo '<tr>';
 		}
+        echo '<td>'.$i.'</td>';
 		echo '<td>'.htmlspecialchars($row['name']).'</td>';
 		echo '<td>'.htmlspecialchars($row['surname']).'</td>';
 		echo '<td>'.htmlspecialchars($row['email']).'</td>';

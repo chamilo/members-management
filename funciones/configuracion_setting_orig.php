@@ -33,7 +33,6 @@ if ( $_REQUEST['tab'] == 'buscar_user'){
 		$contenido = '<br /><div align="center">';
 		$contenido .= '<table class="stylized"  width="100%">';
     	$contenido .= '<tr>
-        <th>N</th>
 		<th class="user">
 		<img class="buscar_campo_ordenado_desc" src="images/down.png" width="16" height="16" border="0" title="Sort Descending" />
 		User
@@ -59,7 +58,6 @@ if ( $_REQUEST['tab'] == 'buscar_user'){
 			}else{
 				$contenido .= '<tr>';
 			}
-            $contenido .= '<td>'.$i.'</td>';
 			$contenido .= '<td>'.htmlspecialchars($row['user']).'</td>';
 			$contenido .= '<td>'.htmlspecialchars($row['name']).'</td>';
 			$contenido .= '<td>'.htmlspecialchars($row['email']).'</td>';

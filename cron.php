@@ -83,6 +83,22 @@ while($fila = mysql_fetch_assoc($result)){
 		while($aux = mysql_fetch_assoc($r_campos)){
 			if($aux['Field']=="renewal"){
 				$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
+			}elseif($aux['Field']=="quota"){
+			  $message = str_replace("{{".$aux['Field']."}}", (number_format($fila[$aux['Field']],2 , "," ,".")), $message);
+			}elseif($aux['Field']=="date_arrival"){
+				$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
+			}elseif($aux['Field']=="language"){
+				$tmp_language = datosreg($fila[$aux['Field']],'language','language','cod');
+				$message = str_replace("{{".$aux['Field']."}}", $tmp_language, $message);
+			}elseif($aux['Field']=="type"){
+				$tmp_type = datosreg($fila[$aux['Field']],'type_member','name','cod');
+				$message = str_replace("{{".$aux['Field']."}}", $tmp_type, $message);
+			}elseif($aux['Field']=="status"){
+				$tmp_status = datosreg($fila[$aux['Field']],'status','status','cod');
+				$message = str_replace("{{".$aux['Field']."}}", $tmp_status, $message);
+			}elseif($aux['Field']=="country"){
+				$tmp_country = datosreg($fila[$aux['Field']],'country','printable_name','iso');
+				$message = str_replace("{{".$aux['Field']."}}", $tmp_country, $message);
 			}else{
 				$message = str_replace("{{".$aux['Field']."}}", $fila[$aux['Field']], $message);
 			}
@@ -208,6 +224,22 @@ while($fila = mysql_fetch_assoc($result)){
 		while($aux = mysql_fetch_assoc($r_campos)){
 			if($aux['Field']=="renewal"){
 				$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
+			}elseif($aux['Field']=="quota"){
+				$message = str_replace("{{".$aux['Field']."}}", (number_format($fila[$aux['Field']],2 , "," ,".")), $message);
+			}elseif($aux['Field']=="date_arrival"){
+				$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
+			}elseif($aux['Field']=="language"){
+				$tmp_language = datosreg($fila[$aux['Field']],'language','language','cod');
+				$message = str_replace("{{".$aux['Field']."}}", $tmp_language, $message);
+			}elseif($aux['Field']=="type"){
+				$tmp_type = datosreg($fila[$aux['Field']],'type_member','name','cod');
+				$message = str_replace("{{".$aux['Field']."}}", $tmp_type, $message);
+			}elseif($aux['Field']=="status"){
+				$tmp_status = datosreg($fila[$aux['Field']],'status','status','cod');
+				$message = str_replace("{{".$aux['Field']."}}", $tmp_status, $message);
+			}elseif($aux['Field']=="country"){
+				$tmp_country = datosreg($fila[$aux['Field']],'country','printable_name','iso');
+				$message = str_replace("{{".$aux['Field']."}}", $tmp_country, $message);
 			}else{
 				$message = str_replace("{{".$aux['Field']."}}", $fila[$aux['Field']], $message);
 			}
