@@ -5,7 +5,7 @@ include_once 'clases/class.phpmailer.php';
 ini_set("error_reporting",0);
 
 function conectar(){
-    require_once __DIR__.'/config.php';
+    require __DIR__.'/config.php';
     $link = new mysqli(
         $config['db']['host'],
         $config['db']['user'],
@@ -20,7 +20,7 @@ function conectar(){
 }
 
 function conectar2(){
-    require_once __DIR__.'/config.php';
+    require __DIR__.'/config.php';
     $link = new mysqli(
         $config['db']['host'],
         $config['db']['user'],
