@@ -140,15 +140,15 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
 			$link = conectar();
 			$sql = "SELECT * FROM country";
 			echo '<option value=""></option>';
-			$result = mysql_query($sql,$link);
+			$result = $link->query($sql);
 			if(!$result){
-				die('Invalid query: ' . mysql_error());
+				die('Invalid query: ' . $link->error);
 			}
-			while($row = mysql_fetch_assoc($result)){
+			while($row = $result->fetch_assoc()){
 				echo '<option value="'.$row['iso'].'" style="max-width:200px">'.$row['name'].'</option>';
 			}
-			mysql_free_result($result);
-			mysql_close($link);
+			$result->free_result();
+			$result->close();
 			?>
         </select>
         Phone: <input type="text" name="phone" id="phone" size="17" />
@@ -160,15 +160,15 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
        		$link = conectar();
 			$sql = "SELECT * FROM type_member";
 			echo '<option value=""></option>';
-			$result = mysql_query($sql,$link);
+			$result = $link->query($sql);
 			if(!$result){
-				die('Invalid query: ' . mysql_error());
+				die('Invalid query: ' . $link->error);
 			}
-			while($row = mysql_fetch_assoc($result)){
+			while($row = $result->fetch_assoc()){
 				echo '<option value="'.$row['cod'].'" style="max-width:200px">'.$row['name'].'</option>';
 			}
-			mysql_free_result($result);
-			mysql_close($link);
+			$result->free_result();
+			$result->close();
     	?>
         </select>
         Status: 
@@ -176,16 +176,16 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
         <?php 
 		$link = conectar();
 		$sql = "SELECT * FROM status";
-		$result = mysql_query($sql,$link);	
+		$result = $link->query($sql);	
 		if (!$result) {									
-			die('Invalid query2: ' . mysql_error());	
+			die('Invalid query2: ' . $link->error);	
 		}
 		echo '<option value="" selected="selected"></option>';
-		while($row = mysql_fetch_assoc($result)){
+		while($row = $result->fetch_assoc()){
 			echo '<option value="'.$row['cod'].'">'.$row['status'].'</option>';
 		}
-   	 	mysql_free_result($result);
-    	mysql_close($link);
+   	 	$result->free_result();
+    	$result->close();
     	?>
         </select>
     	Language:
@@ -194,22 +194,22 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
 		echo '<option value="" selected="selected"></option>';
 		$link = conectar();
 		$sql = "SELECT * FROM language WHERE active='1' ORDER BY language ASC";
-		$result = mysql_query($sql,$link);	
+		$result = $link->query($sql);	
 		if (!$result) {									
-			die('Invalid query2: ' . mysql_error());	
+			die('Invalid query2: ' . $link->error);	
 		}
-		while($row = mysql_fetch_assoc($result)){
+		while($row = $result->fetch_assoc()){
 			echo '<option value="'.$row['cod'].'">'.$row['language'].'</option>';
 		}
-		mysql_free_result($result);
-		mysql_close($link);
+		$result->free_result();
+		$result->close();
    		?>
         </select>
         <br /><br />
         Date renewal between:
-        <input type="date" name="renewal_ini" id="renewal_ini" placeholder="dd/mm/yyyy" />
+        <input type="text" name="renewal_ini" id="renewal_ini" placeholder="dd/mm/yyyy" />
         &nbsp;&nbsp; to &nbsp;&nbsp;
-        <input type="date" name="renewal_fin" id="renewal_fin" placeholder="dd/mm/yyyy" />
+        <input type="text" name="renewal_fin" id="renewal_fin" placeholder="dd/mm/yyyy" />
         <?php
         if(Comprobariexplorer($_SERVER['HTTP_USER_AGENT'])){
         	echo '&nbsp;&nbsp;(dd/mm/yyyy)';
@@ -217,9 +217,9 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
 		?>
         <br /><br />
         &nbsp;&nbsp;Date arrival between: &nbsp;
-        <input type="date" name="arrival_ini" id="arrival_ini" placeholder="dd/mm/yyyy" />
+        <input type="text" name="arrival_ini" id="arrival_ini" placeholder="dd/mm/yyyy" />
         &nbsp;&nbsp; to &nbsp;&nbsp;
-        <input type="date" name="arrival_fin" id="arrival_fin" placeholder="dd/mm/yyyy" />
+        <input type="text" name="arrival_fin" id="arrival_fin" placeholder="dd/mm/yyyy" />
          <?php
         if(Comprobariexplorer($_SERVER['HTTP_USER_AGENT'])){
         	echo '&nbsp;&nbsp;(dd/mm/yyyy)';

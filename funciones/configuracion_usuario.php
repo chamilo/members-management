@@ -158,21 +158,21 @@ if ( $_REQUEST['tab'] == 'recordar_correo'){
 	global $saltt;
 	
 	$sql = "UPDATE users SET pass='".sha1($saltt.md5($pass))."' WHERE email='".$correo."';";
-	$result2 = mysql_query($sql,$link);
+	$result2 = $link->query($sql);
 	if (!$result2) {
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 		$contenido = "Error update password";
 		echo json_encode(array("status"=>"false","contenido"=>$contenido ));	
 	}
 	
 	$presql = "SELECT * FROM users WHERE email='".$correo."'";
-	$result = mysql_query($presql,$link);
+	$result = $link->query($presql);
 	if (!$result) {
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
-	$num_rows = mysql_num_rows($result);
+	$num_rows = $result->num_rows;
 	if($num_rows > 0){
-		$row = mysql_fetch_assoc($result);
+		$row = $result->fetch_assoc();
 		//Mandar correo con nueva clave
 		//Email para el usuario de confirmación de pedido
 		$mail = new PHPMailer();

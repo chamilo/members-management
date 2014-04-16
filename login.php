@@ -18,6 +18,7 @@ if(!isset($_SESSION['tipo'])){
 	$_SESSION['tipo']= 'invitado';
 }
 */
+//echo $_SERVER['SERVER_NAME'];
 if(isset($_POST['username']) && isset($_POST['password'])){
 	if(login($_POST['username'],$_POST['password'],isset($_POST['loginkeeping']))==1){
 		header('Location: http://'.$_SERVER['SERVER_NAME'].'/index.php');	  

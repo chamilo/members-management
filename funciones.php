@@ -2,34 +2,26 @@
 include_once 'clases/class.phpmailer.php';
 
 //ini_set("error_reporting",E_ALL);
+ini_set("error_reporting",0);
 
 function conectar(){
-	$link =  mysql_connect('localhost', 'database', 'password');
-	if (!$link) {
-		die('No pudo conectarse: ' . mysql_error());
+	$link = new mysqli('localhost', 'user', 'password','db');
+	if ($link->connect_errno) {
+		die('No pudo conectarse: ' . $link->connect_error);
 	}
-		
-	$db_selected = mysql_select_db('members', $link);
-	mysql_set_charset('utf8',$link);
-	if (!$db_selected) {
-		die ('Can\'t use jansr : ' . mysql_error());
-	}
+	$link->set_charset('utf8');
 	return $link;
 }
 
 function conectar2(){
-	$link =  mysql_connect('localhost', 'database', 'password');
-	if (!$link) {
-		die('No pudo conectarse: ' . mysql_error());
+	$link = new mysqli('localhost', 'user', 'password','db');
+	if ($link->connect_errno) {
+		die('No pudo conectarse: ' . $link->connect_error);
 	}
-		
-	$db_selected = mysql_select_db('members', $link);
 	//mysql_set_charset('utf8',$link);
-	if (!$db_selected) {
-		die ('Can\'t use jansr : ' . mysql_error());
-	}
 	return $link;
 }
+
 
 /**
 * function obtener (de_la_tabla, donde_este_campo, es_igual_a_esto, este_campo_quiero);
@@ -46,13 +38,26 @@ function obtener( $tabla, $iden, $id, $campo )
     $sql_link = conectar();  
     if( $id == "" || empty($id) )  
         return "";  
-          
     // obtener datos del usuario  
-    $q = "SELECT * FROM `$tabla` WHERE `$iden` = '$id'";  
-    $result = mysql_query($q, $sql_link) or oiError(mysql_error($sql_link));  
-    $ret = mysql_fetch_array($result);  
+    $q = "SELECT * FROM ".$tabla." WHERE ".$iden." = '".$id."'";  
+    $result = $sql_link->query($q) or oiError($sql_link->error());  
+    $ret = $result->fetch_array();  
     $segm = $ret[$campo];  
-    mysql_free_result($result);  
+    $result->free_result();  
+    return $segm;  
+} 
+
+function obtener2( $tabla, $iden, $id, $campo )  
+{  
+    $sql_link = conectar2();  
+    if( $id == "" || empty($id) )  
+        return "";  
+    // obtener datos del usuario  
+    $q = "SELECT * FROM ".$tabla." WHERE ".$iden." = '".$id."'";  
+    $result = $sql_link->query($q) or oiError($sql_link->error());  
+    $ret = $result->fetch_array();  
+    $segm = $ret[$campo];  
+    $result->free_result();  
     return $segm;  
 } 
 
@@ -71,16 +76,72 @@ function obtenerarray( $tabla, $iden, $id, $campo )
     $sql_link = conectar();  
     if( $id == "" || empty($id) )  
         return "";  
-          
+
     // obtener datos del usuario  
     $q = "SELECT * FROM `$tabla` WHERE `$iden` = '$id'";  
-    $result = mysql_query($q, $sql_link) or oiError(mysql_error($sql_link));  
+    $result = $sql_link->query($q) or oiError($sql_link->error());  
     $segm = array();
-	while($ret = mysql_fetch_array($result)){
+	while($ret = $result->fetch_array()){
 		$segm[] = $ret[$campo];  
 	}
-    mysql_free_result($result);  
+	$result->free_result();  
     return $segm;  
+}
+
+/**
+* function obtenerfila (de_la_tabla, donde_este_campo, es_igual_a_esto, );
+* Obtenemos un campo especifico.
+* @$tabla: Tabla donde se realiza la consulta
+* @$iden: campo al que se le aplica la condición
+* @$id: valor para la comparación
+*
+* return mixto
+*/
+function obtenerfila( $tabla, $iden, $id )  
+{  
+    $sql_link = conectar();  
+    if( $id == "" || empty($id) )  
+        return "";  
+
+    // obtener datos del usuario  
+    $q = "SELECT * FROM `$tabla` WHERE `$iden` = '$id'";  
+    $result = $sql_link->query($q) or oiError($sql_link->error());  
+    if($result->num_rows > 0){
+		$ret = $result->fetch_assoc();
+		$result->free_result(); 
+	}else{
+		$ret = array();
+	}
+	return $ret;  
+}
+
+function obtenerfila2( $tabla, $iden, $id )  
+{  
+    $sql_link = conectar2();  
+    if( $id == "" || empty($id) )  
+        return "";  
+
+    // obtener datos del usuario  
+    $q = "SELECT * FROM `$tabla` WHERE `$iden` = '$id'";  
+    $result = $sql_link->query($q) or oiError($sql_link->error());  
+    if($result->num_rows > 0){
+		$ret = $result->fetch_assoc();
+		$result->free_result(); 
+	}else{
+		$ret = array();
+	}
+	return $ret;  
+}
+
+function obtener_num_registro( $tabla, $iden, $id ){
+	$sql_link = conectar();
+	if( $id == "" || empty($id) )
+		return "";
+		
+	$q = "SELECT * FROM `$tabla` WHERE `$iden` = '$id'";
+	$result = $sql_link->query($q) or oiError($sql_link->error());
+	$ret = $result->num_rows;
+	return $ret;
 }
 
 /**
@@ -130,7 +191,6 @@ function comillas_inteligentes($valor)
     if (get_magic_quotes_gpc()) {
         $valor = stripslashes($valor);
     }
-
     // Colocar comillas si no es entero
     if (!is_numeric($valor)) {
         $valor = "'" . mysql_real_escape_string($valor) . "'";
@@ -324,6 +384,7 @@ function meses($valor){
 
 // DATOS TABLA POR COD
 /////////////////////
+/*
 function datosreg($codigo, $tabla, $campo, $campocod='cod'){
 	$query=mysql_query("select ".$campo." as valor from ".$tabla." where ".$campocod."='".$codigo."';" );
 	if(mysql_errno()!=0){
@@ -335,7 +396,7 @@ function datosreg($codigo, $tabla, $campo, $campocod='cod'){
 	}
 	return $resultado;
 }
-
+*/
 //QUITAR CODIFICACION HTML ACENTOS, EÑES...
 
 function quitar_html($cadena){
@@ -393,6 +454,148 @@ function titulos($cadena){
 	return $resultado;
 }
 
+/**
+* stripAccents()
+* @description Esta función remplaza todos los caracteres especiales de un texto dado por su equivalente
+* @author      Esteban Novo
+* @link        http://www.notasdelprogramador.com/2011/01/13/php-funcion-para-quitar-acentos-y-caracteres-especiales/
+* @access      public
+* @copyright   Todos los Derechos Reservados
+* @param       string $String
+* @return      Retorna el nuevo String sin caracteres especiales
+*/
+function limpiarCadena($cadena){
+	$cadena = str_replace(array('á','à','â','ã','ª','ä'),'a',$cadena);
+	$cadena = str_replace(array('Á','À','Â','Ã','Ä'),'A',$cadena);
+	$cadena = str_replace(array('Í','Ì','Î','Ï'),'I',$cadena);
+	$cadena = str_replace(array('í','ì','î','ï'),'i',$cadena);
+	$cadena = str_replace(array('é','è','ê','ë'),'e',$cadena);
+	$cadena = str_replace(array('É','È','Ê','Ë'),'E',$cadena);
+	$cadena = str_replace(array('ó','ò','ô','õ','ö','º'),'o',$cadena);
+	$cadena = str_replace(array('Ó','Ò','Ô','Õ','Ö'),'O',$cadena);
+	$cadena = str_replace(array('ú','ù','û','ü'),'u',$cadena);
+	$cadena = str_replace(array('Ú','Ù','Û','Ü'),'U',$cadena);
+	$cadena = str_replace(array('[','^','´','`','¨','~',']',';',','),'',$cadena);
+	$cadena = str_replace(array(' '),'-',$cadena);
+	$cadena = str_replace('ç','c',$cadena);
+	$cadena = str_replace('Ç','C',$cadena);
+	$cadena = str_replace('ñ','n',$cadena);
+	$cadena = str_replace('Ñ','N',$cadena);
+	$cadena = str_replace('Ý','Y',$cadena);
+	$cadena = str_replace('ý','y',$cadena);
+	// Eliminamos y Reemplazamos demás caracteres especiales
+	$find = array('/[^A-Za-z0-9\-<>.]/', '/[\-]+/', '/<[^>]*>/');
+	$repl = array('', '-', '');
+	$cadena = preg_replace ($find, $repl, $cadena);
+	return $cadena;
+}
+
+function limpiarUrl($cadena){
+	$cadena = str_replace(array('á','à','â','ã','ª','ä'),'a',$cadena);
+	$cadena = str_replace(array('Á','À','Â','Ã','Ä'),'A',$cadena);
+	$cadena = str_replace(array('Í','Ì','Î','Ï'),'I',$cadena);
+	$cadena = str_replace(array('í','ì','î','ï'),'i',$cadena);
+	$cadena = str_replace(array('é','è','ê','ë'),'e',$cadena);
+	$cadena = str_replace(array('É','È','Ê','Ë'),'E',$cadena);
+	$cadena = str_replace(array('ó','ò','ô','õ','ö','º'),'o',$cadena);
+	$cadena = str_replace(array('Ó','Ò','Ô','Õ','Ö'),'O',$cadena);
+	$cadena = str_replace(array('ú','ù','û','ü'),'u',$cadena);
+	$cadena = str_replace(array('Ú','Ù','Û','Ü'),'U',$cadena);
+	$cadena = str_replace(array('[','^','´','`','¨','~',']',';',',','.'),'',$cadena);
+	$cadena = str_replace(array(' '),'-',$cadena);
+	$cadena = str_replace('ç','c',$cadena);
+	$cadena = str_replace('Ç','C',$cadena);
+	$cadena = str_replace('ñ','n',$cadena);
+	$cadena = str_replace('Ñ','N',$cadena);
+	$cadena = str_replace('Ý','Y',$cadena);
+	$cadena = str_replace('ý','y',$cadena);
+	// Eliminamos y Reemplazamos demás caracteres especiales
+	$find = array('/[^A-Za-z0-9\-<>]/', '/[\-]+/', '/<[^>]*>/');
+	$repl = array('', '-', '');
+	$cadena = preg_replace ($find, $repl, $cadena);
+	return strtolower($cadena);
+}
+
+/*GESTIONAR IMAGENES*/
+function escalar_alto($ruta, $guardar, $tipo, $alto){
+	if($tipo=="image/gif"){
+		$fuente = @imagecreatefromgif($ruta); 
+	}elseif ($tipo=="image/pjpeg" or $tipo=="image/jpeg"){
+		$fuente = @imagecreatefromjpeg($ruta); 
+	}elseif ($tipo=="image/png"){
+		$fuente = @imagecreatefrompng($ruta); 
+	}
+	$imgAncho = imagesx($fuente); 
+	$imgAlto =imagesy($fuente); 
+	$ancho=$alto*$imgAncho/$imgAlto;
+	
+	$imagen = imagecreatetruecolor($ancho,$alto); 
+	
+	imagecopyresampled($imagen,$fuente,0,0,0,0,$ancho,$alto,$imgAncho,$imgAlto); 
+	//imagecopyresized($imagen,$fuente,0,0,0,0,$ancho,$alto,$imgAncho,$imgAlto); 
+	imagepng($imagen, $guardar);
+	imagedestroy($imagen); 
+}
+
+function escalar_ancho($ruta, $guardar, $tipo, $ancho){
+	if($tipo=="image/gif"){
+		$fuente = @imagecreatefromgif($ruta); 
+	}elseif ($tipo=="image/pjpeg" or $tipo=="image/jpeg"){
+		$fuente = @imagecreatefromjpeg($ruta); 
+	}elseif ($tipo=="image/png"){
+		$fuente = @imagecreatefrompng($ruta); 
+	}
+	$imgAncho = imagesx($fuente); 
+	$imgAlto =imagesy($fuente); 
+	$alto=$ancho*$imgAlto/$imgAncho;
+	
+	$imagen = imagecreatetruecolor($ancho,$alto); 
+	
+	imagecopyresampled($imagen,$fuente,0,0,0,0,$ancho,$alto,$imgAncho,$imgAlto); 
+	//imagecopyresized($imagen,$fuente,0,0,0,0,$ancho,$alto,$imgAncho,$imgAlto); 
+	imagepng($imagen, $guardar);
+  	imagedestroy($imagen); 
+}
+
+function escalar_ancho_alto($ruta, $guardar, $tipo, $ancho, $alto){
+	if($tipo=="image/gif"){
+		$fuente = @imagecreatefromgif($ruta); 
+	}elseif ($tipo=="image/pjpeg" or $tipo=="image/jpeg"){
+		$fuente = @imagecreatefromjpeg($ruta); 
+	}elseif ($tipo=="image/png"){
+		$fuente = @imagecreatefrompng($ruta); 
+	}
+	$imgAncho = imagesx($fuente); 
+	$imgAlto =imagesy($fuente); 
+	//$alto=$ancho*$imgAlto/$imgAncho;
+	
+	$imagen = imagecreatetruecolor($ancho,$alto); 
+	
+	imagecopyresampled($imagen,$fuente,0,0,0,0,$ancho,$alto,$imgAncho,$imgAlto); 
+	//imagecopyresized($imagen,$fuente,0,0,0,0,$ancho,$alto,$imgAncho,$imgAlto); 
+	imagepng($imagen, $guardar);
+  	imagedestroy($imagen); 
+}
+
+function copiar_imagen($ruta, $guardar, $tipo){
+
+	if($tipo=="image/gif"){
+		$fuente = @imagecreatefromgif($ruta); 
+	}elseif ($tipo=="image/pjpeg" or $tipo=="image/jpeg"){
+		$fuente = @imagecreatefromjpeg($ruta); 
+	}elseif ($tipo=="image/png"){
+		$fuente = @imagecreatefrompng($ruta); 
+	}
+	$imgAncho = imagesx($fuente); 
+	$imgAlto =imagesy($fuente); 
+	
+	$imagen = imagecreatetruecolor($imgAncho,$imgAlto); 
+	
+	imagecopy($imagen,$fuente,0,0,0,0,$imgAncho,$imgAlto); 
+	imagepng($imagen, $guardar);
+  	imagedestroy($imagen); 
+}
+/* FIN GESTIONAR IMAGENES */
 
 $saltt = "|#€7`¬23ads4ook26";
 $saltCookie = "|@#26e+ç´|@#d";
@@ -453,13 +656,13 @@ function seguridad(){
 function comprobarCookie($cookie)
 {
 	$conexion=conectar();
-	$sql = "select * from users where cookie='".mysql_escape_string($cookie)."' and validez>'".date("Y-m-d h:i:s")."'";
-	$result = mysql_query($sql,$conexion);
+	$sql = "SELECT * FROM users WHERE cookie='".$conexion->real_escape_string($cookie)."' and validez>'".date("Y-m-d h:i:s")."'";
+	$result = $conexion->query($sql);
 	 
-	if(!$result || mysql_affected_rows()<1){
+	if(!$result || $conexion->affected_rows<1){
 		return false;
 	}else{
-		$row = mysql_fetch_array($result);
+		$row = $result->fetch_array();
 		$_SESSION['codusuario']=$row['cod'];
 		$_SESSION['usuario'] = $row['user'];
 		$_SESSION['name'] = $row['name'];
@@ -482,20 +685,20 @@ function comprobarCookie($cookie)
  */
 function registrarUsuario($user,$pass)
 {
-	$user = mysql_escape_string($user);
-	$pass = mysql_escape_string($pass);
+	$conexion=conectar();
+	$user = $conexion->real_escape_string($user);
+	$pass = $conexion->real_escape_string($pass);
 	if(strlen($user)<4 || strlen($pass)<4) return -3;
 	 
 	global $saltt;
 	$pass = sha1($saltt.md5($pass));
 	 
-	$conexion=conectar();
-	$sql1 = "select cod from users where UPPER(user)='".strtoupper($user)."'";
-	$result1 = mysql_query($sql1,$conexion);
-	if(mysql_affected_rows()>0) return -2; //user repetido
+	$sql1 = "SELECT cod FROM users where UPPER(user)='".strtoupper($user)."'";
+	$result1 = $conexion->query($sql1);
+	if($result1->affected_rows >0) return -2; //user repetido
 	 
-	$sql = "insert into users (user,pass) values ('".$user."','".$pass."')";
-	$result = mysql_query($sql,$conexion);
+	$sql = "INSERT INTO users (user,pass) VALUES ('".$user."','".$pass."')";
+	$result = $conexion->query($sql);
 	 
 	if($result) return 1; //registro correcto
 	else return -2; //error
@@ -513,29 +716,28 @@ function registrarUsuario($user,$pass)
  */
 function login ($user,$pass,$recordarme)
 {
-	$user = mysql_escape_string($user);
-	$pass = mysql_escape_string($pass);
+	$conexion=conectar();
+	$user = $conexion->real_escape_string($user);
+	$pass = $conexion->real_escape_string($pass);
 		 
 	global $saltt;
 	$pass = sha1($saltt.md5($pass));
-error_log($sql);
-	$conexion=conectar();
-	$sql = "select * from users where UPPER(user)='".strtoupper($user)."' and pass='".$pass."'";
-error_log($sql);
-	$result = mysql_query($sql,$conexion);
-
-	if(mysql_affected_rows()<=0 || !$result) return -1; //user repetido
+	
+	$sql = "SELECT * FROM users where UPPER(user)='".strtoupper($user)."' and pass='".$pass."'";
+	$result = $conexion->query($sql);
+	if($conexion->affected_rows<=0 || !$result) return -1; //user repetido
 	 
-	$row = mysql_fetch_array($result);
+	$row = $result->fetch_array();
 	$cod = $row['cod'];
+	
 	$sql = "UPDATE users SET last_login='".$row['actual_login']."', actual_login=FROM_UNIXTIME(".time()."), last_ip='".$row['ip']."', ip='".$_SERVER['REMOTE_ADDR']."' WHERE cod='".$row['cod']."';";
 	//echo $sql;
-	$result2 = mysql_query($sql,$conexion);
+	$result2 = $conexion->query($sql);
 	if (!$result2) {
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $conexion->error);
 	}
-	$result_tmp = mysql_query("SELECT * FROM users WHERE cod='".$row['cod']."';",$conexion);
-	$row = mysql_fetch_assoc($result_tmp);
+	$result_tmp = $conexion->query("SELECT * FROM users WHERE cod='".$row['cod']."';");
+	$row = $result_tmp->fetch_assoc();
 	
 	$_SESSION['codusuario']=$cod;
 	$_SESSION['usuario'] = $row['user'];
@@ -547,29 +749,25 @@ error_log($sql);
 	$_SESSION['email'] = $row['email'];
 	 
 	if($recordarme){
-	global $saltCookie;
-	 
-	$cookie = sha1($saltCookie.md5($cod.date("Y-d-m h:i:s")));
-	 
-	$sql2 = "update users set cookie='".$cookie."',validez=DATE_ADD(now(),INTERVAL 1440 MINUTE) where `cod`='".$cod."'";
-	$result2 = mysql_query($sql2,$conexion);
-	 
-	setCookie("identificado",$cookie,time()+86400,'/'); //cookie 60min
-	}
+		global $saltCookie;
+	 	$cookie = sha1($saltCookie.md5($cod.date("Y-d-m h:i:s")));
+	 	$sql2 = "UPDATE users SET cookie='".$cookie."',validez=DATE_ADD(now(),INTERVAL 1440 MINUTE) WHERE cod='".$cod."'";
+		$result2 = $conexion->query($sql2);
+	 	setCookie("identificado",$cookie,time()+86400,'/'); //cookie 60min
+		}
 	$_SESSION['codusuario']=$cod;
-	 
 	return true;
 }
- 
+
 function destruirCookie($cookie)
 {
 	if(!isset($_SESSION['codusuario'])) return;
 	else $idusuario = $_SESSION['codusuario'];
 	 
 	$conexion=conectar();
-	$sql = "update users set validez=DATE_SUB(now(),INTERVAL 60 MINUTE) where `cod`='".$idusuario."'";
-	$result = mysql_query($sql2,$conexion);
-	if(mysql_affected_rows()>0) return true; //cookie puesta invalida
+	$sql = "UPDATE users SET validez=DATE_SUB(now(),INTERVAL 60 MINUTE) WHERE cod='".$idusuario."'";
+	$result = $conexion->query($sql2);
+	if($conexion->affected_rows>0) return true; //cookie puesta invalida
 	else return false;
  
 }

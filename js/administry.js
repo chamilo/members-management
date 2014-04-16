@@ -157,7 +157,7 @@ Administry.videoSupport = function (wrapper, videoURL, width, height) {
 }
 
 // dateInput() - <input type="date"> support with fallback
-Administry.dateInput = function (e) {
+/*Administry.dateInput = function (e) {
 	var i = document.createElement("input"); 
 	i.setAttribute("type", "date");
 	if (i.type == "text") {
@@ -166,6 +166,7 @@ Administry.dateInput = function (e) {
 		$(e).datepick(); 
 	}    
 }
+*/
 
 // expandableRows() - expandable table rows
 Administry.expandableRows = function () {
