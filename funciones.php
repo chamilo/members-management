@@ -5,7 +5,7 @@ include_once 'clases/class.phpmailer.php';
 ini_set("error_reporting",0);
 
 function conectar(){
-	$link = new mysqli('localhost', 'chamilomm', 'fim4qez2','ch_manager_member');
+	$link = new mysqli('localhost', 'user', 'password','db');
 	if ($link->connect_errno) {
 		die('No pudo conectarse: ' . $link->connect_error);
 	}
@@ -14,7 +14,7 @@ function conectar(){
 }
 
 function conectar2(){
-	$link = new mysqli('localhost', 'chamilomm', 'fim4qez2','ch_manager_member');
+	$link = new mysqli('localhost', 'user', 'password','db');
 	if ($link->connect_errno) {
 		die('No pudo conectarse: ' . $link->connect_error);
 	}
