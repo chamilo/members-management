@@ -5,21 +5,33 @@ include_once 'clases/class.phpmailer.php';
 ini_set("error_reporting",0);
 
 function conectar(){
-	$link = new mysqli('localhost', 'user', 'password','db');
-	if ($link->connect_errno) {
-		die('No pudo conectarse: ' . $link->connect_error);
-	}
-	$link->set_charset('utf8');
-	return $link;
+    require_once __DIR__.'/config.php';
+    $link = new mysqli(
+        $config['db']['host'],
+        $config['db']['user'],
+        $config['db']['pass'],
+        $config['db']['name']
+    );
+    if ($link->connect_errno) {
+        die('No pudo conectarse: ' . $link->connect_error);
+    }
+    $link->set_charset('utf8');
+    return $link;
 }
 
 function conectar2(){
-	$link = new mysqli('localhost', 'user', 'password','db');
-	if ($link->connect_errno) {
-		die('No pudo conectarse: ' . $link->connect_error);
-	}
-	//mysql_set_charset('utf8',$link);
-	return $link;
+    require_once __DIR__.'/config.php';
+    $link = new mysqli(
+        $config['db']['host'],
+        $config['db']['user'],
+        $config['db']['pass'],
+        $config['db']['name']
+    );
+    if ($link->connect_errno) {
+        die('No pudo conectarse: ' . $link->connect_error);
+    }
+    //mysql_set_charset('utf8',$link);
+    return $link;
 }
 
 
