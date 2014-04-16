@@ -21,8 +21,8 @@
     <?php
 	$link = conectar();
 	$sql = "SELECT * FROM links";
-    $result_link = mysql_query($sql,$link);
-	while($aux_link = mysql_fetch_assoc($result_link)){
+    $result_link = $link->query($sql);
+	while($aux_link = $result_link->fetch_assoc()){
 		echo '<dl>';
 		echo '<dt>'.$aux_link['title'].'</dt>';
 		echo '<dd>';
@@ -30,7 +30,7 @@
 		echo '<a href="'.$enlace.'">'.$aux_link['description'].'</a>';
 		echo '</dd>';
 	}
-    mysql_free_result($result_link);
+    $result_link->free();
 	?>    
     </dl>
     </section>

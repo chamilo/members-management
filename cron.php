@@ -6,21 +6,21 @@ $link = conectar();
 
 //ENVIO DE E-MAIL QUE ESTÁN PROXIMOS A LA FECHA DE RENOVACIÓN
 $sql = "SELECT notice_renewal,sender FROM parametros";
-$result = mysql_query($sql,$link);
-$row = mysql_fetch_assoc($result);
+$result = $link->query($sql);
+$row = $result->fetch_assoc();
 $dias = $row['notice_renewal'];
 $sender = $row['sender'];
 
-mysql_free_result($result);
+$result->free();
 
 $limite = $dias*24*60*60;
 
 $sql = "SELECT * FROM members WHERE (UNIX_TIMESTAMP(renewal) - UNIX_TIMESTAMP(NOW())) < ".$limite." AND email_renewal='0';";
 //echo $sql;
 //echo $limite;
-$result = mysql_query($sql,$link);
+$result = $link->query($sql);
 echo "<br><br>Begin of renewal notice";
-while($fila = mysql_fetch_assoc($result)){
+while($fila = $result->fetch_assoc()){
 	$candado = false;
 	$mensaje = '';
 	$subject = '';
@@ -28,18 +28,18 @@ while($fila = mysql_fetch_assoc($result)){
 	$language = datosreg($fila['language'],'language','language','cod');
 	//Buscamos la plantilla que le corresponda
 	$sql = "SELECT message, subject FROM messages WHERE type='renewal' AND language='".$language."'";
-	$r_tmp = mysql_query($sql,$link);
+	$r_tmp = $link->query($sql);
 	
-	if(mysql_num_rows($r_tmp)>0){
-		$f_tmp = mysql_fetch_assoc($r_tmp);
+	if($r_tmp->num_rows>0){
+		$f_tmp = $r_tmp->fetch_assoc();
 		$message = $f_tmp['message'];
 		$subject = $f_tmp['subject'];
 		if(trim($message) == ''){
 			$default_language = datosreg('1','language','language','vdefault');
 			$sql = "SELECT message, subject FROM messages WHERE type='renewal' AND language='".$default_language."'";
-			$r2_tmp = mysql_query($sql,$link);
-			if(mysql_num_rows($r2_tmp)>0){
-				$f2_tmp = mysql_fetch_assoc($r2_tmp);
+			$r2_tmp = $link->query($sql);
+			if($r2_tmp->num_rows>0){
+				$f2_tmp = $r2_tmp->fetch_assoc();
 				$message = $f2_tmp['message'];
 				$subject = $f2_tmp['subject'];
 				if(trim($message) == ''){
@@ -60,9 +60,9 @@ while($fila = mysql_fetch_assoc($result)){
 		//buscamos mensaje por defecto	
 		$default_language = datosreg('1','language','language','vdefault');
 		$sql = "SELECT message, subject FROM messages WHERE type='renewal' AND language='".$default_language."'";
-		$r2_tmp = mysql_query($sql,$link);
-		if(mysql_num_rows($r2_tmp)>0){
-			$f2_tmp = mysql_fetch_assoc($r2_tmp);
+		$r2_tmp = $link->query($sql);
+		if($r2_tmp->num_rows>0){
+			$f2_tmp = $r2_tmp->fetch_assoc();
 			$message = $f2_tmp['message'];
 			$subject = $f2_tmp['subject'];
 			if(trim($message) == ''){
@@ -79,8 +79,8 @@ while($fila = mysql_fetch_assoc($result)){
 	
 	if($candado){
 		$sql = "DESCRIBE members";
-		$r_campos = mysql_query($sql,$link);
-		while($aux = mysql_fetch_assoc($r_campos)){
+		$r_campos = $link->query($sql);
+		while($aux = $r_campos->fetch_assoc()){
 			if($aux['Field']=="renewal"){
 				$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
 			}elseif($aux['Field']=="quota"){
@@ -111,8 +111,8 @@ while($fila = mysql_fetch_assoc($result)){
 		$mail->Subject = $subject;
 		$mail->AddAddress($fila['email']);
 		$sql = "SELECT responsible FROM responsible WHERE area='renewal';";
-		$r_resp = mysql_query($sql,$link);
-		while($aux = mysql_fetch_assoc($r_resp)){
+		$r_resp = $link->query($sql);
+		while($aux = $r_resp->fetch_assoc()){
 			//Copia a responsables
 			$mail->AddBCC($aux['responsible']);
 		}
@@ -125,7 +125,7 @@ while($fila = mysql_fetch_assoc($result)){
 		$mail->Send();
 		//Actualizamos la tabla de miembros
 		$sql = "UPDATE members SET email_renewal='1' WHERE cod='".$fila['cod']."';";
-		mysql_query($sql,$link);
+		$link->query($sql);
 				
 	}else{
 		//Notificamos al responsable
@@ -138,8 +138,8 @@ while($fila = mysql_fetch_assoc($result)){
 		$mail->Subject = "Problem to send renewal notice e-mail";
 		
 		$sql = "SELECT responsible FROM responsible WHERE area='renewal';";
-		$r_resp = mysql_query($sql,$link);
-		while($aux = mysql_fetch_assoc($r_resp)){
+		$r_resp = $link->query($sql);
+		while($aux = $r_resp->fetch_assoc()){
 			//Copia a responsables
 			$mail->AddAddress($aux['responsible']);
 		}
@@ -154,14 +154,14 @@ while($fila = mysql_fetch_assoc($result)){
 	}	
 	
 }
-mysql_free_result($result);
+$result->free();
 echo "<br>End of renewal notice";
 echo "<br><br>Begin of expiration notice";
 // ENVIO DE E-MAIL QUE HAN SIDO EXPIRADOS
 
 $sql = "SELECT * FROM members WHERE (UNIX_TIMESTAMP(renewal) - UNIX_TIMESTAMP(NOW())) < 0 AND email_expired='0';";
-$result = mysql_query($sql,$link);
-while($fila = mysql_fetch_assoc($result)){
+$result = $link->query($sql);
+while($fila = $result->fetch_assoc()){
 	$candado = false;
 	$mensaje = '';
 	$subject = '';
@@ -169,18 +169,18 @@ while($fila = mysql_fetch_assoc($result)){
 	$language = datosreg($fila['language'],'language','language','cod');
 	//Buscamos la plantilla que le corresponda
 	$sql = "SELECT message, subject FROM messages WHERE type='expired' AND language='".$language."'";
-	$r_tmp = mysql_query($sql,$link);
+	$r_tmp = $link->query($sql);
 	
-	if(mysql_num_rows($r_tmp)>0){
-		$f_tmp = mysql_fetch_assoc($r_tmp);
+	if($r_tmp->num_rows>0){
+		$f_tmp = $r_tmp->fetch_assoc();
 		$message = $f_tmp['message'];
 		$subject = $f_tmp['subject'];
 		if(trim($message) == ''){
 			$default_language = datosreg('1','language','language','vdefault');
 			$sql = "SELECT message, subject FROM messages WHERE type='expired' AND language='".$default_language."'";
-			$r2_tmp = mysql_query($sql,$link);
-			if(mysql_num_rows($r2_tmp)>0){
-				$f2_tmp = mysql_fetch_assoc($r2_tmp);
+			$r2_tmp = $link->query($sql);
+			if($r2_tmp->num_rows>0){
+				$f2_tmp = $r2_tmp->fetch_assoc();
 				$message = $f2_tmp['message'];
 				$subject = $f2_tmp['subject'];
 				if(trim($message) == ''){
@@ -201,9 +201,9 @@ while($fila = mysql_fetch_assoc($result)){
 		//buscamos mensaje por defecto	
 		$default_language = datosreg('1','language','language','vdefault');
 		$sql = "SELECT message, subject FROM messages WHERE type='expired' AND language='".$default_language."'";
-		$r2_tmp = mysql_query($sql,$link);
-		if(mysql_num_rows($r2_tmp)>0){
-			$f2_tmp = mysql_fetch_assoc($r2_tmp);
+		$r2_tmp = $link->query($sql);
+		if($r2_tmp->num_rows>0){
+			$f2_tmp = $r2_tmp->fetch_assoc();
 			$message = $f2_tmp['message'];
 			$subject = $f2_tmp['subject'];
 			if(trim($message) == ''){
@@ -220,8 +220,8 @@ while($fila = mysql_fetch_assoc($result)){
 	
 	if($candado){
 		$sql = "DESCRIBE members";
-		$r_campos = mysql_query($sql,$link);
-		while($aux = mysql_fetch_assoc($r_campos)){
+		$r_campos = $link->query($sql);
+		while($aux = $r_campos->fetch_assoc()){
 			if($aux['Field']=="renewal"){
 				$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
 			}elseif($aux['Field']=="quota"){
@@ -252,8 +252,8 @@ while($fila = mysql_fetch_assoc($result)){
 		$mail->Subject = $subject;
 		$mail->AddAddress($fila['email']);
 		$sql = "SELECT responsible FROM responsible WHERE area='expired';";
-		$r_resp = mysql_query($sql,$link);
-		while($aux = mysql_fetch_assoc($r_resp)){
+		$r_resp = $link->query($sql);
+		while($aux = $r_resp->fetch_assoc()){
 			//Copia a responsables
 			$mail->AddBCC($aux['responsible']);
 		}
@@ -266,7 +266,7 @@ while($fila = mysql_fetch_assoc($result)){
 		$mail->Send();
 		//Actualizamos la tabla de miembros
 		$sql = "UPDATE members SET email_expired='1', status='2' WHERE cod='".$fila['cod']."';";
-		mysql_query($sql,$link);
+		$link->query($sql);
 				
 	}else{
 		//Notificamos al responsable
@@ -279,8 +279,8 @@ while($fila = mysql_fetch_assoc($result)){
 		$mail->Subject = "Problem to send expiration notice e-mail";
 		
 		$sql = "SELECT responsible FROM responsible WHERE area='renewal';";
-		$r_resp = mysql_query($sql,$link);
-		while($aux = mysql_fetch_assoc($r_resp)){
+		$r_resp = $link->query($sql);
+		while($aux = $r_resp->fetch_assoc()){
 			//Copia a responsables
 			$mail->AddAddress($aux['responsible']);
 		}
@@ -295,7 +295,7 @@ while($fila = mysql_fetch_assoc($result)){
 	}	
 }
 echo "<br>End of expiration notice";
-mysql_free_result($result);
-mysql_close($link);
+$result->free();
+$link->close();
 
 ?>

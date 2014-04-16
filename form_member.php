@@ -24,7 +24,7 @@ if(isset($_POST) && $_POST['sendform']!=''){
 	$link = conectar();	
 	reset ($_POST);
 	while (list ($param, $val) = each ($_POST)) {
-	    $asignacion = "\$" . $param . "=mysql_real_escape_string(\$_POST['" . $param . "']);";
+	    $asignacion = "\$" . $param . "=$link->real_escape_string(\$_POST['" . $param . "']);";
     	eval($asignacion);
 	}
 	$renewal = str_replace('/','-',$renewal);
@@ -35,14 +35,14 @@ if(isset($_POST) && $_POST['sendform']!=''){
 		$vat = '';
 	}
 	$sql = "INSERT INTO members (name,surname,country,language,phone,email,renewal,quota,type,comment,status,date_arrival,institution,address,postal_code,vat) VALUES ('".$name."','".$surname."','".$country."','".$language."','".$phone."','".$email."','".date("Y-m-d",strtotime($renewal))."','".$quota."','".$type."','".$comment."','".$status."','".date("Y-m-d")."','".$institution."','".$address."','".$postal_code."','".$vat."');";
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if (!$result) {									
-		die('Invalid query: Problems to insert data into the member table ' . mysql_error());	
+		die('Invalid query: Problems to insert data into the member table ' . $link->error);	
 	}
 	
 	$sql = "SELECT max(cod) FROM members;";
-	$result = mysql_query($sql,$link);
-	$tmp_result = mysql_fetch_assoc($result);
+	$result = $link->query($sql);
+	$tmp_result = $result->fetch_assoc();
 	$cod_max = $tmp_result['max(cod)'];
 	
 	/********************************************************************************************************/
@@ -51,18 +51,18 @@ if(isset($_POST) && $_POST['sendform']!=''){
 if($send_invoice =="YES"){	
 	$link = conectar2();
 	$sql = "SELECT body, footer, show_signature FROM invoice WHERE cod='1';";
-	$result_pdf = mysql_query($sql,$link);
-	$aux = mysql_fetch_assoc($result_pdf);
+	$result_pdf = $link->query($sql);
+	$aux = $result_pdf->fetch_assoc();
 	$message = $aux['body'];
 	$footer = quitar_html($aux['footer']);
 	$show_signature = ($aux['show_signature']=="YES")?(true):(false);
 	$sql = "SELECT * FROM members WHERE cod='".$cod_max."';";
-	$result_pdf = mysql_query($sql,$link);
-	$fila = mysql_fetch_assoc($result_pdf);
+	$result_pdf = $link->query($sql);
+	$fila = $result_pdf->fetch_assoc();
 	$sql = "DESCRIBE members";
-	$r_campos = mysql_query($sql,$link);
+	$r_campos = $link->query($sql);
 	$message = quitar_html($message);
-	while($aux = mysql_fetch_assoc($r_campos)){
+	while($aux = $r_campos->fetch_assoc()){
 		if($aux['Field']=="renewal"){
 			$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
 		}elseif($aux['Field']=="quota"){
@@ -88,15 +88,15 @@ if($send_invoice =="YES"){
 	//echo $message;
 	$year = date("Y");
 	$sql = "SELECT max(num_invoice) AS num_invoice FROM invoices WHERE year='".$year."';";
-	$result = mysql_query($sql,$link);
-	$aux_invoice = mysql_fetch_assoc($result);
+	$result = $link->query($sql);
+	$aux_invoice = $result->fetch_assoc();
 	$num_invoice = ($aux_invoice['num_invoice']=='NULL')?('1'):($aux_invoice['num_invoice']+1);
 	//$num_invoice = datosreg('1','parametros','num_invoice','cod');
 	
-	$sql = "INSERT INTO invoices (num_invoice,year,cod_member,message,quota,date) VALUES ('".$num_invoice."','".$year."','".$cod_max."','".mysql_real_escape_string($message)."','".$fila['quota']."','".date("Y-m-d")."');";
-	$result = mysql_query($sql,$link);
+	$sql = "INSERT INTO invoices (num_invoice,year,cod_member,message,quota,date) VALUES ('".$num_invoice."','".$year."','".$cod_max."','".$link->real_escape_string($message)."','".$fila['quota']."','".date("Y-m-d")."');";
+	$result = $link->query($sql);
 	if (!$result) {	
-		die('Invalid query 1: ' . mysql_error());	
+		die('Invalid query 1: ' . $link->error);	
 	}
 	
 	//Crear el pdf que se enviará.
@@ -160,26 +160,26 @@ if($send_invoice =="YES"){
 	$link = conectar();
 	$sql = "SELECT * FROM members WHERE cod='".$cod_max."';";
 	//echo $sql;
-	$result_tmp = mysql_query($sql,$link);
-	$fila = mysql_fetch_assoc($result_tmp);
+	$result_tmp = $link->query($sql);
+	$fila = $result_tmp->fetch_assoc();
 	
 	//ENVIAR E-MAIL
 	$cod_language = $language;
 	$language = datosreg($cod_language,'language','language','cod');
 	//Buscamos la plantilla que le corresponda
 	$sql = "SELECT message, subject FROM messages WHERE type='welcome' AND language='".$language."'";
-	$r_tmp = mysql_query($sql,$link);
+	$r_tmp = $link->query($sql);
 	
-	if(mysql_num_rows($r_tmp)>0){
-		$f_tmp = mysql_fetch_assoc($r_tmp);
+	if($r_tmp->num_rows>0){
+		$f_tmp = $r_tmp->fetch_assoc();
 		$message = $f_tmp['message'];
 		$subject = $f_tmp['subject'];
 		if(trim($message) == ''){
 			$default_language = datosreg('1','language','language','vdefault');
 			$sql = "SELECT message, subject FROM messages WHERE type='welcome' AND language='".$default_language."'";
-			$r2_tmp = mysql_query($sql,$link);
-			if(mysql_num_rows($r2_tmp)>0){
-				$f2_tmp = mysql_fetch_assoc($r2_tmp);
+			$r2_tmp = $link->query($sql);
+			if($r2_tmp->num_rows>0){
+				$f2_tmp = $r2_tmp->fetch_assoc();
 				$message = $f2_tmp['message'];
 				$subject = $f2_tmp['subject'];
 				if(trim($message) == ''){
@@ -200,9 +200,9 @@ if($send_invoice =="YES"){
 		//buscamos mensaje por defecto	
 		$default_language = datosreg('1','language','language','vdefault');
 		$sql = "SELECT message, subject FROM messages WHERE type='welcome' AND language='".$default_language."'";
-		$r2_tmp = mysql_query($sql,$link);
-		if(mysql_num_rows($r2_tmp)>0){
-			$f2_tmp = mysql_fetch_assoc($r2_tmp);
+		$r2_tmp = $link->query($sql);
+		if($r2_tmp->num_rows>0){
+			$f2_tmp = $r2_tmp->fetch_assoc();
 			$message = $f2_tmp['message'];
 			$subject = $f2_tmp['subject'];
 			if(trim($message) == ''){
@@ -218,15 +218,15 @@ if($send_invoice =="YES"){
 	}
 	
 	$sql = "SELECT sender FROM parametros";
-	$result = mysql_query($sql,$link);
-	$row_sender = mysql_fetch_assoc($result);
+	$result = $link->query($sql);
+	$row_sender = $result->fetch_assoc();
 	$sender = $row_sender['sender'];
 	
 
 	if($candado){
 		$sql = "DESCRIBE members";
-		$r_campos = mysql_query($sql,$link);
-		while($aux = mysql_fetch_assoc($r_campos)){
+		$r_campos = $link->query($sql);
+		while($aux = $r_campos->fetch_assoc()){
 			if($aux['Field']=="renewal"){
 				$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
 			}elseif($aux['Field']=="quota"){
@@ -257,8 +257,8 @@ if($send_invoice =="YES"){
 		$mail->Subject = $subject;
 		$mail->AddAddress($email);
 		/*$sql = "SELECT responsible FROM responsible WHERE area='renewal';";
-		$r_resp = mysql_query($sql,$link);
-		while($aux = mysql_fetch_assoc($r_resp)){
+		$r_resp = $link->query($sql);
+		while($aux = $r_resp->fetch_assoc()){
 			//Copia a responsables
 			$mail->AddBCC($aux['responsible']);
 		}
@@ -281,8 +281,8 @@ if($send_invoice =="YES"){
 		$mail->Subject = "Problem to send welcome message e-mail";
 		
 		$sql = "SELECT responsible FROM responsible WHERE area='renewal';";
-		$r_resp = mysql_query($sql,$link);
-		while($aux = mysql_fetch_assoc($r_resp)){
+		$r_resp = $link->query($sql);
+		while($aux = $r_resp->fetch_assoc()){
 			//Copia a responsables
 			$mail->AddAddress($aux['responsible']);
 		}
@@ -344,12 +344,7 @@ if($send_invoice =="YES"){
 <!--[if IE]> <link rel="stylesheet" type="text/css" media="all" href="css/ie.css"/> <script src="js/html5.js"></script> <![endif]-->
 <!--Upgrade MSIE5.5-7 to be compatible with MSIE8: http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE8.js -->
 <!--[if lt IE 8]> <script src="js/IE8.js"></script> <![endif]-->
-<script type="text/javascript">
-	$(document).ready(function(){
-	/* setup navigation, content boxes, etc... */
-	Administry.setup();
-	}); 
-</script>
+
 
 <script src="js/jquery-ui.min.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -459,11 +454,11 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
 <?php
 $link = conectar();
 $sql = "SELECT * FROM country";
-$result = mysql_query($sql,$link);
-while($row = mysql_fetch_assoc($result)){
+$result = $link->query($sql);
+while($row = $result->fetch_assoc()){
 	echo '<option value="'.$row['iso'].'">'.$row['printable_name'].'</option>';
 }
-mysql_free_result($result);
+$result->free();
 ?>
 </select>
 </p>
@@ -475,11 +470,11 @@ mysql_free_result($result);
 <?php
 $link = conectar();
 $sql = "SELECT * FROM language WHERE active='1'";
-$result = mysql_query($sql,$link);
-while($row = mysql_fetch_assoc($result)){
+$result = $link->query($sql);
+while($row = $result->fetch_assoc()){
 	echo '<option value="'.$row['cod'].'">'.$row['language'].'</option>';
 }
-mysql_free_result($result);
+$result->free();
 ?>
 </select>
 </p>
@@ -497,7 +492,7 @@ mysql_free_result($result);
 <p>
 <label class="required" for="renewal">Renewal Date: (dd/mm/yyyy)</label>
 <br>
-<input id="renewal" class="hasDatepick" type="date" name="renewal" value="" placeholder="dd/mm/yyyy">
+<input id="renewal" type="text" name="renewal" value="" placeholder="dd/mm/yyyy">
 </p>
 <p>
 <label class="required" for="quota">Quota:</label>
@@ -516,11 +511,11 @@ mysql_free_result($result);
 <?php
 $link = conectar();
 $sql = "SELECT * FROM type_member";
-$result = mysql_query($sql,$link);
-while($row = mysql_fetch_assoc($result)){
+$result = $link->query($sql);
+while($row = $result->fetch_assoc()){
 	echo '<option value="'.$row['cod'].'">'.$row['name'].'</option>';
 }
-mysql_free_result($result);
+$result->free();
 ?>
 </select>
 </p>
@@ -554,11 +549,11 @@ mysql_free_result($result);
 <?php
 $link = conectar();
 $sql = "SELECT * FROM status";
-$result = mysql_query($sql,$link);
-while($row = mysql_fetch_assoc($result)){
+$result = $link->query($sql);
+while($row = $result->fetch_assoc()){
 	echo '<option value="'.$row['cod'].'">'.$row['status'].'</option>';
 }
-mysql_free_result($result);
+$result->free();
 ?>
 </select>
 </p>

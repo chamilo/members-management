@@ -19,12 +19,13 @@ echo var_dump($_FILES);
 echo "</pre>";
 */
 if(isset($_POST['sendform'])){
-	$mbody = mysql_real_escape_string($_POST['mbody']);
-	$mfooter = mysql_real_escape_string($_POST['footer']);
-	$show = ($_POST['show_signature']=="YES")?("YES"):("NO");
 	$link = conectar();
+	$mbody = $link->real_escape_string($_POST['mbody']);
+	$mfooter = $link->real_escape_string($_POST['footer']);
+	$show = ($_POST['show_signature']=="YES")?("YES"):("NO");
+	
 	$sql = "UPDATE invoice SET body='".$mbody."', footer='".$mfooter."', show_signature='".$show."' WHERE cod='1';";
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	
 	//Gestion de imagenes
 	/* =========================== Procedemos a subir los archivos =========================== */
@@ -205,11 +206,11 @@ Customize the message that members receive for each situation:
     <?php
 	$link = conectar();
 	$sql = "SELECT * FROM language WHERE active='1'";
-	$result = mysql_query($sql,$link);
-	while($row = mysql_fetch_assoc($result)){
+	$result = $link->query($sql);
+	while($row = $result->fetch_assoc()){
 		echo "<option id='".$row['cod']."'>".$row['language']."</option>";
 	}
-	mysql_free_result($result);
+	$result->free_result();
 	?>
 </select>
 <div id="result_message"></div>
@@ -220,8 +221,8 @@ Customize the message that members receive for each situation:
 <form id="form_invoice" method="post" action="setting" enctype="multipart/form-data">
 <?php
 $sql = "SELECT * FROM invoice;";
-$result = mysql_query($sql,$link);
-$row = mysql_fetch_assoc($result);
+$result = $link->query($sql);
+$row = $result->fetch_assoc();
 echo '<h4>Header:</h4>';
 echo '<img src="images/pdf_invoices/logo.png" alt="logo header" /><br><br>';
 echo 'If you want to change the logo, select a new image: ';
@@ -236,10 +237,10 @@ echo "<div class='box box-info'>Double-click the field you want to insert into t
 echo '</div>';
 echo '<div style="float:left;width:20%;text-align:center;">';
 $sql = "DESCRIBE members";
-$rs = mysql_query($sql,$link);
+$rs = $link->query($sql);
 echo "<br>";
-echo "<select id='field_invoice' size='".(mysql_num_rows($rs)-4)."'>";
-while($fila = mysql_fetch_assoc($rs)){
+echo "<select id='field_invoice' size='".($rs->num_rows-4)."'>";
+while($fila = $rs->fetch_assoc()){
 	if($fila['Field']!='cod' && $fila['Field']!='mark_renewal' && $fila['Field']!='email_renewal' && $fila['Field']!='email_expired'){
 		echo "<option value='".$fila['Field']."'>".$fila['Field']."</option>";
 	}
@@ -270,15 +271,15 @@ echo '<br><br><div class="ta-center"><input class="btn btn-green big" type="subm
 <?php
 $link = conectar();
 $sql = "SELECT * FROM links;";
-$result = mysql_query($sql,$link);
-if(mysql_affected_rows()<=0){
+$result = $link->query($sql);
+if($link->affected_rows<=0){
 	//No hay registros
 	echo 'No links';
 }else{
 	//Mostrar la tabla
 	echo '<table class="stylized" id="tbl_links" width="100%">';
 	echo '<tr><th>Title</th><th>Description</th><th class="ta-center">Options</th></tr>';
-	while($row = mysql_fetch_assoc($result)){
+	while($row = $result->fetch_assoc()){
 		echo '<tr><td>'.$row['title'].'</td>';
 		echo '<td>'.$row['description'].'</td>';
 		echo '<td id="link'.$row['cod'].'" class="ta-center">';
@@ -306,12 +307,12 @@ if(mysql_affected_rows()<=0){
 <?php
 $link = conectar();
 $sql = "SELECT * FROM language WHERE active='0';";
-$result = mysql_query($sql,$link);
+$result = $link->query($sql);
 echo "<select id='lang_disp' size='10' style='width:100%'>";
-while($fila = mysql_fetch_assoc($result)){
+while($fila = $result->fetch_assoc()){
 	echo "<option value='".$fila['cod']."'>".$fila['language']."</option>";
 }
-mysql_free_result($result);
+$result->free_result();
 echo "</select>";
 ?>
 </td>
@@ -323,12 +324,12 @@ echo "</select>";
 <?php
 $link = conectar();
 $sql = "SELECT * FROM language WHERE active='1';";
-$result = mysql_query($sql,$link);
+$result = $link->query($sql);
 echo "<select id='lang_acti' size='10' style='width:100%'>";
-while($fila = mysql_fetch_assoc($result)){
+while($fila = $result->fetch_assoc()){
 	echo "<option value='".$fila['cod']."'>".$fila['language']."</option>";
 }
-mysql_free_result($result);
+$result->free_result();
 echo "</select>";
 ?>
 </td>
@@ -341,15 +342,15 @@ echo "</select>";
 <?php 
 $link = conectar();
 $sql = "SELECT * FROM language WHERE active='1';";
-$result = mysql_query($sql,$link);
-while($fila = mysql_fetch_assoc($result)){
+$result = $link->query($sql);
+while($fila = $result->fetch_assoc()){
 	if($fila['vdefault'] == '1'){
 		echo "<option value='".$fila['cod']."' selected='selected'>".$fila['language']."</option>";
 	}else{
 		echo "<option value='".$fila['cod']."'>".$fila['language']."</option>";
 	}
 }
-mysql_free_result($result);
+$result->free_result();
 ?>
 </select>
 <div id="mslang" style="display:inline-block; margin: 0 0 0 15px;"></div>
@@ -357,20 +358,23 @@ mysql_free_result($result);
 <h4>Renewal Notice:</h4>
 <?php 
 $sql = "SELECT notice_renewal FROM parametros;";
-$result = mysql_query($sql,$link);
-$valor = mysql_result($result,0);
+$result = $link->query($sql);
+$tmp_aux = $result->fetch_assoc();
+$valor = $tmp_aux['notice_renewal'];
+
 echo '<input type="number" id="avisorenovacion" value="'.$valor.'" class="ta-center" style="width: 50px;"> days to send notification by e-mail.';
-mysql_free_result($result);
+$result->free_result();
 ?>
 <br>
 
 <h4>Sender's e-mail:</h4>
 <?php 
 $sql = "SELECT sender FROM parametros;";
-$result = mysql_query($sql,$link);
-$valor = mysql_result($result,0);
+$result = $link->query($sql);
+$tmp_aux = $result->fetch_assoc();
+$valor = $tmp_aux['sender'];
 echo 'E-mail sender automated mails: <input type="text" id="senderemail" value="'.$valor.'" class="half">';
-mysql_free_result($result);
+$result->free_result();
 ?>
 <br>
 
@@ -379,9 +383,9 @@ mysql_free_result($result);
 <?php
 $link = conectar();
 $sql = "SELECT * FROM responsible WHERE area='renewal'";
-$result = mysql_query($sql,$link);
+$result = $link->query($sql);
 echo '<div id="result_renewal" align="center">';
-if(mysql_affected_rows()<=0){
+if($link->affected_rows<=0){
 	//No hay registros
 	echo '<input type="text" id="emailresponsible_ren" > &nbsp;&nbsp;';
 	echo '<input type="button" class="btn btn-blue" id="add_email_responsible_ren" value="Add e-mail">';
@@ -389,7 +393,7 @@ if(mysql_affected_rows()<=0){
 	//Mostrar la tabla
 	echo '<table class="stylized" id="resp_renewal_email" width="60%">';
 	echo '<tr><th>E-mail</th><th class="ta-center">Options</th></tr>';
-	while($row = mysql_fetch_assoc($result)){
+	while($row = $result->fetch_assoc()){
 		echo '<tr><td>'.$row['responsible'].'</td>';
 		echo '<td id="resp'.$row['cod'].'" class="ta-center">';
 		echo '<a href="#" title="Delete" class="icon-elim"><img src="images/delete.png" /></a>';
@@ -409,9 +413,9 @@ echo '</div>';
 <?php
 $link = conectar();
 $sql = "SELECT * FROM responsible WHERE area='expired'";
-$result = mysql_query($sql,$link);
+$result = $link->query($sql);
 echo '<div id="result_expired" align="center">';
-if(mysql_affected_rows()<=0){
+if($link->affected_rows<=0){
 	//No hay registros
 	echo '<input type="text" id="emailresponsible_exp" > &nbsp;&nbsp;';
 	echo '<input type="button" class="btn btn-blue" id="add_email_responsible_exp" value="Add e-mail">';
@@ -419,7 +423,7 @@ if(mysql_affected_rows()<=0){
 	//Mostrar la tabla
 	echo '<table class="stylized" id="resp_expired_email" width="60%">';
 	echo '<tr><th>E-mail</th><th class="ta-center">Options</th></tr>';
-	while($row = mysql_fetch_assoc($result)){
+	while($row = $result->fetch_assoc()){
 		echo '<tr><td>'.$row['responsible'].'</td>';
 		echo '<td id="resp'.$row['cod'].'" class="ta-center">';
 		echo '<a href="#" title="Delete" class="icon-elim"><img src="images/delete.png" /></a>';
@@ -438,9 +442,9 @@ echo '</div>';
 <?php
 $link = conectar();
 $sql = "SELECT * FROM type_member;";
-$result = mysql_query($sql,$link);
+$result = $link->query($sql);
 echo '<div id="result_type" align="center">';
-if(mysql_affected_rows()<=0){
+if($link->affected_rows<=0){
 	//No hay registros
 	echo '<input type="text" id="typemembervalue" > &nbsp;&nbsp;';
 	echo '<input type="button" class="btn btn-blue" id="add_new_type" value="Add type">';
@@ -448,7 +452,7 @@ if(mysql_affected_rows()<=0){
 	//Mostrar la tabla
 	echo '<table class="stylized" id="resp_type" width="60%">';
 	echo '<tr><th>E-mail</th><th class="ta-center">Options</th></tr>';
-	while($row = mysql_fetch_assoc($result)){
+	while($row = $result->fetch_assoc()){
 		echo '<tr><td>'.$row['name'].'</td>';
 		echo '<td id="type'.$row['cod'].'" class="ta-center">';
 		echo '<a href="#" title="Delete" class="icon-elim-type"><img src="images/delete.png" /></a>';

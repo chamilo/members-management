@@ -16,6 +16,7 @@ $(document).ready(function(){
 		var alta_ini = $("#arrival_ini").attr("value").replace(/\//g, '-');
 		var alta_fin = $("#arrival_fin").attr("value").replace(/\//g, '-');
 		$("#result_searcher").html('<div class="center"><br /><img src="images/loadingAnimation.gif" alt="cargando" /></div>');
+		$("#result_edit").html('');
 		$.post("funciones/configuracion_searcher.php",{tab:"buscar",name:nombre,surname:apellidos,email:vemail,country:pais,phone:telefono,quota:vquota,type:tipo,status:estado,language:lenguaje,renewal_ini:renovacion_ini,renewal_fin:renovacion_fin,arrival_ini:alta_ini,arrival_fin:alta_fin},mostrarBusqueda, "json"); 
 		
 		return false;  
@@ -162,6 +163,7 @@ function Editarusuario()
 		var vorden = "ASC";
 		var vcampo = $(this).parent().attr("class");
 		$("#result_searcher").html('<div class="center"><br /><img src="images/loadingAnimation.gif" alt="cargando" /></div>');
+		$("#result_edit").html('');
 		$.post("funciones/configuracion_searcher.php",{tab:"buscar_ordenado",name:nombre,surname:apellidos,email:vemail,country:pais,phone:telefono,quota:vquota,type:tipo,status:estado,language:lenguaje,renewal_ini:renovacion_ini,renewal_fin:renovacion_fin,arrival_ini:alta_ini,arrival_fin:alta_fin,orden:vorden,campo:vcampo},mostrarBusqueda, "json"); 
 		e.preventDefault();
 	  	e.stopPropagation();
@@ -184,6 +186,7 @@ function Editarusuario()
 		var vorden = "DESC";
 		var vcampo = $(this).parent().attr("class");
 		$("#result_searcher").html('<div class="center"><br /><img src="images/loadingAnimation.gif" alt="cargando" /></div>');
+		$("#result_edit").html('');
 		$.post("funciones/configuracion_searcher.php",{tab:"buscar_ordenado",name:nombre,surname:apellidos,email:vemail,country:pais,phone:telefono,quota:vquota,type:tipo,status:estado,language:lenguaje,renewal_ini:renovacion_ini,renewal_fin:renovacion_fin,arrival_ini:alta_ini,arrival_fin:alta_fin,orden:vorden,campo:vcampo},mostrarBusqueda, "json");
 		e.preventDefault();
 	  	e.stopPropagation();

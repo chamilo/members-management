@@ -11,7 +11,7 @@ if ( $_REQUEST['tab'] == 'buscar'){
 	$link = conectar();
 	reset ($_REQUEST);
 	while (list ($param, $val) = each ($_REQUEST)) {
-	    $asignacion = "\$" . $param . "=mysql_real_escape_string(\$_REQUEST['" . $param . "']);";
+	    $asignacion = "\$" . $param . "=$link->real_escape_string(\$_REQUEST['" . $param . "']);";
     	eval($asignacion);
 	}
 	
@@ -58,12 +58,12 @@ if ( $_REQUEST['tab'] == 'buscar'){
 	$presql = "SELECT a.cod, a.num_invoice, a.year, a.date, b.name, b.surname, b.institution FROM invoices AS a, members AS b WHERE a.cod_member=b.cod AND".$filtro.";";
 	//echo $presql;
 	
-	$result = mysql_query($presql,$link);
+	$result = $link->query($presql);
 	if (!$result) {
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
 	
-	$num_rows = mysql_num_rows($result);
+	$num_rows = $result->num_rows;
 	if($num_rows > 0){
 		$contenido = '<br /><div align="center">';
 		$contenido .= '<table class="stylized"  width="100%">';
@@ -91,7 +91,7 @@ if ( $_REQUEST['tab'] == 'buscar'){
 		<th class="option">Options</th>
 		</tr>';
 		$i = 0;
-		while($row = mysql_fetch_assoc($result)){
+		while($row = $result->fetch_assoc()){
 			$i += 1;
 			if($i%2==0){
 				$contenido .= '<tr class="campo2">';
@@ -117,8 +117,8 @@ if ( $_REQUEST['tab'] == 'buscar'){
 			}
 		$contenido .= '</table></div>';
 				
-		mysql_free_result($result);
-		//mysql_free_result($result2);
+		$result->free();
+
 		echo json_encode(array("status"=>"true","contenido"=>$contenido ));		
 	}else{
 		echo json_encode(array("status"=>"false" ));		
@@ -129,7 +129,7 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 	$link = conectar();
 	reset ($_REQUEST);
 	while (list ($param, $val) = each ($_REQUEST)) {
-	    $asignacion = "\$" . $param . "=mysql_real_escape_string(\$_REQUEST['" . $param . "']);";
+	    $asignacion = "\$" . $param . "=$link->real_escape_string(\$_REQUEST['" . $param . "']);";
     	eval($asignacion);
 	}
 	
@@ -177,12 +177,12 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 	
 	//echo $presql;
 	
-	$result = mysql_query($presql,$link);
+	$result = $link->query($presql);
 	if (!$result) {
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
 	
-	$num_rows = mysql_num_rows($result);
+	$num_rows = $result->num_rows;
 	if($num_rows > 0){
 		$contenido = '<br /><div align="center">';
 		$contenido .= '<table class="stylized"  width="100%">';
@@ -210,7 +210,7 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 		<th class="option">Options</th>
 		</tr>';
 		$i = 0;
-		while($row = mysql_fetch_assoc($result)){
+		while($row = $result->fetch_assoc()){
 			$i += 1;
 			if($i%2==0){
 				$contenido .= '<tr class="campo2">';
@@ -236,8 +236,7 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 			}
 		$contenido .= '</table></div>';
 				
-		mysql_free_result($result);
-		//mysql_free_result($result2);
+		$result->free();
 		echo json_encode(array("status"=>"true","contenido"=>$contenido ));		
 	}else{
 		echo json_encode(array("status"=>"false" ));		
@@ -250,16 +249,16 @@ if ( $_REQUEST['tab'] == 'download'){
 	$cod = substr($_REQUEST['cod'],7);
 	
 	$sql = "SELECT * FROM invoices WHERE cod='".$cod."';";
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if (!$result) {	
 		echo json_encode(array("status"=>"false"));
-		die('Invalid query: ' . mysql_error());	
+		die('Invalid query: ' . $link->error);	
 	}else{
-		$aux = mysql_fetch_assoc($result);
+		$aux = $result->fetch_assoc();
 		$link = conectar2();
 		$sql = "SELECT footer, show_signature FROM invoice WHERE cod='1';";
-		$result = mysql_query($sql,$link);
-		$tmp_invoice = mysql_fetch_assoc($result);
+		$result = $link->query($sql);
+		$tmp_invoice = $result->fetch_assoc();
 		
 		$num_invoice = $aux['num_invoice'];
 		$year = $aux['year'];
@@ -331,16 +330,16 @@ if ( $_REQUEST['tab'] == 'forward'){
 	$cod = substr($_REQUEST['cod'],7);
 	
 	$sql = "SELECT * FROM invoices WHERE cod='".$cod."';";
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if (!$result) {	
 		echo json_encode(array("status"=>"false"));
-		die('Invalid query: ' . mysql_error());	
+		die('Invalid query: ' . $link->error);	
 	}else{
-		$aux = mysql_fetch_assoc($result);
+		$aux = $result->fetch_assoc();
 		$link = conectar2();
 		$sql = "SELECT footer, show_signature FROM invoice WHERE cod='1';";
-		$result = mysql_query($sql,$link);
-		$tmp_invoice = mysql_fetch_assoc($result);
+		$result = $link->query($sql);
+		$tmp_invoice = $result->fetch_assoc();
 		
 		$num_invoice = $aux['num_invoice'];
 		$year = $aux['year'];
@@ -407,27 +406,27 @@ if ( $_REQUEST['tab'] == 'forward'){
 	//ENVIAR E-MAIL
 	$link = conectar();
 	$sql = "SELECT * FROM members WHERE cod='".$cod_member."';";
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if (!$result) {	
 		echo json_encode(array("status"=>"false"));
-		die('Invalid query: ' . mysql_error());	
+		die('Invalid query: ' . $link->error);	
 	}
-	$fila = mysql_fetch_assoc($result);
+	$fila = $result->fetch_assoc();
 	$language = datosreg($fila['language'],'language','language','cod');
 	//Buscamos la plantilla que le corresponda
 	$sql = "SELECT message, subject FROM messages WHERE type='invoice_forward' AND language='".$language."'";
-	$r_tmp = mysql_query($sql,$link);
+	$r_tmp = $link->query($sql);
 	
-	if(mysql_num_rows($r_tmp)>0){
-		$f_tmp = mysql_fetch_assoc($r_tmp);
+	if($r_tmp->num_rows>0){
+		$f_tmp = $r_tmp->fetch_assoc();
 		$message = $f_tmp['message'];
 		$subject = $f_tmp['subject'];
 		if(trim($message) == ''){
 			$default_language = datosreg('1','language','language','vdefault');
 			$sql = "SELECT message, subject FROM messages WHERE type='invoice_forward' AND language='".$default_language."'";
-			$r2_tmp = mysql_query($sql,$link);
-			if(mysql_num_rows($r2_tmp)>0){
-				$f2_tmp = mysql_fetch_assoc($r2_tmp);
+			$r2_tmp = $link->query($sql);
+			if($r2_tmp->num_rows>0){
+				$f2_tmp = $r2_tmp->fetch_assoc();
 				$message = $f2_tmp['message'];
 				$subject = $f2_tmp['subject'];
 				if(trim($message) == ''){
@@ -448,9 +447,9 @@ if ( $_REQUEST['tab'] == 'forward'){
 		//buscamos mensaje por defecto	
 		$default_language = datosreg('1','language','language','vdefault');
 		$sql = "SELECT message, subject FROM messages WHERE type='invoice_forward' AND language='".$default_language."'";
-		$r2_tmp = mysql_query($sql,$link);
-		if(mysql_num_rows($r2_tmp)>0){
-			$f2_tmp = mysql_fetch_assoc($r2_tmp);
+		$r2_tmp = $link->query($sql);
+		if($r2_tmp->num_rows>0){
+			$f2_tmp = $r2_tmp->fetch_assoc();
 			$message = $f2_tmp['message'];
 			$subject = $f2_tmp['subject'];
 			if(trim($message) == ''){
@@ -466,14 +465,14 @@ if ( $_REQUEST['tab'] == 'forward'){
 	}
 	
 	$sql = "SELECT sender FROM parametros";
-	$result = mysql_query($sql,$link);
-	$row_sender = mysql_fetch_assoc($result);
+	$result = $link->query($sql);
+	$row_sender = $result->fetch_assoc();
 	$sender = $row_sender['sender'];
 	
 	if($candado){
 		$sql = "DESCRIBE members";
-		$r_campos = mysql_query($sql,$link);
-		while($aux = mysql_fetch_assoc($r_campos)){
+		$r_campos = $link->query($sql);
+		while($aux = $r_campos->fetch_assoc()){
 			if($aux['Field']=="renewal"){
 				$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
 			}elseif($aux['Field']=="quota"){
@@ -522,8 +521,8 @@ if ( $_REQUEST['tab'] == 'forward'){
 		$mail->Subject = "Problem to send renewed notice e-mail";
 		
 		$sql = "SELECT responsible FROM responsible WHERE area='renewal';";
-		$r_resp = mysql_query($sql,$link);
-		while($aux = mysql_fetch_assoc($r_resp)){
+		$r_resp = $link->query($sql);
+		while($aux = $r_resp->fetch_assoc()){
 			//Copia a responsables
 			$mail->AddAddress($aux['responsible']);
 		}
@@ -547,14 +546,14 @@ if ( $_REQUEST['tab'] == 'eliminar_factura'){
 	
 	$presql = "DELETE FROM invoices WHERE cod ='".$cod."';";
 
-	$result = mysql_query($presql,$link);
+	$result = $link->query($presql);
 	if (!$result) {
 		echo json_encode(array("status"=>"false"));
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
 	echo json_encode(array("status"=>"true","cod"=>"invoice".$cod));
 
-	mysql_close($link);
+	$link->close();
 }
 	
 ?>
