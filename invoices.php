@@ -135,9 +135,9 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
         Name or company: <input type="text" name="name" id="name" size="23" />
         <br><br>
         Invoice date between:
-        <input type="date" name="invoice_ini" id="invoice_ini" placeholder="dd/mm/yyyy">
+        <input type="text" name="invoice_ini" id="invoice_ini" placeholder="dd/mm/yyyy">
         &nbsp;&nbsp; to &nbsp;&nbsp;
-        <input type="date" name="invoice_fin" id="invoice_fin" placeholder="dd/mm/yyyy">
+        <input type="text" name="invoice_fin" id="invoice_fin" placeholder="dd/mm/yyyy">
         <?php
         if(Comprobariexplorer($_SERVER['HTTP_USER_AGENT'])){
         	echo '&nbsp;&nbsp;(dd/mm/yyyy)';

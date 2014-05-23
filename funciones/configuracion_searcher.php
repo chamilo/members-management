@@ -18,15 +18,21 @@ if ( $_REQUEST['tab'] == 'buscar'){
 	$filtro = '';
 	
 	if($name != ''){
-		$filtro .= "name LIKE '%".$name."%'";
+		$filtro .= "(name LIKE '%".$name."%' OR surname LIKE '%".$surname."%')";
 	}
-	
-	
+	/*
 	if($surname != ''){
 		if($filtro != ''){
 			$filtro .= " AND ";
 		}
 		$filtro .= "surname LIKE '%".$surname."%'";
+	}
+	*/
+	if($institution != ''){
+		if($filtro != ''){
+			$filtro .= " AND ";
+		}
+		$filtro .= "institution LIKE '%".$institution."%'";
 	}
 	
 	
@@ -505,7 +511,7 @@ if ( $_REQUEST['tab'] == 'editar'){
 	$result = $link->query($sql);
 	$aux = $result->fetch_assoc();
 	
-	echo json_encode(array("status"=>"true","name"=>$name,"surname"=>$surname,"email"=>$email,"cod"=>"member".$cod,"renewal"=>date("d/m/Y",strtotime($renewal)),"type"=>$aux['name']));	
+	echo json_encode(array("status"=>"true","name"=>$name,"surname"=>$surname,"email"=>$email,"cod"=>"member".$cod,"renewal"=>date("d/m/Y",strtotime($renewal)),"type"=>$aux['name'],"quota"=>$quota));	
 }
 
 if ( $_REQUEST['tab'] == 'renovar_miembro'){
@@ -553,7 +559,7 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 			if($aux['Field']=="renewal"){
 				$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
 			}elseif($aux['Field']=="quota"){
-				$message = str_replace("{{".$aux['Field']."}}", (number_format($fila[$aux['Field']],2 , "," ,".").' E'), $message);
+				$message = str_replace("{{".$aux['Field']."}}", (number_format($fila[$aux['Field']],2 , "," ,".").' €'), $message);
 			}else{
 				$message = str_replace("{{".$aux['Field']."}}", $fila[$aux['Field']], $message);
 			}
