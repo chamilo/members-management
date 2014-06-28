@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c00b40f6-0d55-4467-be04-2cd3dcfc0fdf" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="c00b40f6-0d55-4467-be04-2cd3dcfc0fdf" name="Default" comment="" />
     <ignored path="chamilo_invoice.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -39,13 +37,13 @@
       <file leaf-file-name="funciones.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/funciones.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6126418" vertical-offset="1080" max-vertical-offset="15048">
-              <caret line="81" column="30" selection-start-line="81" selection-start-column="30" selection-end-line="81" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.6126418" vertical-offset="1314" max-vertical-offset="15282">
+              <caret line="94" column="30" selection-start-line="94" selection-start-column="30" selection-end-line="94" selection-end-column="30" />
               <folding>
-                <marker date="1403562608142" expanded="true" signature="3449:3493" placeholder="SELECT * FRO..." />
-                <marker date="1403562608142" expanded="true" signature="4151:4195" placeholder="SELECT * FRO..." />
-                <marker date="1403562608142" expanded="true" signature="4592:4636" placeholder="SELECT * FRO..." />
-                <marker date="1403562608142" expanded="true" signature="4981:5025" placeholder="SELECT * FRO..." />
+                <marker date="1403983460367" expanded="true" signature="3759:3803" placeholder="SELECT * FRO..." />
+                <marker date="1403983460367" expanded="true" signature="4461:4505" placeholder="SELECT * FRO..." />
+                <marker date="1403983460367" expanded="true" signature="4902:4946" placeholder="SELECT * FRO..." />
+                <marker date="1403983460367" expanded="true" signature="5291:5335" placeholder="SELECT * FRO..." />
               </folding>
             </state>
           </provider>
@@ -270,10 +268,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="72" max-vertical-offset="10692">
           <caret line="4" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1403562608142" expanded="true" signature="3449:3493" placeholder="SELECT * FRO..." />
-            <marker date="1403562608142" expanded="true" signature="4151:4195" placeholder="SELECT * FRO..." />
-            <marker date="1403562608142" expanded="true" signature="4592:4636" placeholder="SELECT * FRO..." />
-            <marker date="1403562608142" expanded="true" signature="4981:5025" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="3759:3803" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4461:4505" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4902:4946" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="5291:5335" placeholder="SELECT * FRO..." />
           </folding>
         </state>
       </provider>
@@ -283,10 +281,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="3275" max-vertical-offset="10692">
           <caret line="191" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1403562608142" expanded="true" signature="3449:3493" placeholder="SELECT * FRO..." />
-            <marker date="1403562608142" expanded="true" signature="4151:4195" placeholder="SELECT * FRO..." />
-            <marker date="1403562608142" expanded="true" signature="4592:4636" placeholder="SELECT * FRO..." />
-            <marker date="1403562608142" expanded="true" signature="4981:5025" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="3759:3803" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4461:4505" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4902:4946" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="5291:5335" placeholder="SELECT * FRO..." />
           </folding>
         </state>
       </provider>
@@ -346,10 +344,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="774" max-vertical-offset="10692">
           <caret line="43" column="9" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1403562608142" expanded="true" signature="3449:3493" placeholder="SELECT * FRO..." />
-            <marker date="1403562608142" expanded="true" signature="4151:4195" placeholder="SELECT * FRO..." />
-            <marker date="1403562608142" expanded="true" signature="4592:4636" placeholder="SELECT * FRO..." />
-            <marker date="1403562608142" expanded="true" signature="4981:5025" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="3759:3803" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4461:4505" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4902:4946" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="5291:5335" placeholder="SELECT * FRO..." />
           </folding>
         </state>
       </provider>
@@ -401,10 +399,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="774" max-vertical-offset="10692">
           <caret line="43" column="9" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1403562608142" expanded="true" signature="3449:3493" placeholder="SELECT * FRO..." />
-            <marker date="1403562608142" expanded="true" signature="4151:4195" placeholder="SELECT * FRO..." />
-            <marker date="1403562608142" expanded="true" signature="4592:4636" placeholder="SELECT * FRO..." />
-            <marker date="1403562608142" expanded="true" signature="4981:5025" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="3759:3803" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4461:4505" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4902:4946" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="5291:5335" placeholder="SELECT * FRO..." />
           </folding>
         </state>
       </provider>
@@ -643,13 +641,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/funciones.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6126418" vertical-offset="1080" max-vertical-offset="15048">
-          <caret line="81" column="30" selection-start-line="81" selection-start-column="30" selection-end-line="81" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.6126418" vertical-offset="1293" max-vertical-offset="15282">
+          <caret line="94" column="30" selection-start-line="94" selection-start-column="30" selection-end-line="94" selection-end-column="30" />
           <folding>
-            <marker date="1403562608142" expanded="true" signature="3449:3493" placeholder="SELECT * FRO..." />
-            <marker date="1403562608142" expanded="true" signature="4151:4195" placeholder="SELECT * FRO..." />
-            <marker date="1403562608142" expanded="true" signature="4592:4636" placeholder="SELECT * FRO..." />
-            <marker date="1403562608142" expanded="true" signature="4981:5025" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="3759:3803" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4461:4505" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4902:4946" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="5291:5335" placeholder="SELECT * FRO..." />
           </folding>
         </state>
       </provider>
