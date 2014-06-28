@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c00b40f6-0d55-4467-be04-2cd3dcfc0fdf" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="c00b40f6-0d55-4467-be04-2cd3dcfc0fdf" name="Default" comment="" />
     <ignored path="chamilo_invoice.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,28 +24,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="52" selection-end="52" vertical-scroll-proportion="-0.0" vertical-offset="36" max-vertical-offset="7830">
-              <folding>
-                <marker date="1396411174548" expanded="true" signature="8989:9028" placeholder="SELECT count..members..." />
-                <marker date="1396411174548" expanded="true" signature="9179:9199" placeholder="SELECT * FRO..status..." />
-                <marker date="1396411174548" expanded="false" signature="9950:9975" placeholder="..." />
-                <marker date="1396411174548" expanded="false" signature="9998:10014" placeholder="..." />
-                <marker date="1396411174548" expanded="true" signature="11835:11880" placeholder="SELECT * FRO..members..." />
-              </folding>
+            <state vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="7812">
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="funciones.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="funciones.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/funciones.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="0" selection-start="86" selection-end="86" vertical-scroll-proportion="0.083429895" vertical-offset="0" max-vertical-offset="10692">
+            <state vertical-scroll-proportion="0.6126418" vertical-offset="1314" max-vertical-offset="15282">
+              <caret line="94" column="30" selection-start-line="94" selection-start-column="30" selection-end-line="94" selection-end-column="30" />
               <folding>
-                <marker date="1396413373308" expanded="true" signature="1261:1305" placeholder="SELECT * FRO..." />
-                <marker date="1396413373308" expanded="true" signature="2040:2084" placeholder="SELECT * FRO..." />
+                <marker date="1403983460367" expanded="true" signature="3759:3803" placeholder="SELECT * FRO..." />
+                <marker date="1403983460367" expanded="true" signature="4461:4505" placeholder="SELECT * FRO..." />
+                <marker date="1403983460367" expanded="true" signature="4902:4946" placeholder="SELECT * FRO..." />
+                <marker date="1403983460367" expanded="true" signature="5291:5335" placeholder="SELECT * FRO..." />
               </folding>
             </state>
           </provider>
@@ -84,13 +80,13 @@
   </component>
   <component name="PhpDebugGeneral" break_at_first_line="true" />
   <component name="PhpServers">
-    <option name="servers">
+    <servers>
       <server deployment_server="65af2115-29a5-446c-aa51-eb46380d33f4" host="members.me" name="Members.me" validation_dir="$PROJECT_DIR$">
         <path_mappings>
-          <path_mapping local_path="$PROJECT_DIR$" remote_path="/var/www/members" />
+          <mapping local-root="$PROJECT_DIR$" remote-root="/var/www/members" />
         </path_mappings>
       </server>
-    </option>
+    </servers>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
@@ -112,7 +108,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -186,13 +182,17 @@
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
       <method />
     </configuration>
     <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server" server_id="65af2115-29a5-446c-aa51-eb46380d33f4" server_name="Members">
       <method />
     </configuration>
-    <configuration default="false" name="Invoice" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" browser="CHROME" server_name="Members.me">
+    <configuration default="false" name="Invoice" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" browser="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" server_name="Members.me">
       <RunnerSettings RunnerId="PhpRunner" />
       <RunnerSettings RunnerId="PhpWebAppDebugRunner" />
       <ConfigurationWrapper RunnerId="PhpRunner" />
@@ -204,59 +204,49 @@
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
-  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
-    <option name="USER" value="" />
-    <option name="PASSWORD" value="" />
-    <option name="mySSHConnectionTimeout" value="30000" />
-    <option name="mySSHReadTimeout" value="30000" />
-    <option name="LAST_MERGED_REVISION" />
-    <option name="MERGE_DRY_RUN" value="false" />
-    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
-    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
-    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
-    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
-    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
-    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
-    <option name="FORCE_UPDATE" value="false" />
-    <option name="IGNORE_EXTERNALS" value="false" />
-    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  <component name="SvnConfiguration" myUseAcceleration="nothing">
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="c00b40f6-0d55-4467-be04-2cd3dcfc0fdf" name="Default" comment="" />
       <created>1366211923697</created>
+      <option name="number" value="Default" />
       <updated>1366211923697</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2636656" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31430095" sideWeight="0.42979637" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2534685" sideWeight="0.42940322" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31430095" sideWeight="0.57020366" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2534685" sideWeight="0.5691412" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39978564" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3009605" sideWeight="0.42719486" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39978564" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32802126" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
   </component>
@@ -270,500 +260,394 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
+    <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/funciones.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="191" column="0" selection-start="5481" selection-end="5481" vertical-scroll-proportion="0.0" vertical-offset="3275" max-vertical-offset="10692">
+        <state vertical-scroll-proportion="0.0" vertical-offset="72" max-vertical-offset="10692">
+          <caret line="4" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1396413373308" expanded="true" signature="1261:1305" placeholder="SELECT * FRO..." />
-            <marker date="1396413373308" expanded="true" signature="2040:2084" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="3759:3803" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4461:4505" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4902:4946" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="5291:5335" placeholder="SELECT * FRO..." />
           </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="7830">
-          <folding>
-            <marker date="1396411174548" expanded="true" signature="8989:9028" placeholder="SELECT count..members..." />
-            <marker date="1396411174548" expanded="true" signature="9179:9199" placeholder="SELECT * FRO..status..." />
-            <marker date="1396411174548" expanded="false" signature="9950:9975" placeholder="..." />
-            <marker date="1396411174548" expanded="false" signature="9998:10014" placeholder="..." />
-            <marker date="1396411174548" expanded="true" signature="11835:11880" placeholder="SELECT * FRO..members..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/funciones/configuracion_searcher.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14796">
-          <folding>
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..country..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..language..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..type_member..." />
-            <marker date="1396411193364" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..status..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT body,..invoice..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT sende..parametros..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setting.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="300" column="26" selection-start="10184" selection-end="10184" vertical-scroll-proportion="0.0" vertical-offset="5400" max-vertical-offset="9054" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/login.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="22" selection-start="2905" selection-end="2905" vertical-scroll-proportion="0.0" vertical-offset="1494" max-vertical-offset="4536" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/searcher.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="27" selection-start="2974" selection-end="2974" vertical-scroll-proportion="0.0" vertical-offset="1476" max-vertical-offset="5058" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/conf_searcher.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="43" selection-start="1851" selection-end="1851" vertical-scroll-proportion="0.0" vertical-offset="828" max-vertical-offset="4122" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/uploadify.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="1" selection-start="601" selection-end="601" vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="378" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/funciones.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="9" selection-start="1078" selection-end="1078" vertical-scroll-proportion="0.0" vertical-offset="774" max-vertical-offset="10692">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3275" max-vertical-offset="10692">
+          <caret line="191" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1396413373308" expanded="true" signature="1261:1305" placeholder="SELECT * FRO..." />
-            <marker date="1396413373308" expanded="true" signature="2040:2084" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="3759:3803" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4461:4505" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4902:4946" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="5291:5335" placeholder="SELECT * FRO..." />
           </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/funciones/configuracion_searcher.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="14796">
-          <folding>
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..country..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..language..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..type_member..." />
-            <marker date="1396411193364" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..status..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT body,..invoice..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT sende..parametros..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setting.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="300" column="26" selection-start="10184" selection-end="10184" vertical-scroll-proportion="0.0" vertical-offset="5400" max-vertical-offset="9054" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/login.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="22" selection-start="2905" selection-end="2905" vertical-scroll-proportion="0.0" vertical-offset="1494" max-vertical-offset="4536" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/searcher.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="27" selection-start="2974" selection-end="2974" vertical-scroll-proportion="0.0" vertical-offset="1476" max-vertical-offset="5058" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/conf_searcher.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="43" selection-start="1851" selection-end="1851" vertical-scroll-proportion="0.0" vertical-offset="828" max-vertical-offset="4122" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/uploadify.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="1" selection-start="601" selection-end="601" vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="378" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/funciones.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="9" selection-start="1078" selection-end="1078" vertical-scroll-proportion="0.0" vertical-offset="774" max-vertical-offset="10692">
-          <folding>
-            <marker date="1396413373308" expanded="true" signature="1261:1305" placeholder="SELECT * FRO..." />
-            <marker date="1396413373308" expanded="true" signature="2040:2084" placeholder="SELECT * FRO..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/funciones/configuracion_searcher.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="12330">
-          <folding>
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..country..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..language..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..type_member..." />
-            <marker date="1396411193364" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..status..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT body,..invoice..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT sende..parametros..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setting.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="300" column="26" selection-start="10184" selection-end="10184" vertical-scroll-proportion="0.0" vertical-offset="4500" max-vertical-offset="7545" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="375" column="11" selection-start="12392" selection-end="12392" vertical-scroll-proportion="0.0" vertical-offset="5625" max-vertical-offset="6525" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/funciones/configuracion_searcher.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14796">
-          <folding>
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..country..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..language..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..type_member..." />
-            <marker date="1396411193364" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..status..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT body,..invoice..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT sende..parametros..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setting.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="300" column="26" selection-start="10184" selection-end="10184" vertical-scroll-proportion="0.0" vertical-offset="5022" max-vertical-offset="9054" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="375" column="11" selection-start="12392" selection-end="12392" vertical-scroll-proportion="0.0" vertical-offset="6750" max-vertical-offset="7830" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/funciones/configuracion_searcher.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14796">
-          <folding>
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..country..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..language..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..type_member..." />
-            <marker date="1396411193364" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..status..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT body,..invoice..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT sende..parametros..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setting.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="300" column="26" selection-start="10184" selection-end="10184" vertical-scroll-proportion="0.0" vertical-offset="5022" max-vertical-offset="9054" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="375" column="11" selection-start="12392" selection-end="12392" vertical-scroll-proportion="0.0" vertical-offset="6750" max-vertical-offset="7830" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/funciones/configuracion_searcher.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14796">
-          <folding>
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..country..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..language..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..type_member..." />
-            <marker date="1396411193364" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..status..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT body,..invoice..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT sende..parametros..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setting.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="279" column="14" selection-start="9475" selection-end="9475" vertical-scroll-proportion="0.0" vertical-offset="5022" max-vertical-offset="9054" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="375" column="11" selection-start="12392" selection-end="12392" vertical-scroll-proportion="0.0" vertical-offset="6750" max-vertical-offset="7830" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/funciones/configuracion_searcher.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14796">
-          <folding>
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..country..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..language..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..type_member..." />
-            <marker date="1396411193364" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..status..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT body,..invoice..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT sende..parametros..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setting.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="279" column="14" selection-start="9475" selection-end="9475" vertical-scroll-proportion="0.0" vertical-offset="5022" max-vertical-offset="9054" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="375" column="11" selection-start="12392" selection-end="12392" vertical-scroll-proportion="0.0" vertical-offset="6750" max-vertical-offset="7830" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/funciones/configuracion_invoice.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="42" selection-start="3095" selection-end="3095" vertical-scroll-proportion="0.0" vertical-offset="1818" max-vertical-offset="10188" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/funciones/configuracion_setting.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="44" selection-start="2077" selection-end="2077" vertical-scroll-proportion="0.0" vertical-offset="1134" max-vertical-offset="12042" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/form_member.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="40" selection-start="1673" selection-end="1673" vertical-scroll-proportion="0.51487416" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cron.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/profile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/invoices.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="175" column="17" selection-start="5472" selection-end="5473" vertical-scroll-proportion="-11.148149" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/funciones/configuracion_setting.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="44" selection-start="2077" selection-end="2077" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/funciones/configuracion_invoice.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="42" selection-start="3095" selection-end="3095" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/administry.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="205" column="3" selection-start="6440" selection-end="6440" vertical-scroll-proportion="0.8856152" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/green.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.44758734" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/uploadify.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="1" selection-start="601" selection-end="601" vertical-scroll-proportion="0.44288224" vertical-offset="0" max-vertical-offset="569" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/conf_searcher.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="43" selection-start="1851" selection-end="1851" vertical-scroll-proportion="0.0" vertical-offset="248" max-vertical-offset="3435" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/searcher.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="27" selection-start="2974" selection-end="2974" vertical-scroll-proportion="0.0" vertical-offset="1476" max-vertical-offset="5058" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/login.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="22" selection-start="2905" selection-end="2905" vertical-scroll-proportion="0.0" vertical-offset="1494" max-vertical-offset="4536" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setting.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="300" column="26" selection-start="10184" selection-end="10184" vertical-scroll-proportion="0.0" vertical-offset="5400" max-vertical-offset="9054" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clases/class.phpmailer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2319" column="0" selection-start="74524" selection-end="74524" vertical-scroll-proportion="0.87485516" vertical-offset="40519" max-vertical-offset="41382">
+        <state vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="7830">
+          <caret line="2" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/funciones/configuracion_searcher.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.8771727" vertical-offset="1620" max-vertical-offset="14760">
-          <folding>
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT cod,n..type_member..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..country..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..language..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..type_member..." />
-            <marker date="1396411193364" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..status..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT body,..invoice..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT sende..parametros..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-            <marker date="1396411193364" expanded="true" signature="-1:-1" placeholder="SELECT respo..responsible..." />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14796">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
+    <entry file="file://$PROJECT_DIR$/setting.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="7830">
-          <folding>
-            <marker date="1396411174548" expanded="true" signature="8989:9028" placeholder="SELECT count..members..." />
-            <marker date="1396411174548" expanded="true" signature="9179:9199" placeholder="SELECT * FRO..status..." />
-            <marker date="1396411174548" expanded="false" signature="9950:9975" placeholder="..." />
-            <marker date="1396411174548" expanded="false" signature="9998:10014" placeholder="..." />
-            <marker date="1396411174548" expanded="true" signature="11835:11880" placeholder="SELECT * FRO..members..." />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="5400" max-vertical-offset="9054">
+          <caret line="300" column="26" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1494" max-vertical-offset="4536">
+          <caret line="83" column="22" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/searcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1476" max-vertical-offset="5058">
+          <caret line="82" column="27" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/conf_searcher.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="828" max-vertical-offset="4122">
+          <caret line="46" column="43" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uploadify.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="378">
+          <caret line="14" column="1" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/funciones.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="86" selection-end="86" vertical-scroll-proportion="0.083429895" vertical-offset="0" max-vertical-offset="10692">
+        <state vertical-scroll-proportion="0.0" vertical-offset="774" max-vertical-offset="10692">
+          <caret line="43" column="9" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1396413373308" expanded="true" signature="1261:1305" placeholder="SELECT * FRO..." />
-            <marker date="1396413373308" expanded="true" signature="2040:2084" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="3759:3803" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4461:4505" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4902:4946" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="5291:5335" placeholder="SELECT * FRO..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funciones/configuracion_searcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="14796">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5400" max-vertical-offset="9054">
+          <caret line="300" column="26" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1494" max-vertical-offset="4536">
+          <caret line="83" column="22" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/searcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1476" max-vertical-offset="5058">
+          <caret line="82" column="27" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/conf_searcher.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="828" max-vertical-offset="4122">
+          <caret line="46" column="43" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uploadify.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="378">
+          <caret line="14" column="1" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funciones.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="774" max-vertical-offset="10692">
+          <caret line="43" column="9" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1403983460367" expanded="true" signature="3759:3803" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4461:4505" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4902:4946" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="5291:5335" placeholder="SELECT * FRO..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funciones/configuracion_searcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="12330">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4500" max-vertical-offset="7545">
+          <caret line="300" column="26" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5625" max-vertical-offset="6525">
+          <caret line="375" column="11" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funciones/configuracion_searcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14796">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5022" max-vertical-offset="9054">
+          <caret line="300" column="26" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="6750" max-vertical-offset="7830">
+          <caret line="375" column="11" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funciones/configuracion_searcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14796">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5022" max-vertical-offset="9054">
+          <caret line="300" column="26" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="6750" max-vertical-offset="7830">
+          <caret line="375" column="11" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funciones/configuracion_searcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14796">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5022" max-vertical-offset="9054">
+          <caret line="279" column="14" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="6750" max-vertical-offset="7830">
+          <caret line="375" column="11" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funciones/configuracion_searcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14796">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5022" max-vertical-offset="9054">
+          <caret line="279" column="14" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="6750" max-vertical-offset="7830">
+          <caret line="375" column="11" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funciones/configuracion_invoice.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1818" max-vertical-offset="10188">
+          <caret line="101" column="42" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funciones/configuracion_setting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1134" max-vertical-offset="12042">
+          <caret line="63" column="44" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/form_member.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.51487416" vertical-offset="0" max-vertical-offset="0">
+          <caret line="48" column="40" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cron.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/invoices.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.148149" vertical-offset="0" max-vertical-offset="0">
+          <caret line="175" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funciones/configuracion_setting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <caret line="63" column="44" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funciones/configuracion_invoice.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <caret line="101" column="42" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/administry.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8856152" vertical-offset="0" max-vertical-offset="0">
+          <caret line="205" column="3" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/green.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.44758734" vertical-offset="0" max-vertical-offset="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uploadify.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44288224" vertical-offset="0" max-vertical-offset="569">
+          <caret line="14" column="1" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/conf_searcher.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="248" max-vertical-offset="3435">
+          <caret line="46" column="43" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/searcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1476" max-vertical-offset="5058">
+          <caret line="82" column="27" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1494" max-vertical-offset="4536">
+          <caret line="83" column="22" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5400" max-vertical-offset="9054">
+          <caret line="300" column="26" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clases/class.phpmailer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.87485516" vertical-offset="40519" max-vertical-offset="41382">
+          <caret line="2319" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funciones/configuracion_searcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.8771727" vertical-offset="1620" max-vertical-offset="14760">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="7830">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funciones.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6126418" vertical-offset="1293" max-vertical-offset="15282">
+          <caret line="94" column="30" selection-start-line="94" selection-start-column="30" selection-end-line="94" selection-end-column="30" />
+          <folding>
+            <marker date="1403983460367" expanded="true" signature="3759:3803" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4461:4505" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="4902:4946" placeholder="SELECT * FRO..." />
+            <marker date="1403983460367" expanded="true" signature="5291:5335" placeholder="SELECT * FRO..." />
           </folding>
         </state>
       </provider>
