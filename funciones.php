@@ -6,13 +6,18 @@ ini_set("error_reporting",0);
 
 function conectar(){
 <<<<<<< HEAD
+<<<<<<< HEAD
     require __DIR__.'/config.php';
+=======
+	require_once __DIR__.'/config.php';
+>>>>>>> 53b7077a198082a8a17a02a4b3ec3def9a7955f4
     $link = new mysqli(
         $config['db']['host'],
         $config['db']['user'],
         $config['db']['pass'],
         $config['db']['name']
     );
+<<<<<<< HEAD
     if ($link->connect_errno) {
         die('No pudo conectarse: ' . $link->connect_error);
     }
@@ -35,6 +40,8 @@ function conectar2(){
     return $link;
 =======
 	$link = new mysqli('localhost', 'user', 'pass','db');
+=======
+>>>>>>> 53b7077a198082a8a17a02a4b3ec3def9a7955f4
 	if ($link->connect_errno) {
 		die('No pudo conectarse: ' . $link->connect_error);
 	}
@@ -43,7 +50,13 @@ function conectar2(){
 }
 
 function conectar2(){
-	$link = new mysqli('localhost', 'user', 'pass','db');
+	require_once __DIR__.'/config.php';
+	$link = new mysqli(
+        $config['db']['host'],
+        $config['db']['user'],
+        $config['db']['pass'],
+        $config['db']['name']
+    );
 	if ($link->connect_errno) {
 		die('No pudo conectarse: ' . $link->connect_error);
 	}
