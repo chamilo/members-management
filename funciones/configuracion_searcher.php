@@ -11,22 +11,28 @@ if ( $_REQUEST['tab'] == 'buscar'){
 	$link = conectar();
 	reset ($_REQUEST);
 	while (list ($param, $val) = each ($_REQUEST)) {
-	    $asignacion = "\$" . $param . "=mysql_real_escape_string(\$_REQUEST['" . $param . "']);";
+	    $asignacion = "\$" . $param . "=$link->real_escape_string(\$_REQUEST['" . $param . "']);";
     	eval($asignacion);
 	}
 	
 	$filtro = '';
 	
 	if($name != ''){
-		$filtro .= "name LIKE '%".$name."%'";
+		$filtro .= "(name LIKE '%".$name."%' OR surname LIKE '%".$name."%')";
 	}
-	
-	
+	/*
 	if($surname != ''){
 		if($filtro != ''){
 			$filtro .= " AND ";
 		}
 		$filtro .= "surname LIKE '%".$surname."%'";
+	}
+	*/
+	if($institution != ''){
+		if($filtro != ''){
+			$filtro .= " AND ";
+		}
+		$filtro .= "institution LIKE '%".$institution."%'";
 	}
 	
 	
@@ -112,16 +118,19 @@ if ( $_REQUEST['tab'] == 'buscar'){
 	}
 	
 	$presql = "SELECT * FROM members WHERE ".$filtro.";";
-	//echo $presql;
+
 	
-	$result = mysql_query($presql,$link);
+	$result = $link->query($presql);
 	if (!$result) {
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
 	
-	$num_rows = mysql_num_rows($result);
+	$num_rows = $result->num_rows;
 	if($num_rows > 0){
-		$contenido = '<br /><div align="center">';
+		$contenido = '';
+		//$contenido .= '<input type="hidden" id="query_sql" value="'.encriptar($presql).'">';
+		$contenido .= '<a class="btn btn-special" href="exportar-excel.php?query='.urlencode(encriptar($presql)).'" style="float: right; padding: 2px 5px; text-align: center;">Exportar a Excel</a>';
+		$contenido .= '<br /><div align="center">';
 		$contenido .= '<table class="stylized"  width="100%">';
     	$contenido .= '<tr>
 		<th class="name">
@@ -149,16 +158,17 @@ if ( $_REQUEST['tab'] == 'buscar'){
 		<img class="buscar_campo_ordenado_desc" src="images/down.png"  width="16" height="16" border="0" title="Sort Descending" />
 		<img class="buscar_campo_ordenado_asc" src="images/up.png"  width="16" height="16" border="0" title="Sort ascending" />
 		</th>
+		<th>Quota</th>
 		<th class="option">Options</th>
 		</tr>';
 		$sql = "SELECT cod,name FROM type_member;";
-		$result_tmp = mysql_query($sql,$link);
+		$result_tmp = $link->query($sql);
 		$tipos = array();
-		while($aux = mysql_fetch_assoc($result_tmp)){
+		while($aux = $result_tmp->fetch_assoc()){
 			$tipos[$aux['cod']] = $aux['name'];
 		}
 		$i = 0;
-		while($row = mysql_fetch_assoc($result)){
+		while($row = $result->fetch_assoc()){
 			$i += 1;
 			if($i%2==0){
 				$contenido .= '<tr class="campo2">';
@@ -170,6 +180,7 @@ if ( $_REQUEST['tab'] == 'buscar'){
 			$contenido .= '<td>'.htmlspecialchars($row['email']).'</td>';
 			$contenido .= '<td class="ta-center">'.date("d/m/Y",strtotime($row['renewal'])).'</td>';
 			$contenido .= '<td>'.htmlspecialchars($tipos[$row['type']]).'</td>';
+			$contenido .= '<td>'.htmlspecialchars($row['quota']).' &euro;</td>';
 			$contenido .= '<td id="member'.$row['cod'].'" class="options-width">';
 			$contenido .= '<a href="renovar-user.php?cod='.$row['cod'].'" title="Renewal" class="renovar"><img src="images/update.png" /></a>&nbsp;';
 			$contenido .= '<a href="edit-user.php?cod='.$row['cod'].'" title="Edit '.$row['usuario'].'" class="icon-1 info-tooltip"><img src="images/note_edit.png" /></a>&nbsp;';
@@ -179,8 +190,8 @@ if ( $_REQUEST['tab'] == 'buscar'){
 			}
 		$contenido .= '</table></div>';
 				
-		mysql_free_result($result);
-		//mysql_free_result($result2);
+		$result->free_result();
+		//$result2->free_result();
 		echo json_encode(array("status"=>"true","contenido"=>$contenido ));		
 	}else{
 		echo json_encode(array("status"=>"false" ));		
@@ -191,7 +202,7 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 	$link = conectar();
 	reset ($_REQUEST);
 	while (list ($param, $val) = each ($_REQUEST)) {
-	    $asignacion = "\$" . $param . "=mysql_real_escape_string(\$_REQUEST['" . $param . "']);";
+	    $asignacion = "\$" . $param . "=$link->real_escape_string(\$_REQUEST['" . $param . "']);";
     	eval($asignacion);
 	}
 	
@@ -294,14 +305,16 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 	$presql = "SELECT * FROM members WHERE ".$filtro." ORDER BY ".$campo." ".$orden.";";
 	//echo $presql;
 	
-	$result = mysql_query($presql,$link);
+	$result = $link->query($presql);
 	if (!$result) {
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
 	
-	$num_rows = mysql_num_rows($result);
+	$num_rows = $result->num_rows;
 	if($num_rows > 0){
-		$contenido = '<br /><div align="center">';
+		$contenido = '';
+		$contenido .= '<a class="btn btn-special" href="exportar-excel.php?query='.urlencode(encriptar($presql)).'" style="float: right; padding: 2px 5px; text-align: center;">Exportar a Excel</a>';
+		$contenido .= '<br /><div align="center">';
 		$contenido .= '<table class="stylized"  width="100%">';
     	$contenido .= '<tr>
 		<th class="name">
@@ -329,16 +342,17 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 		<img class="buscar_campo_ordenado_desc" src="images/down.png"  width="16" height="16" border="0" title="Sort Descending" />
 		<img class="buscar_campo_ordenado_asc" src="images/up.png"  width="16" height="16" border="0" title="Sort ascending" />
 		</th>
+		<th>Quota</th>
 		<th class="option">Options</th>
 		</tr>';
 		$sql = "SELECT cod,name FROM type_member;";
-		$result_tmp = mysql_query($sql,$link);
+		$result_tmp = $link->query($sql);
 		$tipos = array();
-		while($aux = mysql_fetch_assoc($result_tmp)){
+		while($aux = $result_tmp->fetch_assoc()){
 			$tipos[$aux['cod']] = $aux['name'];
 		}
 		$i = 0;
-		while($row = mysql_fetch_assoc($result)){
+		while($row = $result->fetch_assoc()){
 			$i += 1;
 			if($i%2==0){
 				$contenido .= '<tr class="campo2">';
@@ -350,6 +364,7 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 			$contenido .= '<td>'.htmlspecialchars($row['email']).'</td>';
 			$contenido .= '<td class="ta-center">'.date("d/m/Y",strtotime($row['renewal'])).'</td>';
 			$contenido .= '<td>'.htmlspecialchars($tipos[$row['type']]).'</td>';
+			$contenido .= '<td>'.htmlspecialchars($row['quota']).' &euro;</td>';
 			$contenido .= '<td id="member'.$row['cod'].'" class="options-width">';
 			$contenido .= '<a href="renovar-user.php?cod='.$row['cod'].'" title="Renewal" class="renovar"><img src="images/update.png" /></a>&nbsp;';
 			$contenido .= '<a href="edit-user.php?cod='.$row['cod'].'" title="Edit '.$row['usuario'].'" class="icon-1 info-tooltip"><img src="images/note_edit.png" /></a>';
@@ -359,8 +374,8 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 			}
 		$contenido .= '</table></div>';
 				
-		mysql_free_result($result);
-		//mysql_free_result($result2);
+		$result->free_result();
+		//$result2->free_result();
 		echo json_encode(array("status"=>"true","contenido"=>$contenido ));		
 	}else{
 		echo json_encode(array("status"=>"false" ));		
@@ -372,12 +387,12 @@ if ( $_REQUEST['tab'] == 'edit_member'){
 	$cod = substr($_REQUEST['cod'],6);
 	
 	$sql = "SELECT * FROM members WHERE cod='".$cod."';";
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if (!$result) {
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
-	if(mysql_num_rows($result) > 0 ){
-		$row = mysql_fetch_assoc($result);
+	if($result->num_rows > 0 ){
+		$row = $result->fetch_assoc();
 		$contenido = '';
 		$contenido .= '<h3>Form edit member</h3>';
 		$contenido .= '<div class="box box-info">All fields are required</div>';
@@ -391,30 +406,30 @@ if ( $_REQUEST['tab'] == 'edit_member'){
 		$contenido .= '<select id="country" class="half" name="country"><option value="">Select country</option>';
 		
 		$sql = "SELECT * FROM country";
-		$result_fila = mysql_query($sql,$link);
-		while($fila = mysql_fetch_assoc($result_fila)){
+		$result_fila = $link->query($sql);
+		while($fila = $result_fila->fetch_assoc()){
 			if($fila['iso'] == $row['country']){
 				$contenido .= '<option value="'.$fila['iso'].'" selected="selected">'.$fila['printable_name'].'</option>';
 			}else{
 				$contenido .= '<option value="'.$fila['iso'].'">'.$fila['printable_name'].'</option>';
 			}
 		}
-		mysql_free_result($result_fila);
+		$result_fila->free_result();
 	
 		$contenido .= '</select></p>';
 		$contenido .= '<p><label class="required" for="language">Language:</label><br>';
 		$contenido .= '<select id="language" class="half" name="language"><option value="">Select language</option>';
 		
 		$sql = "SELECT * FROM language WHERE active='1'";
-		$result_fila = mysql_query($sql,$link);
-		while($fila = mysql_fetch_assoc($result_fila)){
+		$result_fila = $link->query($sql);
+		while($fila = $result_fila->fetch_assoc()){
 			if($fila['cod'] == $row['language']){
 				$contenido .= '<option value="'.$fila['cod'].'" selected="selected">'.$fila['language'].'</option>';
 			}else{
 				$contenido .= '<option value="'.$fila['cod'].'">'.$fila['language'].'</option>';
 			}
 		}
-		mysql_free_result($result_fila);
+		$result_fila->free_result();
 	
 		$contenido .= '</select></p>';
 		$contenido .= '<p><label class="required" for="phone">Phone:</label><br>';
@@ -423,22 +438,22 @@ if ( $_REQUEST['tab'] == 'edit_member'){
 		$contenido .= '<p><label class="required" for="email">Email address:</label><br>';
 		$contenido .= '<input id="email" class="half" type="text" name="email" value="'.htmlspecialchars($row['email']).'"></p>';
 		$contenido .= '<p><label class="required" for="renewal2">Renewal Date:</label><br>';
-		$contenido .= '<input type="date" name="renewal" id="renewal" value="'.date("d/m/Y",strtotime($row['renewal'])).'" /></p>';
+		$contenido .= '<input type="text" name="renewal" id="renewal" value="'.date("d/m/Y",strtotime($row['renewal'])).'" /></p>';
 		$contenido .= '<p><label class="required" for="quota">Quota:</label><br>';
 		$contenido .= '<input id="quota" class="small" type="text" name="quota" value="'.htmlspecialchars($row['quota']).'"></p>';
 		$contenido .= '<p><label class="required" for="type">Type of member:</label><br>';
 		
 		$contenido .= '<select id="type" class="half" name="type"><option value="">Select type of member</option>';
 		$sql = "SELECT * FROM type_member";
-		$result_fila = mysql_query($sql,$link);
-		while($fila = mysql_fetch_assoc($result_fila)){
+		$result_fila = $link->query($sql);
+		while($fila = $result_fila->fetch_assoc()){
 			if($fila['cod']==$row['type']){
 				$contenido .= '<option value="'.$fila['cod'].'" selected="selected">'.$fila['name'].'</option>';
 			}else{
 				$contenido .= '<option value="'.$fila['cod'].'">'.$fila['name'].'</option>';
 			}
 		}
-		mysql_free_result($result_fila);
+		$result_fila->free_result();
 		$contenido .= '</select></p>';
 		if($row['type']!='2' && $row['type']!='5'){
 			$contenido .= '<div id="company" style="display:none">';
@@ -457,15 +472,15 @@ if ( $_REQUEST['tab'] == 'edit_member'){
 		$contenido .= '<p><label class="required" for="status">Status:</label><br>';
 		$contenido .= '<select id="status" class="half" name="status"><option value="">Select status</option>';
 		$sql = "SELECT * FROM status";
-		$result_fila = mysql_query($sql,$link);
-		while($fila = mysql_fetch_assoc($result_fila)){
+		$result_fila = $link->query($sql);
+		while($fila = $result_fila->fetch_assoc()){
 			if($fila['cod']==$row['status']){
 				$contenido .= '<option value="'.$fila['cod'].'" selected="selected">'.$fila['status'].'</option>';
 			}else{
 				$contenido .= '<option value="'.$fila['cod'].'">'.$fila['status'].'</option>';
 			}
 		}
-		mysql_free_result($result_fila);
+		$result_fila->free_result();
 	
 		$contenido .= '</select></p>';
 		$contenido .= '<p><label for="area2">Comment:</label><br>';
@@ -482,7 +497,7 @@ if ( $_REQUEST['tab'] == 'editar'){
 	$link = conectar();
 	reset ($_REQUEST);
 	while (list ($param, $val) = each ($_REQUEST)) {
-	    $asignacion = "\$" . $param . "=mysql_real_escape_string(\$_REQUEST['" . $param . "']);";
+	    $asignacion = "\$" . $param . "=$link->real_escape_string(\$_REQUEST['" . $param . "']);";
     	eval($asignacion);
 	}
 	if($type != '2' && $type != '5'){
@@ -493,31 +508,26 @@ if ( $_REQUEST['tab'] == 'editar'){
 	}
 	$sql = "UPDATE members SET name='".$name."',surname='".$surname."',country='".$country."',language='".$language."',phone='".$phone."',email='".$email."',renewal='".date("Y-m-d",strtotime($renewal))."',quota='".$quota."',type='".$type."',comment='".$comment."',status='".$status."', institution='".$institution."', address='".$address."', postal_code='".$postal_code."', vat='".$vat."' WHERE cod='".$cod."'";
 	//echo $sql;
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if (!$result) {									
-		die('Invalid query: Problems to insert data into the member table ' . mysql_error());	
+		die('Invalid query: Problems to insert data into the member table ' . $link->error);	
 	}
 	$sql = "SELECT name FROM type_member WHERE cod='".$type."'";
-	$result = mysql_query($sql,$link);
-	$aux = mysql_fetch_assoc($result);
+	$result = $link->query($sql);
+	$aux = $result->fetch_assoc();
 	
-	echo json_encode(array("status"=>"true","name"=>$name,"surname"=>$surname,"email"=>$email,"cod"=>"member".$cod,"renewal"=>date("d/m/Y",strtotime($renewal)),"type"=>$aux['name']));	
+	echo json_encode(array("status"=>"true","name"=>$name,"surname"=>$surname,"email"=>$email,"cod"=>"member".$cod,"renewal"=>date("d/m/Y",strtotime($renewal)),"type"=>$aux['name'],"quota"=>$quota));	
 }
 
 if ( $_REQUEST['tab'] == 'renovar_miembro'){
 	$link = conectar();
 	$cod = substr($_REQUEST['cod'],6);
-	//$fecha = datosreg($cod, 'members', 'renewal', 'cod');
-	//$anio = date("Y",strtotime($fecha));
-	//$mes = date("m",strtotime($fecha));
-	//$dia = date("d",strtotime($fecha));
-	
-	$fecha_renovacion = strtotime(datosreg($cod,'members','renewal','cod'));
+	$fecha_renovacion = strtotime(obtener("members","cod",$cod,"renewal"));
 	if($fecha_renovacion > time()){
 		// a la fecha se le suma 1 año
 		$sql = "SELECT DATE_ADD(renewal,INTERVAL 1 YEAR) AS renewal FROM members WHERE cod='".$cod."';";
-		$result = mysql_query($sql,$link);
-		$aux = mysql_fetch_assoc($result);
+		$result = $link->query($sql);
+		$aux = $result->fetch_assoc();
 		$fecha = $aux['renewal'];
 	}else{
 		// la fecha actual mas un año
@@ -527,29 +537,29 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 	
 	
 	$sql = "UPDATE members SET renewal='".$fecha."', mark_renewal='".date("Y-m-d")."', email_renewal='0', email_expired='0', status='1' WHERE cod='".$cod."'";
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if (!$result) {	
 		echo json_encode(array("status"=>"false"));
-		die('Invalid query: Problems to insert data into the member table ' . mysql_error());	
+		die('Invalid query: Problems to insert data into the member table ' . $link->error);	
 	}else{
 		$link = conectar();
 		$sql = "SELECT body, footer, show_signature FROM invoice WHERE cod='1';";
-		$result = mysql_query($sql,$link);
-		$aux = mysql_fetch_assoc($result);
+		$result = $link->query($sql);
+		$aux = $result->fetch_assoc();
 		$message = $aux['body'];
 		$footer = quitar_html($aux['footer']);
 		$show_signature = ($aux['show_signature']=="YES")?(true):(false);
 		$sql = "SELECT * FROM members WHERE cod='".$cod."';";
-		$result = mysql_query($sql,$link);
-		$fila = mysql_fetch_assoc($result);
+		$result = $link->query($sql);
+		$fila = $result->fetch_assoc();
 		$sql = "DESCRIBE members";
-		$r_campos = mysql_query($sql,$link);
+		$r_campos = $link->query($sql);
 		$message = quitar_html($message);
-		while($aux = mysql_fetch_assoc($r_campos)){
+		while($aux = $r_campos->fetch_assoc()){
 			if($aux['Field']=="renewal"){
 				$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
 			}elseif($aux['Field']=="quota"){
-				$message = str_replace("{{".$aux['Field']."}}", (number_format($fila[$aux['Field']],2 , "," ,".").' E'), $message);
+				$message = str_replace("{{".$aux['Field']."}}", (number_format($fila[$aux['Field']],2 , "," ,".").' €'), $message);
 			}else{
 				$message = str_replace("{{".$aux['Field']."}}", $fila[$aux['Field']], $message);
 			}
@@ -557,23 +567,21 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 		//echo $message;
 		$year = date("Y");
 		$sql = "SELECT max(num_invoice) AS num_invoice FROM invoices WHERE year='".$year."';";
-		$result = mysql_query($sql,$link);
-		$aux_invoice = mysql_fetch_assoc($result);
+		$result = $link->query($sql);
+		$aux_invoice = $result->fetch_assoc();
 		$num_invoice = ($aux_invoice['num_invoice']=='NULL')?('1'):($aux_invoice['num_invoice']+1);
-		//$num_invoice = datosreg('1','parametros','num_invoice','cod');
 		
-		
-		$sql = "INSERT INTO invoices (num_invoice,year,cod_member,message,quota,date) VALUES ('".$num_invoice."','".$year."','".$cod."','".mysql_real_escape_string($message)."','".$fila['quota']."','".date("Y-m-d")."');";
-		$result = mysql_query($sql,$link);
+		$sql = "INSERT INTO invoices (num_invoice,year,cod_member,message,quota,date) VALUES ('".$num_invoice."','".$year."','".$cod."','".$link->real_escape_string($message)."','".$fila['quota']."','".date("Y-m-d")."');";
+		$result = $link->query($sql);
 		if (!$result) {	
-			die('Invalid query 1: ' . mysql_error());	
+			die('Invalid query 1: ' . $link->error);	
 		}
 		
 		/*
 		$sql = "UPDATE parametros SET num_invoice = (num_invoice + 1) WHERE cod='1';";
-		$result = mysql_query($sql,$link);
+		$result = $link->query($sql);
 		if (!$result) {	
-			die('Invalid query 2: ' . mysql_error());	
+			die('Invalid query 2: ' . $link->error);	
 		}
 		*/
 		//Crear el pdf que se enviará.
@@ -631,21 +639,21 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 		
 		
 	//ENVIAR E-MAIL
-	$language = datosreg($fila['language'],'language','language','cod');
-	//Buscamos la plantilla que le corresponda
+	$language = obtener("language","cod",$fila['language'],"language");
+		//Buscamos la plantilla que le corresponda
 	$sql = "SELECT message, subject FROM messages WHERE type='renewed' AND language='".$language."'";
-	$r_tmp = mysql_query($sql,$link);
-	
-	if(mysql_num_rows($r_tmp)>0){
-		$f_tmp = mysql_fetch_assoc($r_tmp);
+	$r_tmp = $link->query($sql);
+	if($r_tmp->num_rows>0){
+		$f_tmp = $r_tmp->fetch_assoc();
 		$message = $f_tmp['message'];
 		$subject = $f_tmp['subject'];
 		if(trim($message) == ''){
-			$default_language = datosreg('1','language','language','vdefault');
+			
+			$default_language = obtener("language","vdefault","1","language");
 			$sql = "SELECT message, subject FROM messages WHERE type='renewed' AND language='".$default_language."'";
-			$r2_tmp = mysql_query($sql,$link);
-			if(mysql_num_rows($r2_tmp)>0){
-				$f2_tmp = mysql_fetch_assoc($r2_tmp);
+			$r2_tmp = $link->query($sql);
+			if($r2_tmp->num_rows>0){
+				$f2_tmp = $r2_tmp->fetch_assoc();
 				$message = $f2_tmp['message'];
 				$subject = $f2_tmp['subject'];
 				if(trim($message) == ''){
@@ -664,11 +672,11 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 		}
 	}else{
 		//buscamos mensaje por defecto	
-		$default_language = datosreg('1','language','language','vdefault');
+		$default_language = obtener("language","vdefault","1","language");
 		$sql = "SELECT message, subject FROM messages WHERE type='renewed' AND language='".$default_language."'";
-		$r2_tmp = mysql_query($sql,$link);
-		if(mysql_num_rows($r2_tmp)>0){
-			$f2_tmp = mysql_fetch_assoc($r2_tmp);
+		$r2_tmp = $link->query($sql);
+		if($r2_tmp->num_rows>0){
+			$f2_tmp = $r2_tmp->fetch_assoc();
 			$message = $f2_tmp['message'];
 			$subject = $f2_tmp['subject'];
 			if(trim($message) == ''){
@@ -684,14 +692,14 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 	}
 	
 	$sql = "SELECT sender FROM parametros";
-	$result = mysql_query($sql,$link);
-	$row_sender = mysql_fetch_assoc($result);
+	$result = $link->query($sql);
+	$row_sender = $result->fetch_assoc();
 	$sender = $row_sender['sender'];
 	
 	if($candado){
 		$sql = "DESCRIBE members";
-		$r_campos = mysql_query($sql,$link);
-		while($aux = mysql_fetch_assoc($r_campos)){
+		$r_campos = $link->query($sql);
+		while($aux = $r_campos->fetch_assoc()){
 			if($aux['Field']=="renewal"){
 				$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
 			}else{
@@ -706,8 +714,8 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 		$mail->Subject = $subject;
 		$mail->AddAddress($fila['email']);
 		$sql = "SELECT responsible FROM responsible WHERE area='renewal';";
-		$r_resp = mysql_query($sql,$link);
-		while($aux = mysql_fetch_assoc($r_resp)){
+		$r_resp = $link->query($sql);
+		while($aux = $r_resp->fetch_assoc()){
 			//Copia a responsables
 			$mail->AddBCC($aux['responsible']);
 		}
@@ -721,7 +729,7 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 		$mail->Send();
 	}else{
 		//Notificamos al responsable
-		$idioma = datosreg($fila['language'],'language','language','cod');
+		$idioma = obtener("language","cod",$fila['language'],"language");
 		$mail = new PHPMailer();
 		$mail->Host = "localhost";
 		//$mail->From = "";
@@ -729,8 +737,8 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 		$mail->Subject = "Problem to send renewed notice e-mail";
 		
 		$sql = "SELECT responsible FROM responsible WHERE area='renewal';";
-		$r_resp = mysql_query($sql,$link);
-		while($aux = mysql_fetch_assoc($r_resp)){
+		$r_resp = $link->query($sql);
+		while($aux = $r_resp->fetch_assoc()){
 			//Copia a responsables
 			$mail->AddAddress($aux['responsible']);
 		}
@@ -754,14 +762,14 @@ if ( $_REQUEST['tab'] == 'eliminar_usuario'){
 	
 	$presql = "DELETE FROM members WHERE cod ='".$cod."';";
 
-	$result = mysql_query($presql,$link);
+	$result = $link->query($presql);
 	if (!$result) {
 		echo json_encode(array("status"=>"false"));
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
 	echo json_encode(array("status"=>"true","cod"=>"member".$cod));
 
-	mysql_close($link);
+	$link->close();
 }
 
 
@@ -772,21 +780,21 @@ if ( $_REQUEST['tab'] == 'recordar_correo'){
 	global $saltt;
 				
 	$sql = "UPDATE users SET pass='".sha1($saltt.md5($pass))."' WHERE email='".$correo."';";
-	$result2 = mysql_query($sql,$link);
+	$result2 = $link->query($sql);
 	if (!$result2) {
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 		$contenido = "Error al actualizar las claves";
 		echo json_encode(array("status"=>"false","contenido"=>$contenido ));	
 	}
 	
 	$presql = "SELECT * FROM users WHERE email='".$correo."'";
-	$result = mysql_query($presql,$link);
+	$result = $link->query($presql);
 	if (!$result) {
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
-	$num_rows = mysql_num_rows($result);
+	$num_rows = $result->num_rows;
 	if($num_rows > 0){
-		$row = mysql_fetch_assoc($result);
+		$row = $result->fetch_assoc();
 		//Mandar correo con nueva clave
 		//Email para el usuario de confirmación de pedido
 		$mail = new PHPMailer();

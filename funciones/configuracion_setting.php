@@ -6,7 +6,7 @@ if ( $_REQUEST['tab'] == 'buscar_user'){
 	$link = conectar();
 	reset ($_REQUEST);
 	while (list ($param, $val) = each ($_REQUEST)) {
-	    $asignacion = "\$" . $param . "=mysql_real_escape_string(\$_REQUEST['" . $param . "']);";
+	    $asignacion = "\$" . $param . "=$link->real_escape_string(\$_REQUEST['" . $param . "']);";
     	eval($asignacion);
 	}
 	
@@ -23,12 +23,12 @@ if ( $_REQUEST['tab'] == 'buscar_user'){
 	$presql = "SELECT * FROM users WHERE ".$filtro.";";
 	//echo $presql;
 	
-	$result = mysql_query($presql,$link);
+	$result = $link->query($presql);
 	if (!$result) {
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
 	
-	$num_rows = mysql_num_rows($result);
+	$num_rows = $result->num_rows;
 	if($num_rows > 0){
 		$contenido = '<br /><div align="center">';
 		$contenido .= '<table class="stylized"  width="100%">';
@@ -52,7 +52,7 @@ if ( $_REQUEST['tab'] == 'buscar_user'){
 		<th class="option">Options</th>
 		</tr>';
 		$i = 0;
-		while($row = mysql_fetch_assoc($result)){
+		while($row = $result->fetch_assoc()){
 			$i += 1;
 			if($i%2==0){
 				$contenido .= '<tr class="campo2">';
@@ -71,8 +71,8 @@ if ( $_REQUEST['tab'] == 'buscar_user'){
 			}
 		$contenido .= '</table></div>';
 				
-		mysql_free_result($result);
-		//mysql_free_result($result2);
+		$result->free();
+		
 		echo json_encode(array("status"=>"true","contenido"=>$contenido ));		
 	}else{
 		echo json_encode(array("status"=>"false" ));		
@@ -83,7 +83,7 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 	$link = conectar();
 	reset ($_REQUEST);
 	while (list ($param, $val) = each ($_REQUEST)) {
-	    $asignacion = "\$" . $param . "=mysql_real_escape_string(\$_REQUEST['" . $param . "']);";
+	    $asignacion = "\$" . $param . "=$link->real_escape_string(\$_REQUEST['" . $param . "']);";
     	eval($asignacion);
 	}
 	
@@ -100,12 +100,12 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 	$presql = "SELECT * FROM users WHERE ".$filtro." ORDER BY ".$campo." ".$orden.";";
 	//echo $presql;
 	
-	$result = mysql_query($presql,$link);
+	$result = $link->query($presql);
 	if (!$result) {
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
 	
-	$num_rows = mysql_num_rows($result);
+	$num_rows = $result->num_rows;
 	if($num_rows > 0){
 		$contenido = '<br /><div align="center">';
 		$contenido .= '<table class="stylized"  width="100%">';
@@ -128,7 +128,7 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 		<th class="option">Options</th>
 		</tr>';
 		$i = 0;
-		while($row = mysql_fetch_assoc($result)){
+		while($row = $result->fetch_assoc()){
 			$i += 1;
 			if($i%2==0){
 				$contenido .= '<tr class="campo2">';
@@ -146,8 +146,8 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 			}
 		$contenido .= '</table></div>';
 				
-		mysql_free_result($result);
-		//mysql_free_result($result2);
+		$result->free();
+		
 		echo json_encode(array("status"=>"true","contenido"=>$contenido ));		
 	}else{
 		echo json_encode(array("status"=>"false" ));		
@@ -159,12 +159,12 @@ if ( $_REQUEST['tab'] == 'edit_member'){
 	$cod = substr($_REQUEST['cod'],4);
 	
 	$sql = "SELECT * FROM users WHERE cod='".$cod."';";
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if (!$result) {
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
-	if(mysql_num_rows($result) > 0 ){
-		$row = mysql_fetch_assoc($result);
+	if($result->num_rows > 0 ){
+		$row = $result->fetch_assoc();
 		$contenido = '';
 		$contenido .= '<h3>Form edit user</h3>';
 		$contenido .= '<div class="box box-info">If the password is blank, will not change the current password</div>';
@@ -190,7 +190,7 @@ if ( $_REQUEST['tab'] == 'editar'){
 	$link = conectar();
 	reset ($_REQUEST);
 	while (list ($param, $val) = each ($_REQUEST)) {
-	    $asignacion = "\$" . $param . "=mysql_real_escape_string(\$_REQUEST['" . $param . "']);";
+	    $asignacion = "\$" . $param . "=$link->real_escape_string(\$_REQUEST['" . $param . "']);";
     	eval($asignacion);
 	}
 	if($password==''){
@@ -201,9 +201,9 @@ if ( $_REQUEST['tab'] == 'editar'){
 		$sql = "UPDATE users SET user='".$user."',name='".$name."',pass='".$pass."',email='".$email."' WHERE cod='".$cod."'";
 	}
 	//echo $sql;
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if (!$result) {									
-		die('Invalid query: Problems to insert data into the member table ' . mysql_error());	
+		die('Invalid query: Problems to insert data into the member table ' . $link->error);	
 	}
 	echo json_encode(array("status"=>"true","user"=>$user,"name"=>$name,"email"=>$email,"cod"=>"user".$cod));	
 }
@@ -214,14 +214,14 @@ if ( $_REQUEST['tab'] == 'eliminar_usuario'){
 	
 	$presql = "DELETE FROM users WHERE cod ='".$cod."';";
 
-	$result = mysql_query($presql,$link);
+	$result = $link->query($presql);
 	if (!$result) {
 		echo json_encode(array("status"=>"false"));
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
 	echo json_encode(array("status"=>"true","cod"=>"user".$cod));
 
-	mysql_close($link);
+	$link->close();
 }
 
 
@@ -246,7 +246,7 @@ if ( $_REQUEST['tab'] == 'add_user'){
 	$link = conectar();
 	reset ($_REQUEST);
 	while (list ($param, $val) = each ($_REQUEST)) {
-	    $asignacion = "\$" . $param . "=mysql_real_escape_string(\$_REQUEST['" . $param . "']);";
+	    $asignacion = "\$" . $param . "=$link->real_escape_string(\$_REQUEST['" . $param . "']);";
     	eval($asignacion);
 	}
 	
@@ -254,14 +254,14 @@ if ( $_REQUEST['tab'] == 'add_user'){
 	$seguir_email = "SI";
 	
 	$sql = "SELECT 1 FROM users WHERE user='".$user."';";
-	$result = mysql_query($sql,$link);
-	if(mysql_num_rows($result)>0){
+	$result = $link->query($sql);
+	if($result->num_rows>0){
 		$seguir_nombre = "NO";	
 	}
 	
 	$sql = "SELECT 1 FROM users WHERE email='".$email."';";
-	$result = mysql_query($sql,$link);
-	if(mysql_num_rows($result)>0){
+	$result = $link->query($sql);
+	if($result->num_rows>0){
 		$seguir_email = "NO";	
 	}
 	
@@ -276,9 +276,9 @@ if ( $_REQUEST['tab'] == 'add_user'){
 		$pass = sha1($saltt.md5($password));
 		$sql = "INSERT INTO users (user,pass,name,email) VALUES ('".$user."','".$pass."','".$name."','".$email."')";
 		//echo $sql;
-		$result = mysql_query($sql,$link);
+		$result = $link->query($sql);
 		if (!$result) {									
-			die('Invalid query: Problems to insert data into the member table ' . mysql_error());	
+			die('Invalid query: Problems to insert data into the member table ' . $link->error);	
 		}
 		echo json_encode(array("status"=>"true"));	
 	}
@@ -291,9 +291,9 @@ if ( $_REQUEST['tab'] == 'buscar_message'){
 	$contenido = '<br><div style="width:80%;float:left;">';
 	$sql = "SELECT * FROM messages WHERE type='".$type."' AND language='".$lang."';";
 	//echo $sql;
-	$result = mysql_query($sql,$link);
-	if(mysql_num_rows($result)>0){
-		$row = mysql_fetch_assoc($result);
+	$result = $link->query($sql);
+	if($result->num_rows>0){
+		$row = $result->fetch_assoc();
 		$contenido .= 'Subject: <input type="text" class="half" id="subject" value="'.htmlspecialchars($row['subject']).'"><br><br>';
 		$contenido .= '<textarea class="large tinymce" id="message'.$row['cod'].'" name="message">'.htmlspecialchars($row['message']).'</textarea>';
 	}else{
@@ -303,9 +303,9 @@ if ( $_REQUEST['tab'] == 'buscar_message'){
 	$contenido .= '</div>';
 	$contenido .= '<div style="float:left;width:20%;text-align:center;">';
 	$sql = "DESCRIBE members";
-	$rs = mysql_query($sql,$link);
-	$contenido .= "<br><br><br><select id='field' size='".(mysql_num_rows($rs)-4)."'>";
-	while($fila = mysql_fetch_assoc($rs)){
+	$rs = $link->query($sql);
+	$contenido .= "<br><br><br><select id='field' size='".($rs->num_rows-4)."'>";
+	while($fila = $rs->fetch_assoc()){
 		if($fila['Field']!='cod' && $fila['Field']!='mark_renewal' && $fila['Field']!='email_renewal' && $fila['Field']!='email_expired'){
 			$contenido .= "<option value='".$fila['Field']."'>".$fila['Field']."</option>";
 		}
@@ -317,7 +317,7 @@ if ( $_REQUEST['tab'] == 'buscar_message'){
 	$contenido .= "<input type='hidden' id='typem' value='".$type."'>";
 	$contenido .= "<input type='hidden' id='langm' value='".$lang."'>";
 	$contenido .= "<br><br><div class='box box-info'>Double-click the field you want to insert into the textarea to include member information</div>";
-	mysql_free_result($rs);
+	$rs->free();
 	
 	echo json_encode($contenido);
 }
@@ -333,20 +333,20 @@ if ( $_REQUEST['tab'] == 'guardar_message' ){
 		//procedemos a insertar
 		$sql = "INSERT INTO messages (type,language,message,subject) VALUES ('".$type."','".$lang."','".$message."','".$subject."')";
 		//echo $sql;
-		$result = mysql_query($sql,$link);
+		$result = $link->query($sql);
 		if (!$result) {	
 			echo json_encode(array("status"=>"false","contenido"=>"Error"));
-			die('Invalid query: Problems to insert data into the member table ' . mysql_error());	
+			die('Invalid query: Problems to insert data into the member table ' . $link->error);	
 		}
 		$contenido = '<br><div class="box box-info closeable">Successfully saved</div>';
 	}else{
 		//actualizamos
 		$cod = substr($id,7);
 		$sql = "UPDATE messages SET message='".$message."', subject='".$subject."' WHERE cod='".$cod."'";
-		$result = mysql_query($sql,$link);
+		$result = $link->query($sql);
 		if (!$result) {	
 			echo json_encode(array("status"=>"false","contenido"=>"Error"));
-			die('Invalid query: Problems to insert data into the member table ' . mysql_error());	
+			die('Invalid query: Problems to insert data into the member table ' . $link->error);	
 		}
 		$contenido = '<br><div class="box box-info closeable">Successfully saved</div>';
 	}
@@ -359,10 +359,10 @@ if ( $_REQUEST['tab'] == 'set_invoice' ){
 	$lang = $_REQUEST['lang'];
 	$campo = $_REQUEST['campo'];
 	$sql = "UPDATE invoice SET ".$campo."='".$text."' WHERE cod='1'";
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if (!$result) {	
-		echo json_encode(array("status"=>"false","contenido"=>mysql_error()));
-		die('Invalid query: Problems to insert data into the member table ' . mysql_error());	
+		echo json_encode(array("status"=>"false","contenido"=>$link->error));
+		die('Invalid query: Problems to insert data into the member table ' . $link->error);	
 	}else{
 		echo json_encode(array("status"=>"true"));	
 	}
@@ -374,10 +374,10 @@ if ( $_REQUEST['tab'] == 'set_language' ){
 	$valor = $_REQUEST['valor'];
 	$sql = "UPDATE language SET active='".$valor."' WHERE cod='".$lang."';";
 	//echo $sql;
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if (!$result) {	
 		echo json_encode(array("status"=>"false","contenido"=>"Error"));
-		die('Invalid query: Problems to insert data into the member table ' . mysql_error());	
+		die('Invalid query: Problems to insert data into the member table ' . $link->error);	
 	}
 	echo json_encode(array("status"=>"true"));	
 }
@@ -386,16 +386,16 @@ if ( $_REQUEST['tab'] == 'set_default' ){
 	$link = conectar();
 	$lang = $_REQUEST['lang'];
 	$sql = "SELECT cod FROM language WHERE vdefault='1';";
-	$result = mysql_query($sql,$link);
-	if(mysql_num_rows($result) > 0){
-		$row = mysql_fetch_assoc($result);
+	$result = $link->query($sql);
+	if($result->num_rows > 0){
+		$row = $result->fetch_assoc();
 		$sql = "UPDATE language SET vdefault='0' WHERE cod='".$row['cod']."';";
-		$result2 = mysql_query($sql,$link);
+		$result2 = $link->query($sql);
 	}
 	$sql = "UPDATE language SET vdefault='1' WHERE cod='".$lang."';";
-	$result3 = mysql_query($sql,$link);
+	$result3 = $link->query($sql);
 	if(!$result3){
-		echo json_encode(array("status"=>"false","contenido"=>mysql_error()));
+		echo json_encode(array("status"=>"false","contenido"=>$link->error));
 	}else{
 		echo json_encode(array("status"=>"true"));	
 	}
@@ -405,9 +405,9 @@ if ( $_REQUEST['tab'] == 'set_notice_renewal' ){
 	$link = conectar();
 	$valor = $_REQUEST['valor'];
 	$sql = "UPDATE parametros SET notice_renewal='".$valor."' WHERE cod='1'";
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if(!$result){
-		echo json_encode(array("status"=>"false","contenido"=>mysql_error()));
+		echo json_encode(array("status"=>"false","contenido"=>$link->error));
 	}else{
 		echo json_encode(array("status"=>"true"));	
 	}
@@ -417,9 +417,9 @@ if ( $_REQUEST['tab'] == 'set_sender' ){
 	$link = conectar();
 	$valor = $_REQUEST['valor'];
 	$sql = "UPDATE parametros SET sender='".$valor."' WHERE cod='1'";
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if(!$result){
-		echo json_encode(array("status"=>"false","contenido"=>mysql_error()));
+		echo json_encode(array("status"=>"false","contenido"=>$link->error));
 	}else{
 		echo json_encode(array("status"=>"true"));	
 	}
@@ -429,17 +429,17 @@ if ( $_REQUEST['tab'] == 'add_email_renewal' ){
 	$link = conectar();
 	$email = $_REQUEST['email'];
 	$sql = "INSERT INTO responsible (responsible,area) VALUES ('".$email."','renewal');";
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	
 	$sql = "SELECT * FROM responsible WHERE area='renewal'";
-	$result = mysql_query($sql,$link);
-	if(mysql_affected_rows()<=0){
+	$result = $link->query($sql);
+	if($link->affected_rows<=0){
 		//No hay registros
 		echo json_encode(array("status"=>"false","contenido"=>"Error"));
 	}else{
 		$contenido = '<table class="stylized" id="resp_renewal_email" width="60%">';
 		$contenido .= '<tr><th>E-mail</th><th class="ta-center">Options</th></tr>';
-		while($row = mysql_fetch_assoc($result)){
+		while($row = $result->fetch_assoc()){
 			$contenido .= '<tr><td>'.$row['responsible'].'</td>';
 			$contenido .= '<td id="resp'.$row['cod'].'" class="ta-center">';
 			$contenido .= '<a href="#" title="Delete" class="icon-elim"><img src="images/delete.png" /></a>';
@@ -459,17 +459,17 @@ if ( $_REQUEST['tab'] == 'add_email_expired' ){
 	$link = conectar();
 	$email = $_REQUEST['email'];
 	$sql = "INSERT INTO responsible (responsible,area) VALUES ('".$email."','expired');";
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	
 	$sql = "SELECT * FROM responsible WHERE area='expired'";
-	$result = mysql_query($sql,$link);
-	if(mysql_affected_rows()<=0){
+	$result = $link->query($sql);
+	if($link->affected_rows<=0){
 		//No hay registros
 		echo json_encode(array("status"=>"false","contenido"=>"Error"));
 	}else{
 		$contenido = '<table class="stylized" id="resp_expired_email" width="60%">';
 		$contenido .= '<tr><th>E-mail</th><th class="ta-center">Options</th></tr>';
-		while($row = mysql_fetch_assoc($result)){
+		while($row = $result->fetch_assoc()){
 			$contenido .= '<tr><td>'.$row['responsible'].'</td>';
 			$contenido .= '<td id="resp'.$row['cod'].'" class="ta-center">';
 			$contenido .= '<a href="#" title="Delete" class="icon-elim"><img src="images/delete.png" /></a>';
@@ -491,31 +491,31 @@ if ( $_REQUEST['tab'] == 'eliminar_correo'){
 	
 	$presql = "DELETE FROM responsible WHERE cod ='".$cod."';";
 
-	$result = mysql_query($presql,$link);
+	$result = $link->query($presql);
 	if (!$result) {
 		echo json_encode(array("status"=>"false"));
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
 	echo json_encode(array("status"=>"true","cod"=>"resp".$cod));
 
-	mysql_close($link);
+	$link->close();
 }
 
 if ( $_REQUEST['tab'] == 'add_type' ){
 	$link = conectar();
 	$tipo = $_REQUEST['tipo'];
 	$sql = "INSERT INTO type_member (name) VALUES ('".$tipo."');";
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	
 	$sql = "SELECT * FROM type_member;";
-	$result = mysql_query($sql,$link);
-	if(mysql_affected_rows()<=0){
+	$result = $link->query($sql);
+	if($link->affected_rows<=0){
 		//No hay registros
 		echo json_encode(array("status"=>"false","contenido"=>"Error"));
 	}else{
 		$contenido = '<table class="stylized" id="resp_type" width="60%">';
 		$contenido .= '<tr><th>E-mail</th><th class="ta-center">Options</th></tr>';
-		while($row = mysql_fetch_assoc($result)){
+		while($row = $result->fetch_assoc()){
 			$contenido .= '<tr><td>'.$row['name'].'</td>';
 			$contenido .= '<td id="type'.$row['cod'].'" class="ta-center">';
 			$contenido .= '<a href="#" title="Delete" class="icon-elim-type"><img src="images/delete.png" /></a>';
@@ -537,14 +537,14 @@ if ( $_REQUEST['tab'] == 'eliminar_tipo'){
 	
 	$presql = "DELETE FROM type_member WHERE cod ='".$cod."';";
 
-	$result = mysql_query($presql,$link);
+	$result = $link->query($presql);
 	if (!$result) {
 		echo json_encode(array("status"=>"false"));
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
 	echo json_encode(array("status"=>"true","cod"=>"type".$cod));
 
-	mysql_close($link);
+	$link->close();
 }
 
 if ( $_REQUEST['tab'] == 'formulario_add'){
@@ -566,27 +566,27 @@ if ( $_REQUEST['tab'] == 'add_link'){
 	$link = conectar();
 	reset ($_REQUEST);
 	while (list ($param, $val) = each ($_REQUEST)) {
-	    $asignacion = "\$" . $param . "=mysql_real_escape_string(\$_REQUEST['" . $param . "']);";
+	    $asignacion = "\$" . $param . "=$link->real_escape_string(\$_REQUEST['" . $param . "']);";
     	eval($asignacion);
 	}
 	
 	$sql = "INSERT INTO links (description, title, enlace) VALUES ('".$description."','".$title."','".$enlace."')";
 	//echo $sql;
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if (!$result) {									
-		die('Invalid query: Problems to insert data into the member table ' . mysql_error());	
+		die('Invalid query: Problems to insert data into the member table ' . $link->error);	
 	}
 	
 	$sql = "SELECT * FROM links;";
-	$result = mysql_query($sql,$link);
-	if(mysql_affected_rows()<=0){
+	$result = $link->query($sql);
+	if($link->affected_rows<=0){
 		//No hay registros
 		$contenido = 'No links';
 	}else{
 		//Mostrar la tabla
 		$contenido = '<table class="stylized" id="tbl_links" width="100%">';
 		$contenido .= '<tr><th>Title</th><th>Description</th><th class="ta-center">Options</th></tr>';
-		while($row = mysql_fetch_assoc($result)){
+		while($row = $result->fetch_assoc()){
 			$contenido .= '<tr><td>'.$row['title'].'</td>';
 			$contenido .= '<td>'.$row['description'].'</td>';
 			$contenido .= '<td id="link'.$row['cod'].'" class="ta-center">';
@@ -607,14 +607,14 @@ if ( $_REQUEST['tab'] == 'eliminar_link'){
 	
 	$presql = "DELETE FROM links WHERE cod ='".$cod."';";
 
-	$result = mysql_query($presql,$link);
+	$result = $link->query($presql);
 	if (!$result) {
 		echo json_encode(array("status"=>"false"));
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
 	echo json_encode(array("status"=>"true","cod"=>"link".$cod));
 
-	mysql_close($link);
+	$link->close();
 }
 
 if ( $_REQUEST['tab'] == 'edit_link'){
@@ -622,12 +622,12 @@ if ( $_REQUEST['tab'] == 'edit_link'){
 	$cod = substr($_REQUEST['cod'],4);
 	
 	$sql = "SELECT * FROM links WHERE cod='".$cod."';";
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if (!$result) {
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . $link->error);
 	}
-	if(mysql_num_rows($result) > 0 ){
-		$row = mysql_fetch_assoc($result);
+	if($result->num_rows > 0 ){
+		$row = $result->fetch_assoc();
 		$contenido = '';
 		$contenido .= '<h3>Form edit link</h3>';
 		$contenido .= '<form id="link_edit" action="#" method="post"><fieldset>';
@@ -650,14 +650,14 @@ if ( $_REQUEST['tab'] == 'save_edit_link'){
 	$link = conectar();
 	reset ($_REQUEST);
 	while (list ($param, $val) = each ($_REQUEST)) {
-	    $asignacion = "\$" . $param . "=mysql_real_escape_string(\$_REQUEST['" . $param . "']);";
+	    $asignacion = "\$" . $param . "=$link->real_escape_string(\$_REQUEST['" . $param . "']);";
     	eval($asignacion);
 	}
 	$sql = "UPDATE links SET description='".$description."',title='".$title."',enlace='".$enlace."' WHERE cod='".$cod."'";
 	//echo $sql;
-	$result = mysql_query($sql,$link);
+	$result = $link->query($sql);
 	if (!$result) {									
-		die('Invalid query: Problems update link ' . mysql_error());	
+		die('Invalid query: Problems update link ' . $link->error);	
 	}
 	echo json_encode(array("status"=>"true","description"=>$description,"title"=>$title,"cod"=>"link".$cod));	
 }

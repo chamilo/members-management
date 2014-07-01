@@ -28,8 +28,8 @@ if($candado[0]!='registrado'){
 }else{
 	$link = conectar();
 	$sql =  "SELECT * FROM users WHERE cod='".$candado[1]."';";
-	$result = mysql_query($sql,$link);
-	if(mysql_num_rows($result)==0){
+	$result = $link->query($sql);
+	if($result->num_rows==0){
 		$_SESSION['tipo']= 'invitado';
 		header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
 	}
@@ -261,16 +261,16 @@ Welcome back,
 <tbody>
 <?php
 $link = conectar();
-$result_num = mysql_query("SELECT count('cod') AS num FROM members",$link);
-$tmp = mysql_fetch_assoc($result_num);
+$result_num = $link->query("SELECT count('cod') AS num FROM members");
+$tmp = $result_num->fetch_assoc();
 $num_members = $tmp['num'];
 $estilo = array("progress-green","progress-blue","progress-red");
 $sql = "SELECT * FROM status";
-$result = mysql_query($sql,$link);
+$result = $link->query($sql);
 $i = 0;
-while ($tmp_status = mysql_fetch_assoc($result)){
-	$result_num = mysql_query("SELECT count('cod') AS num FROM members WHERE status='".$tmp_status['cod']."'",$link);
-	$tmp = mysql_fetch_assoc($result_num);
+while ($tmp_status = $result->fetch_assoc()){
+	$result_num = $link->query("SELECT count('cod') AS num FROM members WHERE status='".$tmp_status['cod']."'");
+	$tmp = $result_num->fetch_assoc();
 	$num_status = $tmp['num'];
 	echo '<tr>';
 	echo '<td>'.$tmp_status['status'].'</td>';
@@ -305,8 +305,8 @@ Statistics:
 <tbody>
 <?php
 $sql = "SELECT COUNT(*) AS cuenta, SUM(quota) AS suma FROM members WHERE date_arrival > '".date("Y-m")."-01'";
-$result = mysql_query($sql,$link);
-$aux = mysql_fetch_assoc($result);
+$result = $link->query($sql);
+$aux = $result->fetch_assoc();
 ?>
 <tr>
 <td>New inscriptions this month</td>
@@ -317,8 +317,8 @@ $aux = mysql_fetch_assoc($result);
 </tr>
 <?php
 $sql = "SELECT COUNT(*) AS cuenta, SUM(quota) AS suma FROM members WHERE date_arrival > '".date("Y")."-01-01'";
-$result = mysql_query($sql,$link);
-$aux = mysql_fetch_assoc($result);
+$result = $link->query($sql);
+$aux = $result->fetch_assoc();
 ?>
 <tr>
 <td>New inscriptions this year</td>
@@ -329,8 +329,8 @@ $aux = mysql_fetch_assoc($result);
 </tr>
 <?php
 $sql = "SELECT COUNT(*) AS cuenta, SUM(quota) AS suma FROM members WHERE mark_renewal > '".date("Y-m")."-01'";
-$result = mysql_query($sql,$link);
-$aux = mysql_fetch_assoc($result);
+$result = $link->query($sql);
+$aux = $result->fetch_assoc();
 ?>
 <tr>
 <td>Renovations this month</td>
@@ -341,8 +341,8 @@ $aux = mysql_fetch_assoc($result);
 </tr>
 <?php
 $sql = "SELECT COUNT(*) AS cuenta, SUM(quota) AS suma FROM members WHERE mark_renewal > '".date("Y")."-01-01'";
-$result = mysql_query($sql,$link);
-$aux = mysql_fetch_assoc($result);
+$result = $link->query($sql);
+$aux = $result->fetch_assoc();
 ?>
 <tr>
 <td>Renovations this year</td>
@@ -358,23 +358,23 @@ $aux = mysql_fetch_assoc($result);
 
 
 <?php 
-$sql = "SELECT * FROM members WHERE email_renewal='1';";
-$result = mysql_query($sql,$link);
+$sql = "SELECT * FROM members WHERE email_renewal='1' ORDER BY renewal ASC;";
+$result = $link->query($sql);
 ?>
 <div class="colgroup leading">
 <div class="width6">
 <h4>
 Member renewal notice:
-<a href="#"><?php echo mysql_num_rows($result); ?></a>
+<a href="#"><?php echo $result->num_rows; ?></a>
 </h4>
 <hr>
 <?php 
-if(mysql_num_rows($result)>0){
+if($result->num_rows>0){
 	echo '<div id="result_searcher" align="center">';
 	echo '<table class="stylized"  width="100%">';
 	echo '<tr><th>N</th><th class="name">Name</th><th class="surname">Surname</th><th class="email">E-mail</th><th class="renewal">Renewal</th><th class="option">Options</th></tr>';
 	$i = 0;
-	while($row = mysql_fetch_assoc($result)){
+	while($row = $result->fetch_assoc()){
 		$i += 1;
 		if($i%2==0){
 			echo '<tr class="campo2">';
@@ -394,8 +394,7 @@ if(mysql_num_rows($result)>0){
 		echo '</tr>';
 		}
 	echo '</table></div>';
-			
-	mysql_free_result($result);
+	$result->free_result();
 }
 ?>
 </div>

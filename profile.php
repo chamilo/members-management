@@ -133,8 +133,8 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
 <section class="column width6 first">
 		<?php 
 		$sql = "SELECT * FROM users WHERE cod='".$_SESSION['codusuario']."';";
-		$result = mysql_query($sql,$link);
-		$row = mysql_fetch_assoc($result);
+		$result = $link->query($sql);
+		$row = $result->fetch_assoc();
         echo '<h3>Form edit user</h3>';
 		echo '<div class="box box-info">If the password is blank, will not change the current password</div>';
 		echo '<form id="user_edit" action="#" method="post"><fieldset>';

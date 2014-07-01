@@ -3,7 +3,8 @@ $(document).ready(function(){
 		e.preventDefault();
 	  	e.stopPropagation();
 		var nombre = $("#name").attr("value");
-		var apellidos = $("#surname").attr("value");
+		var vinstitution = $("#institution").attr("value");
+		//var apellidos = $("#surname").attr("value");
 		var vemail = $("#email").attr("value");
 		var pais = $("#country").attr("value");
 		var telefono = $("#phone").attr("value");
@@ -16,7 +17,8 @@ $(document).ready(function(){
 		var alta_ini = $("#arrival_ini").attr("value").replace(/\//g, '-');
 		var alta_fin = $("#arrival_fin").attr("value").replace(/\//g, '-');
 		$("#result_searcher").html('<div class="center"><br /><img src="images/loadingAnimation.gif" alt="cargando" /></div>');
-		$.post("funciones/configuracion_searcher.php",{tab:"buscar",name:nombre,surname:apellidos,email:vemail,country:pais,phone:telefono,quota:vquota,type:tipo,status:estado,language:lenguaje,renewal_ini:renovacion_ini,renewal_fin:renovacion_fin,arrival_ini:alta_ini,arrival_fin:alta_fin},mostrarBusqueda, "json"); 
+		$("#result_edit").html('');
+		$.post("funciones/configuracion_searcher.php",{tab:"buscar",name:nombre,institution:vinstitution,email:vemail,country:pais,phone:telefono,quota:vquota,type:tipo,status:estado,language:lenguaje,renewal_ini:renovacion_ini,renewal_fin:renovacion_fin,arrival_ini:alta_ini,arrival_fin:alta_fin},mostrarBusqueda, "json"); 
 		
 		return false;  
 	});
@@ -79,11 +81,12 @@ function Editarusuario()
 										$("#result_edit").html('');
 										//Actualizar los 3 campos de la tabla que se ha editado
 										alert("updated correctly");
-										$("#"+data.cod).prev().prev().prev().prev().prev().html(data.name);
-										$("#"+data.cod).prev().prev().prev().prev().html(data.surname);
-										$("#"+data.cod).prev().prev().prev().html(data.email);
-										$("#"+data.cod).prev().prev().html(data.renewal);
-										$("#"+data.cod).prev().html(data.type);
+										$("#"+data.cod).prev().prev().prev().prev().prev().prev().html(data.name);
+										$("#"+data.cod).prev().prev().prev().prev().prev().html(data.surname);
+										$("#"+data.cod).prev().prev().prev().prev().html(data.email);
+										$("#"+data.cod).prev().prev().prev().html(data.renewal);
+										$("#"+data.cod).prev().prev().html(data.type);
+										$("#"+data.cod).prev().html(data.quota+' &euro;');
 									}
 								}, "json"); 
 							
@@ -121,7 +124,7 @@ function Editarusuario()
 						  alert("Error update");
 					  }else{
 						  alert("updated correctly");
-						  $("#"+data.cod).prev().html(data.renewal);					 		  
+						  $("#"+data.cod).prev().prev().prev().html(data.renewal);					 		  
 					  }
 				   }, "json"); 
 		}
@@ -162,6 +165,7 @@ function Editarusuario()
 		var vorden = "ASC";
 		var vcampo = $(this).parent().attr("class");
 		$("#result_searcher").html('<div class="center"><br /><img src="images/loadingAnimation.gif" alt="cargando" /></div>');
+		$("#result_edit").html('');
 		$.post("funciones/configuracion_searcher.php",{tab:"buscar_ordenado",name:nombre,surname:apellidos,email:vemail,country:pais,phone:telefono,quota:vquota,type:tipo,status:estado,language:lenguaje,renewal_ini:renovacion_ini,renewal_fin:renovacion_fin,arrival_ini:alta_ini,arrival_fin:alta_fin,orden:vorden,campo:vcampo},mostrarBusqueda, "json"); 
 		e.preventDefault();
 	  	e.stopPropagation();
@@ -184,6 +188,7 @@ function Editarusuario()
 		var vorden = "DESC";
 		var vcampo = $(this).parent().attr("class");
 		$("#result_searcher").html('<div class="center"><br /><img src="images/loadingAnimation.gif" alt="cargando" /></div>');
+		$("#result_edit").html('');
 		$.post("funciones/configuracion_searcher.php",{tab:"buscar_ordenado",name:nombre,surname:apellidos,email:vemail,country:pais,phone:telefono,quota:vquota,type:tipo,status:estado,language:lenguaje,renewal_ini:renovacion_ini,renewal_fin:renovacion_fin,arrival_ini:alta_ini,arrival_fin:alta_fin,orden:vorden,campo:vcampo},mostrarBusqueda, "json");
 		e.preventDefault();
 	  	e.stopPropagation();
