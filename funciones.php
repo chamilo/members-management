@@ -73,6 +73,20 @@ function obtener2( $tabla, $iden, $id, $campo )
     return $segm;  
 } 
 
+function datosreg( $id, $tabla, $campo, $iden )  
+{  
+    $sql_link = conectar();  
+    if( $id == "" || empty($id) )  
+        return "";  
+    // obtener datos del usuario  
+    $q = "SELECT * FROM ".$tabla." WHERE ".$iden." = '".$id."'";  
+    $result = $sql_link->query($q) or oiError($sql_link->error());  
+    $ret = $result->fetch_array();  
+    $segm = $ret[$campo];  
+    $result->free_result();  
+    return $segm;  
+}
+
 /**
 * function obtener (de_la_tabla, donde_este_campo, es_igual_a_esto, este_campo_quiero);
 * Obtenemos un campo especifico.
@@ -441,7 +455,7 @@ function quitar_html($cadena){
 	$txt=str_replace("&ordm;",'º',$txt);
 	$txt=str_replace("&amp;",'&',$txt);
 	$txt=str_replace("&bull;",'•',$txt);
-	$txt=str_replace("&euro;",'€',$txt);
+	$txt=str_replace("&euro;",'€',$txt); 
 	
 	return $txt;
 }

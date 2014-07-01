@@ -131,7 +131,9 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
     <tr>
     	<td>
     	Name: <input type="text" name="name" id="name" size="23" />
-        Surname: <input type="text" name="surname" id="surname" size="23" />
+        <!--Surname: <input type="text" name="surname" id="surname" size="23" />-->
+        Institution: <input type="text" name="institution" id="institution" size="23" />
+        
         Email: <input type="text" name="email" id="email" size="23" />
         <br /><br />
         Country

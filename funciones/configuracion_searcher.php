@@ -18,15 +18,21 @@ if ( $_REQUEST['tab'] == 'buscar'){
 	$filtro = '';
 	
 	if($name != ''){
-		$filtro .= "name LIKE '%".$name."%'";
+		$filtro .= "(name LIKE '%".$name."%' OR surname LIKE '%".$name."%')";
 	}
-	
-	
+	/*
 	if($surname != ''){
 		if($filtro != ''){
 			$filtro .= " AND ";
 		}
 		$filtro .= "surname LIKE '%".$surname."%'";
+	}
+	*/
+	if($institution != ''){
+		if($filtro != ''){
+			$filtro .= " AND ";
+		}
+		$filtro .= "institution LIKE '%".$institution."%'";
 	}
 	
 	
@@ -112,7 +118,7 @@ if ( $_REQUEST['tab'] == 'buscar'){
 	}
 	
 	$presql = "SELECT * FROM members WHERE ".$filtro.";";
-	//echo $presql;
+
 	
 	$result = $link->query($presql);
 	if (!$result) {
@@ -121,7 +127,10 @@ if ( $_REQUEST['tab'] == 'buscar'){
 	
 	$num_rows = $result->num_rows;
 	if($num_rows > 0){
-		$contenido = '<br /><div align="center">';
+		$contenido = '';
+		//$contenido .= '<input type="hidden" id="query_sql" value="'.encriptar($presql).'">';
+		$contenido .= '<a class="btn btn-special" href="exportar-excel.php?query='.urlencode(encriptar($presql)).'" style="float: right; padding: 2px 5px; text-align: center;">Exportar a Excel</a>';
+		$contenido .= '<br /><div align="center">';
 		$contenido .= '<table class="stylized"  width="100%">';
     	$contenido .= '<tr>
 		<th class="name">
@@ -303,7 +312,9 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 	
 	$num_rows = $result->num_rows;
 	if($num_rows > 0){
-		$contenido = '<br /><div align="center">';
+		$contenido = '';
+		$contenido .= '<a class="btn btn-special" href="exportar-excel.php?query='.urlencode(encriptar($presql)).'" style="float: right; padding: 2px 5px; text-align: center;">Exportar a Excel</a>';
+		$contenido .= '<br /><div align="center">';
 		$contenido .= '<table class="stylized"  width="100%">';
     	$contenido .= '<tr>
 		<th class="name">
@@ -505,18 +516,13 @@ if ( $_REQUEST['tab'] == 'editar'){
 	$result = $link->query($sql);
 	$aux = $result->fetch_assoc();
 	
-	echo json_encode(array("status"=>"true","name"=>$name,"surname"=>$surname,"email"=>$email,"cod"=>"member".$cod,"renewal"=>date("d/m/Y",strtotime($renewal)),"type"=>$aux['name']));	
+	echo json_encode(array("status"=>"true","name"=>$name,"surname"=>$surname,"email"=>$email,"cod"=>"member".$cod,"renewal"=>date("d/m/Y",strtotime($renewal)),"type"=>$aux['name'],"quota"=>$quota));	
 }
 
 if ( $_REQUEST['tab'] == 'renovar_miembro'){
 	$link = conectar();
 	$cod = substr($_REQUEST['cod'],6);
-	//$fecha = datosreg($cod, 'members', 'renewal', 'cod');
-	//$anio = date("Y",strtotime($fecha));
-	//$mes = date("m",strtotime($fecha));
-	//$dia = date("d",strtotime($fecha));
-	
-	$fecha_renovacion = strtotime(datosreg($cod,'members','renewal','cod'));
+	$fecha_renovacion = strtotime(obtener("members","cod",$cod,"renewal"));
 	if($fecha_renovacion > time()){
 		// a la fecha se le suma 1 año
 		$sql = "SELECT DATE_ADD(renewal,INTERVAL 1 YEAR) AS renewal FROM members WHERE cod='".$cod."';";
@@ -553,7 +559,7 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 			if($aux['Field']=="renewal"){
 				$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
 			}elseif($aux['Field']=="quota"){
-				$message = str_replace("{{".$aux['Field']."}}", (number_format($fila[$aux['Field']],2 , "," ,".").' E'), $message);
+				$message = str_replace("{{".$aux['Field']."}}", (number_format($fila[$aux['Field']],2 , "," ,".").' €'), $message);
 			}else{
 				$message = str_replace("{{".$aux['Field']."}}", $fila[$aux['Field']], $message);
 			}
@@ -564,8 +570,6 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 		$result = $link->query($sql);
 		$aux_invoice = $result->fetch_assoc();
 		$num_invoice = ($aux_invoice['num_invoice']=='NULL')?('1'):($aux_invoice['num_invoice']+1);
-		//$num_invoice = datosreg('1','parametros','num_invoice','cod');
-		
 		
 		$sql = "INSERT INTO invoices (num_invoice,year,cod_member,message,quota,date) VALUES ('".$num_invoice."','".$year."','".$cod."','".$link->real_escape_string($message)."','".$fila['quota']."','".date("Y-m-d")."');";
 		$result = $link->query($sql);
@@ -635,17 +639,17 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 		
 		
 	//ENVIAR E-MAIL
-	$language = datosreg($fila['language'],'language','language','cod');
-	//Buscamos la plantilla que le corresponda
+	$language = obtener("language","cod",$fila['language'],"language");
+		//Buscamos la plantilla que le corresponda
 	$sql = "SELECT message, subject FROM messages WHERE type='renewed' AND language='".$language."'";
 	$r_tmp = $link->query($sql);
-	
 	if($r_tmp->num_rows>0){
 		$f_tmp = $r_tmp->fetch_assoc();
 		$message = $f_tmp['message'];
 		$subject = $f_tmp['subject'];
 		if(trim($message) == ''){
-			$default_language = datosreg('1','language','language','vdefault');
+			
+			$default_language = obtener("language","vdefault","1","language");
 			$sql = "SELECT message, subject FROM messages WHERE type='renewed' AND language='".$default_language."'";
 			$r2_tmp = $link->query($sql);
 			if($r2_tmp->num_rows>0){
@@ -668,7 +672,7 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 		}
 	}else{
 		//buscamos mensaje por defecto	
-		$default_language = datosreg('1','language','language','vdefault');
+		$default_language = obtener("language","vdefault","1","language");
 		$sql = "SELECT message, subject FROM messages WHERE type='renewed' AND language='".$default_language."'";
 		$r2_tmp = $link->query($sql);
 		if($r2_tmp->num_rows>0){
@@ -725,7 +729,7 @@ if ( $_REQUEST['tab'] == 'renovar_miembro'){
 		$mail->Send();
 	}else{
 		//Notificamos al responsable
-		$idioma = datosreg($fila['language'],'language','language','cod');
+		$idioma = obtener("language","cod",$fila['language'],"language");
 		$mail = new PHPMailer();
 		$mail->Host = "localhost";
 		//$mail->From = "";
