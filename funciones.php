@@ -5,19 +5,13 @@ include_once 'clases/class.phpmailer.php';
 ini_set("error_reporting",0);
 
 function conectar(){
-<<<<<<< HEAD
-<<<<<<< HEAD
     require __DIR__.'/config.php';
-=======
-	require_once __DIR__.'/config.php';
->>>>>>> 53b7077a198082a8a17a02a4b3ec3def9a7955f4
     $link = new mysqli(
         $config['db']['host'],
         $config['db']['user'],
         $config['db']['pass'],
         $config['db']['name']
     );
-<<<<<<< HEAD
     if ($link->connect_errno) {
         die('No pudo conectarse: ' . $link->connect_error);
     }
@@ -38,31 +32,6 @@ function conectar2(){
     }
     //mysql_set_charset('utf8',$link);
     return $link;
-=======
-	$link = new mysqli('localhost', 'user', 'pass','db');
-=======
->>>>>>> 53b7077a198082a8a17a02a4b3ec3def9a7955f4
-	if ($link->connect_errno) {
-		die('No pudo conectarse: ' . $link->connect_error);
-	}
-	$link->set_charset('utf8');
-	return $link;
-}
-
-function conectar2(){
-	require_once __DIR__.'/config.php';
-	$link = new mysqli(
-        $config['db']['host'],
-        $config['db']['user'],
-        $config['db']['pass'],
-        $config['db']['name']
-    );
-	if ($link->connect_errno) {
-		die('No pudo conectarse: ' . $link->connect_error);
-	}
-	//mysql_set_charset('utf8',$link);
-	return $link;
->>>>>>> d2bd14eb7e18f0438df1a1babd338b7f9469dc03
 }
 
 
@@ -103,20 +72,6 @@ function obtener2( $tabla, $iden, $id, $campo )
     $result->free_result();  
     return $segm;  
 } 
-
-function datosreg( $id, $tabla, $campo, $iden )  
-{  
-    $sql_link = conectar();  
-    if( $id == "" || empty($id) )  
-        return "";  
-    // obtener datos del usuario  
-    $q = "SELECT * FROM ".$tabla." WHERE ".$iden." = '".$id."'";  
-    $result = $sql_link->query($q) or oiError($sql_link->error());  
-    $ret = $result->fetch_array();  
-    $segm = $ret[$campo];  
-    $result->free_result();  
-    return $segm;  
-}
 
 /**
 * function obtener (de_la_tabla, donde_este_campo, es_igual_a_esto, este_campo_quiero);
@@ -486,7 +441,7 @@ function quitar_html($cadena){
 	$txt=str_replace("&ordm;",'º',$txt);
 	$txt=str_replace("&amp;",'&',$txt);
 	$txt=str_replace("&bull;",'•',$txt);
-	$txt=str_replace("&euro;",'€',$txt); 
+	$txt=str_replace("&euro;",'€',$txt);
 	
 	return $txt;
 }
