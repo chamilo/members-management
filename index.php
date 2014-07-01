@@ -358,7 +358,7 @@ $aux = $result->fetch_assoc();
 
 
 <?php 
-$sql = "SELECT * FROM members WHERE email_renewal='1';";
+$sql = "SELECT * FROM members WHERE email_renewal='1' ORDER BY renewal ASC;";
 $result = $link->query($sql);
 ?>
 <div class="colgroup leading">

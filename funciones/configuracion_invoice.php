@@ -412,7 +412,7 @@ if ( $_REQUEST['tab'] == 'forward'){
 		die('Invalid query: ' . $link->error);	
 	}
 	$fila = $result->fetch_assoc();
-	$language = datosreg($fila['language'],'language','language','cod');
+	$language = obtenter("language","cod",$fila['language'],"language");
 	//Buscamos la plantilla que le corresponda
 	$sql = "SELECT message, subject FROM messages WHERE type='invoice_forward' AND language='".$language."'";
 	$r_tmp = $link->query($sql);
@@ -422,7 +422,7 @@ if ( $_REQUEST['tab'] == 'forward'){
 		$message = $f_tmp['message'];
 		$subject = $f_tmp['subject'];
 		if(trim($message) == ''){
-			$default_language = datosreg('1','language','language','vdefault');
+			$default_language = obtener("language","vdefault","1","language");
 			$sql = "SELECT message, subject FROM messages WHERE type='invoice_forward' AND language='".$default_language."'";
 			$r2_tmp = $link->query($sql);
 			if($r2_tmp->num_rows>0){
@@ -445,7 +445,7 @@ if ( $_REQUEST['tab'] == 'forward'){
 		}
 	}else{
 		//buscamos mensaje por defecto	
-		$default_language = datosreg('1','language','language','vdefault');
+		$default_language = obtener("language","vdefault","1","language");
 		$sql = "SELECT message, subject FROM messages WHERE type='invoice_forward' AND language='".$default_language."'";
 		$r2_tmp = $link->query($sql);
 		if($r2_tmp->num_rows>0){
@@ -480,16 +480,16 @@ if ( $_REQUEST['tab'] == 'forward'){
 			}elseif($aux['Field']=="date_arrival"){
 				$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
 			}elseif($aux['Field']=="language"){
-				$tmp_language = datosreg($fila[$aux['Field']],'language','language','cod');
+				$tmp_language = obtener("language","cod",$fila[$aux['Field']],"language");
 				$message = str_replace("{{".$aux['Field']."}}", $tmp_language, $message);
 			}elseif($aux['Field']=="type"){
-				$tmp_type = datosreg($fila[$aux['Field']],'type_member','name','cod');
+				$tmp_type = obtener("type_member","cod",$fila[$aux['Field']],"name");
 				$message = str_replace("{{".$aux['Field']."}}", $tmp_type, $message);
 			}elseif($aux['Field']=="status"){
-				$tmp_status = datosreg($fila[$aux['Field']],'status','status','cod');
+				$tmp_status = obtener("status","cod",$fila[$aux['Field']],"status");
 				$message = str_replace("{{".$aux['Field']."}}", $tmp_status, $message);
 			}elseif($aux['Field']=="country"){
-				$tmp_country = datosreg($fila[$aux['Field']],'country','printable_name','iso');
+				$tmp_country = obtener("country","iso",$fila[$aux['Field']],"printable_name");
 				$message = str_replace("{{".$aux['Field']."}}", $tmp_country, $message);
 			}else{
 				$message = str_replace("{{".$aux['Field']."}}", $fila[$aux['Field']], $message);
@@ -513,7 +513,7 @@ if ( $_REQUEST['tab'] == 'forward'){
 		$mail->Send();
 	}else{
 		//Notificamos al responsable
-		$idioma = datosreg($fila['language'],'language','language','cod');
+		$idioma = obtener("language","cod",$fila['language'],"language");
 		$mail = new PHPMailer();
 		$mail->Host = "localhost";
 		//$mail->From = "";

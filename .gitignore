@@ -2,12 +2,8 @@
 .idea/workspace.xml
 .idea
 .gitignore
-<<<<<<< HEAD
-config.php
-=======
-
 img/nyro/Thumbs.db
 img/Thumbs.db
 images/pdf_invoices/Thumbs.db
 images/Thumbs.db
->>>>>>> 53b7077a198082a8a17a02a4b3ec3def9a7955f4
+config.php
