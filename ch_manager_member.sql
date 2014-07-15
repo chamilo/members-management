@@ -663,11 +663,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`cod`, `user`, `pass`, `email`, `name`, `last_login`, `actual_login`, `last_ip`, `ip`, `cookie`, `validez`) VALUES
-(1, 'admin', 'ce78692e23367e7a9b92b804487ff71cd4fe9fc9', 'jaruiz@nosolored.com', 'Administrator', '2012-12-27 10:07:24', '2012-12-27 10:05:04', '79.157.15.242', '79.157.15.242', '3dc802d3326772d10c5143b2a72c90eca236e89a', '2012-12-27 16:55:14'),
-(6, 'nsradmin', '432ad24894c99a2bbb8b58b0c2a9136a682b2780', 'nosolored@nosolored.com', 'nosolored - Administrator', '2012-12-11 11:03:08', '2012-12-11 11:42:27', '79.157.14.241', '79.157.14.241', NULL, NULL),
-(10, 'admin1', 'a02ac394bf173efdbfb401399c31eb9d88249943', 'info@contidosdixitais.com', 'admin', '2012-12-19 16:11:05', '2012-12-20 20:47:07', '82.176.16.122', '82.176.16.122', NULL, NULL),
-(4, 'noa', '09f3e9a504b20ca125d3f4d5a5b68ad92bd561a2', 'noa@contidosdixitais.com', 'Noa Orizales', '2012-12-21 18:48:26', '2012-12-26 18:30:57', '81.39.31.198', '81.39.31.198', NULL, NULL);
+INSERT INTO `users` (`cod`, `user`, `pass`, `email`, `name`) VALUES
+(1, 'admin', 'ce78692e23367e7a9b92b804487ff71cd4fe9fc9', 'admin@correoadmin.com', 'Administrator');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
