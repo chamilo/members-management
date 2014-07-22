@@ -123,7 +123,7 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
 <!-- Wrapper -->
 <div class="wrapper">
 <!-- Left column/section -->
-<section class="column width6 first">
+<section class="column width8 first">
 <form action="#" id="form_searcher" method="post" >
 	<div align="center">
     <table border="0" width="100%" id="tbl_estilo1">
@@ -243,9 +243,7 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
 <div id="result_edit"></div>
 </section> 
 <!-- End of Left column/section -->
-<!-- Right column/section -->
-<?php include_once 'menu/right-menu.php'; ?>
-<!-- End of Right column/section -->
+
 </div>
 <!-- End of Wrapper -->
 
