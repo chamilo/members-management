@@ -2640,3 +2640,8 @@ button.datepick-cmd {
 	text-decoration:none;
 	border-bottom:0 none;
 }
+
+.num_reg {
+    display: inline-block;
+    margin-top: 5px;
+}

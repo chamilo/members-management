@@ -358,21 +358,22 @@ $aux = $result->fetch_assoc();
 
 
 <?php 
-$sql = "SELECT * FROM members WHERE email_renewal='1' ORDER BY renewal ASC;";
+$sql = "SELECT * FROM members WHERE renewal > DATE_SUB(NOW(), INTERVAL 1 WEEK)  AND renewal < DATE_SUB(NOW(),INTERVAL -3 WEEK) ORDER BY renewal ASC";
 $result = $link->query($sql);
 ?>
 <div class="colgroup leading">
 <div class="width6">
-<h4>
-Member renewal notice:
+<h4 style="display:inline-block; margin-bottom:0;">
+Members with next expiration date:
 <a href="#"><?php echo $result->num_rows; ?></a>
 </h4>
+<a style="float:right" href="cron.php" title="Execute cron"><img src="images/cron.png" style="margin-top:10px" alt="cron"></a>
 <hr>
 <?php 
 if($result->num_rows>0){
 	echo '<div id="result_searcher" align="center">';
 	echo '<table class="stylized"  width="100%">';
-	echo '<tr><th>N</th><th class="name">Name</th><th class="surname">Surname</th><th class="email">E-mail</th><th class="renewal">Renewal</th><th class="option">Options</th></tr>';
+	echo '<tr><th>N</th><th class="name">Name</th><th class="surname">Surname</th><th class="email">E-mail</th><th class="renewal">Renewal</th><th class=ta-center">Renewal notice</th><th class="option">Options</th></tr>';
 	$i = 0;
 	while($row = $result->fetch_assoc()){
 		$i += 1;
@@ -386,6 +387,12 @@ if($result->num_rows>0){
 		echo '<td>'.htmlspecialchars($row['surname']).'</td>';
 		echo '<td>'.htmlspecialchars($row['email']).'</td>';
 		echo '<td class="ta-center">'.date("d/m/Y",strtotime($row['renewal'])).'</td>';
+		
+		if($row['email_renewal'] == '1'){
+			echo '<td class="ta-center" style="background:#A5DF00;"><strong>Yes</strong></td>';
+		}else{
+			echo '<td class="ta-center" style="background:#F5D0A9;"><strong>No</strong></td>';
+		}
 		echo '<td id="member'.$row['cod'].'" class="options-width">';
 		echo '<a href="renovar-user.php?cod='.$row['cod'].'" title="Renewal" class="renovar"><img src="images/update.png" /></a>&nbsp;';
 		echo '<a href="edit-user.php?cod='.$row['cod'].'" title="Edit '.$row['usuario'].'" class="icon-1 info-tooltip"><img src="images/note_edit.png" /></a>&nbsp;';
