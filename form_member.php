@@ -70,16 +70,16 @@ if($send_invoice =="YES"){
 		}elseif($aux['Field']=="date_arrival"){
 			$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
 		}elseif($aux['Field']=="language"){
-			$tmp_language = datosreg($fila[$aux['Field']],'language','language','cod');
+			$tmp_language = obtener('language','cod',$fila[$aux['Field']],'language');
 			$message = str_replace("{{".$aux['Field']."}}", $tmp_language, $message);
 		}elseif($aux['Field']=="type"){
-			$tmp_type = datosreg($fila[$aux['Field']],'type_member','name','cod');
+			$tmp_type = obtener('type_member','cod',$fila[$aux['Field']],'name');
 			$message = str_replace("{{".$aux['Field']."}}", $tmp_type, $message);
 		}elseif($aux['Field']=="status"){
-			$tmp_status = datosreg($fila[$aux['Field']],'status','status','cod');
+			$tmp_status = obtener('status','cod',$fila[$aux['Field']],'status');
 			$message = str_replace("{{".$aux['Field']."}}", $tmp_status, $message);
 		}elseif($aux['Field']=="country"){
-			$tmp_country = datosreg($fila[$aux['Field']],'country','printable_name','iso');
+			$tmp_country = obtener('country','iso',$fila[$aux['Field']],'printable_name');
 			$message = str_replace("{{".$aux['Field']."}}", $tmp_country, $message);
 		}else{
 			$message = str_replace("{{".$aux['Field']."}}", $fila[$aux['Field']], $message);
@@ -91,7 +91,6 @@ if($send_invoice =="YES"){
 	$result = $link->query($sql);
 	$aux_invoice = $result->fetch_assoc();
 	$num_invoice = ($aux_invoice['num_invoice']=='NULL')?('1'):($aux_invoice['num_invoice']+1);
-	//$num_invoice = datosreg('1','parametros','num_invoice','cod');
 	
 	$sql = "INSERT INTO invoices (num_invoice,year,cod_member,message,quota,date) VALUES ('".$num_invoice."','".$year."','".$cod_max."','".$link->real_escape_string($message)."','".$fila['quota']."','".date("Y-m-d")."');";
 	$result = $link->query($sql);
@@ -165,7 +164,7 @@ if($send_invoice =="YES"){
 	
 	//ENVIAR E-MAIL
 	$cod_language = $language;
-	$language = datosreg($cod_language,'language','language','cod');
+	$language = obtener('language','cod',$cod_language,'language');
 	//Buscamos la plantilla que le corresponda
 	$sql = "SELECT message, subject FROM messages WHERE type='welcome' AND language='".$language."'";
 	$r_tmp = $link->query($sql);
@@ -175,7 +174,7 @@ if($send_invoice =="YES"){
 		$message = $f_tmp['message'];
 		$subject = $f_tmp['subject'];
 		if(trim($message) == ''){
-			$default_language = datosreg('1','language','language','vdefault');
+			$default_language = obtener('language','vdefault','1','language');
 			$sql = "SELECT message, subject FROM messages WHERE type='welcome' AND language='".$default_language."'";
 			$r2_tmp = $link->query($sql);
 			if($r2_tmp->num_rows>0){
@@ -198,7 +197,7 @@ if($send_invoice =="YES"){
 		}
 	}else{
 		//buscamos mensaje por defecto	
-		$default_language = datosreg('1','language','language','vdefault');
+		$default_language = obtener('language','vdefault','1','language');
 		$sql = "SELECT message, subject FROM messages WHERE type='welcome' AND language='".$default_language."'";
 		$r2_tmp = $link->query($sql);
 		if($r2_tmp->num_rows>0){
@@ -234,16 +233,16 @@ if($send_invoice =="YES"){
 			}elseif($aux['Field']=="date_arrival"){
 				$message = str_replace("{{".$aux['Field']."}}", date("d/m/Y",strtotime($fila[$aux['Field']])), $message);
 			}elseif($aux['Field']=="language"){
-				$tmp_language = datosreg($fila[$aux['Field']],'language','language','cod');
+				$tmp_language = obtener('language','cod',$fila[$aux['Field']],'language');
 				$message = str_replace("{{".$aux['Field']."}}", $tmp_language, $message);
 			}elseif($aux['Field']=="type"){
-				$tmp_type = datosreg($fila[$aux['Field']],'type_member','name','cod');
+				$tmp_type = obtener('type_member','cod',$fila[$aux['Field']],'name');
 				$message = str_replace("{{".$aux['Field']."}}", $tmp_type, $message);
 			}elseif($aux['Field']=="status"){
-				$tmp_status = datosreg($fila[$aux['Field']],'status','status','cod');
+				$tmp_status = obtener('status','cod',$fila[$aux['Field']],'status');
 				$message = str_replace("{{".$aux['Field']."}}", $tmp_status, $message);
 			}elseif($aux['Field']=="country"){
-				$tmp_country = datosreg($fila[$aux['Field']],'country','printable_name','iso');
+				$tmp_country = obtener('country','iso',$fila[$aux['Field']],'printable_name');
 				$message = str_replace("{{".$aux['Field']."}}", $tmp_country, $message);
 			}else{
 				$message = str_replace("{{".$aux['Field']."}}", $fila[$aux['Field']], $message);
@@ -273,7 +272,7 @@ if($send_invoice =="YES"){
 		$mail->Send();
 	}else{
 		//Notificamos al responsable
-		$idioma = datosreg($cod_language,'language','language','cod');
+		$idioma = obtener('language','cod',$cod_language,'language');
 		$mail = new PHPMailer();
 		$mail->Host = "localhost";
 		//$mail->From = "";
