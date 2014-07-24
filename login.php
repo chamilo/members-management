@@ -12,13 +12,6 @@ echo "<pre>";
 echo var_dump($_POST);	
 echo "</pre>";
 */
-/*
-if(!isset($_SESSION['tipo'])){
-	$_SESSION['id']= session_id();
-	$_SESSION['tipo']= 'invitado';
-}
-*/
-//echo $_SERVER['SERVER_NAME'];
 if(isset($_POST['username']) && isset($_POST['password'])){
 	if(login($_POST['username'],$_POST['password'],isset($_POST['loginkeeping']))==1){
 		header('Location: http://'.$_SERVER['SERVER_NAME'].'/index.php');	  
@@ -27,53 +20,6 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 		session_write_close();
 		header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
 	}
-	/*
-	$link = conectar();
-	$usuario = comillas_inteligentes($_POST['username']);
-	
-	$presql = "SELECT * FROM users WHERE user=".$usuario.";";
-	$result = mysql_query($presql,$link);
-	if (!$result) {
-		die('Invalid query: ' . mysql_error());
-	}
-	$num_rows = mysql_num_rows($result);
-
-	if ($num_rows == "0"){
-		$_SESSION['error'] = "Usuario y/o clave incorrecta, pruebe de nuevo o solicite nueva contrase&ntilde;a";
-		session_write_close();
-		header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
-	}else{
-	$row = mysql_fetch_assoc($result);
-	
-	if( $row['pass'] == sha1($_POST['password']) ){
-		$array = array('registrado',$row['cod']);
-		$sql = "UPDATE users SET last_login='".$row['actual_login']."', actual_login=FROM_UNIXTIME(".time()."), last_ip='".$row['ip']."', ip='".$_SERVER['REMOTE_ADDR']."' WHERE cod='".$row['cod']."';";
-		$result2 = mysql_query($sql,$link);
-		if (!$result2) {
-			die('Invalid query: ' . mysql_error());
-		}
-		$result_tmp = mysql_query("SELECT * FROM users WHERE cod='".$row['cod']."';",$link);
-		$row = mysql_fetch_assoc($result_tmp);
-		$_SESSION['tipo'] = encriptar(implode(':',$array));
-		$_SESSION['codusuario'] = $row['cod'];
-		$_SESSION['usuario'] = $row['user'];
-		$_SESSION['name'] = $row['name'];
-		$_SESSION['last_login'] = strtotime($row['last_login']);
-		$_SESSION['actual_login'] = strtotime($row['actual_login']);
-		$_SESSION['last_ip'] = $row['last_ip'];
-		$_SESSION['ip'] = $row['ip'];
-		$_SESSION['email'] = $row['email'];
-		session_write_close();
-		header('Location: http://'.$_SERVER['SERVER_NAME'].'/index.php');
-	}else{
-		$_SESSION['error'] = "Usuario y/o clave incorrecta, pruebe de nuevo o solicite nueva contrase&ntilde;a";
-		session_write_close();
-		header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
-	}
-	mysql_free_result($result);
-	mysql_close($link);
-	}
-	*/
 }
 ?>
 

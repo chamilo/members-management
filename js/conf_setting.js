@@ -307,7 +307,7 @@ $(document).ready(function(){
 		e.preventDefault();
 	  	e.stopPropagation();
 		var vcod = $(this).parent().attr("id");
-		$("#edit_link").html('<div class="center"><br /><img src="img/nyro/ajaxLoader.gif" alt="cargando" /></div>');
+		$("#edit_link").html('<div class="center"><br /><img src="images/nyro/ajaxLoader.gif" alt="cargando" /></div>');
 		$.post("funciones/configuracion_setting.php",{tab:"edit_link",cod:vcod},
 			   function(data){
 				   if(data.status == "false"){
@@ -368,7 +368,7 @@ function funcionlink(){
 		e.preventDefault();
 	  	e.stopPropagation();
 		var vcod = $(this).parent().attr("id");
-		$("#edit_link").html('<div class="center"><br /><img src="img/nyro/ajaxLoader.gif" alt="cargando" /></div>');
+		$("#edit_link").html('<div class="center"><br /><img src="images/nyro/ajaxLoader.gif" alt="cargando" /></div>');
 		$.post("funciones/configuracion_setting.php",{tab:"edit_link",cod:vcod},
 			   function(data){
 				   if(data.status == "false"){
@@ -564,7 +564,7 @@ function Editarusuario()
 		e.preventDefault();
 	  	e.stopPropagation();
 		var vcod = $(this).parent().attr("id");
-		$("#result_edit").html('<div class="center"><br /><img src="img/nyro/ajaxLoader.gif" alt="cargando" /></div>');
+		$("#result_edit").html('<div class="center"><br /><img src="images/nyro/ajaxLoader.gif" alt="cargando" /></div>');
 		$.post("funciones/configuracion_setting.php",{tab:"edit_member",cod:vcod},
 			   function(data){
 				   if(data.status == "false"){
