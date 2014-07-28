@@ -156,7 +156,7 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
         Phone: <input type="text" name="phone" id="phone" size="17" />
         Quota: <input type="text" name="quota" id="quota" size="10" />
         <br /><br />
-		Type member:
+		Member type:
    		<select name="type" id="type">
    		<?php
        		$link = conectar();
@@ -208,7 +208,7 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
    		?>
         </select>
         <br /><br />
-        Date renewal between:
+        Renewal date between:
         <input type="text" name="renewal_ini" id="renewal_ini" placeholder="dd/mm/yyyy" />
         &nbsp;&nbsp; to &nbsp;&nbsp;
         <input type="text" name="renewal_fin" id="renewal_fin" placeholder="dd/mm/yyyy" />
@@ -218,7 +218,7 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
         }
 		?>
         <br /><br />
-        &nbsp;&nbsp;Date arrival between: &nbsp;
+        &nbsp;&nbsp;Registration date between: &nbsp;
         <input type="text" name="arrival_ini" id="arrival_ini" placeholder="dd/mm/yyyy" />
         &nbsp;&nbsp; to &nbsp;&nbsp;
         <input type="text" name="arrival_fin" id="arrival_fin" placeholder="dd/mm/yyyy" />
