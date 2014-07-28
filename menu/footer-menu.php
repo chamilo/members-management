@@ -19,7 +19,7 @@ Copyright © 2012
 <a href="form_member.php">Add new member</a>
 </li>
 <li>
-<a href="searcher.php">Searcher</a>
+<a href="searcher.php">Search</a>
 </li>
 <li>
 <a href="invoices.php">Invoices</a>

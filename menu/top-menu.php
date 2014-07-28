@@ -53,7 +53,7 @@
 		echo '<li>';
 	}
 	?>
-    <a href="searcher.php">Searcher</a>
+    <a href="searcher.php">Search</a>
     </li>
     <?php
     if(strstr($_SERVER['REQUEST_URI'],"/invoices.php")){

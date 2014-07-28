@@ -182,7 +182,7 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
 </ul>
 <div id="tabs-1">
 <br>
-Searcher User: 
+Search user: 
 <input id="user" class="half" type="text" name="user" value=""> 
 <input type="button" class="btn btn-green" id="buscar_user" name="enviar" value="Search">
 <input type="button" class="btn btn-blue" id="new_user" name="enviar" value="New User">

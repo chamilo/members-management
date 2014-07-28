@@ -22,7 +22,7 @@ echo "</pre>";
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Chamilo - Searcher</title>
+<title>Chamilo - Search</title>
 <meta content="Chamilo - Members Management" name="description">
 <!-- We need to emulate IE7 only when we are to use excanvas -->
 <!--[if IE]> <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> <![endif]-->
@@ -107,7 +107,7 @@ Logged in as
 <!-- Page title -->
 <div id="pagetitle">
     <div class="wrapper">
-        <h1>Searcher</h1>
+        <h1>Search</h1>
     </div>
 </div>
 <!-- End of Page title -->
@@ -127,7 +127,7 @@ if(isset($_SESSION['info']) && $_SESSION['info']!=''){
 <form action="#" id="form_searcher" method="post" >
 	<div align="center">
     <table border="0" width="100%" id="tbl_estilo1">
-    <tr><th>Form searcher</th></tr>
+    <tr><th>Search form</th></tr>
     <tr>
     	<td>
     	Name: <input type="text" name="name" id="name" size="23" />
