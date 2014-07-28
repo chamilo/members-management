@@ -301,7 +301,7 @@ if($link->affected_rows<=0){
 <h4>Language Manager:</h4>
 <div id="manager_language">
 <table id="tbl_estilo1" width="100%" align="center">
-<tr><th>Languages ​​available</th><th></th><th>Languages active</th></tr>
+<tr><th>Available languages</th><th></th><th>Active languages</th></tr>
 <tr>
 <td style='width:45%'>
 <?php
