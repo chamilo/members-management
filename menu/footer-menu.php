@@ -1,9 +1,8 @@
 <footer id="bottom">
 <div class="wrapper">
 <p>
-Copyright © 2012
 <b>
-<a href="http://www.nosolored.com" target="_blank">NOSOLORED S.L.</a>
+<a href="http://www.chamilo.org/" target="_blank">CHAMILO</a>
 </b>
 </p>
 </div>

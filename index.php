@@ -14,28 +14,6 @@ echo "<pre>";
 echo var_dump($_POST);	
 echo "</pre>";
 */
-/*
-if(!isset($_SESSION['tipo'])){
-	$_SESSION['id']= session_id();
-	$_SESSION['tipo']= 'invitado';
-	header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
-}
-
-$candado = explode(':',desencriptar($_SESSION['tipo']));
-if($candado[0]!='registrado'){
-	$_SESSION['tipo']= 'invitado';
-	header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
-}else{
-	$link = conectar();
-	$sql =  "SELECT * FROM users WHERE cod='".$candado[1]."';";
-	$result = $link->query($sql);
-	if($result->num_rows==0){
-		$_SESSION['tipo']= 'invitado';
-		header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
-	}
-}
-*/
-/* echo "<pre>".var_dump($_SESSION)."</pre>"; */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +64,7 @@ if($candado[0]!='registrado'){
 		e.preventDefault();
 	  	e.stopPropagation();
 		var vcod = $(this).parent().attr("id");
-		$("#result_edit").html('<div class="center"><br /><img src="img/nyro/ajaxLoader.gif" alt="cargando" /></div>');
+		$("#result_edit").html('<div class="center"><br /><img src="images/nyro/ajaxLoader.gif" alt="cargando" /></div>');
 		$.post("funciones/configuracion_searcher.php",{tab:"edit_member",cod:vcod},
 			   function(data){
 				   if(data.status == "false"){
@@ -191,7 +169,7 @@ if($candado[0]!='registrado'){
 <div class="wrapper">
 <!-- Title/Logo - can use text instead of image -->
 <div id="title">
-<img alt="Members Management" src="img/logo.png">
+<img alt="Members Management" src="images/logo.png">
 <!--<span>Administry</span> demo-->
 </div>
 <!-- Top navigation -->

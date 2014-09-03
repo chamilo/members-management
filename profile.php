@@ -91,7 +91,7 @@ echo "</pre>";
 <div class="wrapper">
 <!-- Title/Logo - can use text instead of image -->
 <div id="title">
-<img alt="Setting" src="img/logo.png">
+<img alt="Setting" src="images/logo.png">
 <!--<span>Administry</span> demo-->
 </div>
 <!-- Top navigation -->
