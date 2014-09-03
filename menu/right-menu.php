@@ -5,7 +5,7 @@
     </header>
     <dl class="first">
     <dt>
-    <img width="16" height="16" src="img/key.png" alt="">
+    <img width="16" height="16" src="images/key.png" alt="">
     </dt>
     <dd>
     <a href="profile.php"><?php echo htmlspecialchars($_SESSION['name']); ?> (<?php echo htmlspecialchars($_SESSION['usuario']); ?>)</a>

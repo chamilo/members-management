@@ -45,7 +45,7 @@ function Editarusuario()
 		e.preventDefault();
 	  	e.stopPropagation();
 		var vcod = $(this).parent().attr("id");
-		$("#result_edit").html('<div class="center"><br /><img src="img/nyro/ajaxLoader.gif" alt="cargando" /></div>');
+		$("#result_edit").html('<div class="center"><br /><img src="images/nyro/ajaxLoader.gif" alt="cargando" /></div>');
 		$.post("funciones/configuracion_searcher.php",{tab:"edit_member",cod:vcod},
 			   function(data){
 				   if(data.status == "false"){

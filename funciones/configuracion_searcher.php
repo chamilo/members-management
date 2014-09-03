@@ -129,35 +129,37 @@ if ( $_REQUEST['tab'] == 'buscar'){
 	if($num_rows > 0){
 		$contenido = '';
 		//$contenido .= '<input type="hidden" id="query_sql" value="'.encriptar($presql).'">';
+		$contenido .= '<div class="num_reg">Number of records: <strong>'.$num_rows.'</strong></div>';
 		$contenido .= '<a class="btn btn-special" href="exportar-excel.php?query='.urlencode(encriptar($presql)).'" style="float: right; padding: 2px 5px; text-align: center;">Exportar a Excel</a>';
 		$contenido .= '<br /><div align="center">';
 		$contenido .= '<table class="stylized"  width="100%">';
     	$contenido .= '<tr>
 		<th class="name">
-		Name<br>
 		<img class="buscar_campo_ordenado_desc" src="images/down.png" width="16" height="16" border="0" title="Sort Descending" />
+		Name
 		<img class="buscar_campo_ordenado_asc" src="images/up.png" width="16" height="16" border="0" title="Sort ascending" />
 		</th>
 		<th class="surname">
-		Surname<br>
 		<img class="buscar_campo_ordenado_desc" src="images/down.png"  width="16" height="16" border="0" title="Sort Descending" />
+		Surname
 		<img class="buscar_campo_ordenado_asc" src="images/up.png"  width="16" height="16" border="0" title="Sort ascending" />
 		</th>
 		<th class="email">
-		E-mail<br>
 		<img class="buscar_campo_ordenado_desc" src="images/down.png"  width="16" height="16" border="0" title="Sort Descending" />
+		E-mail
 		<img class="buscar_campo_ordenado_asc" src="images/up.png"  width="16" height="16" border="0" title="Sort ascending" />
 		</th>
 		<th class="renewal">
-		Renewal<br>
 		<img class="buscar_campo_ordenado_desc" src="images/down.png"  width="16" height="16" border="0" title="Sort Descending" />
+		Renewal
 		<img class="buscar_campo_ordenado_asc" src="images/up.png"  width="16" height="16" border="0" title="Sort ascending" />
 		</th>
 		<th class="type">
-		Member type<br>
 		<img class="buscar_campo_ordenado_desc" src="images/down.png"  width="16" height="16" border="0" title="Sort Descending" />
+		Member type
 		<img class="buscar_campo_ordenado_asc" src="images/up.png"  width="16" height="16" border="0" title="Sort ascending" />
 		</th>
+		<th>Status</th>
 		<th>Quota</th>
 		<th class="option">Options</th>
 		</tr>';
@@ -180,6 +182,7 @@ if ( $_REQUEST['tab'] == 'buscar'){
 			$contenido .= '<td>'.htmlspecialchars($row['email']).'</td>';
 			$contenido .= '<td class="ta-center">'.date("d/m/Y",strtotime($row['renewal'])).'</td>';
 			$contenido .= '<td>'.htmlspecialchars($tipos[$row['type']]).'</td>';
+			$contenido .= '<td>'.obtener("status","cod",$row['status'],"status").'</td>';
 			$contenido .= '<td>'.htmlspecialchars($row['quota']).' &euro;</td>';
 			$contenido .= '<td id="member'.$row['cod'].'" class="options-width">';
 			$contenido .= '<a href="renovar-user.php?cod='.$row['cod'].'" title="Renewal" class="renovar"><img src="images/update.png" /></a>&nbsp;';
@@ -313,35 +316,37 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 	$num_rows = $result->num_rows;
 	if($num_rows > 0){
 		$contenido = '';
+		$contenido .= '<div class="num_reg">Number of records: <strong>'.$num_rows.'</strong></div>';
 		$contenido .= '<a class="btn btn-special" href="exportar-excel.php?query='.urlencode(encriptar($presql)).'" style="float: right; padding: 2px 5px; text-align: center;">Exportar a Excel</a>';
 		$contenido .= '<br /><div align="center">';
 		$contenido .= '<table class="stylized"  width="100%">';
     	$contenido .= '<tr>
 		<th class="name">
-		Name<br>
 		<img class="buscar_campo_ordenado_desc" src="images/down.png" width="16" height="16" border="0" title="Sort Descending" />
+		Name
 		<img class="buscar_campo_ordenado_asc" src="images/up.png" width="16" height="16" border="0" title="Sort ascending" />
 		</th>
 		<th class="surname">
-		Surname<br>
 		<img class="buscar_campo_ordenado_desc" src="images/down.png"  width="16" height="16" border="0" title="Sort Descending" />
+		Surname
 		<img class="buscar_campo_ordenado_asc" src="images/up.png"  width="16" height="16" border="0" title="Sort ascending" />
 		</th>
 		<th class="email">
-		E-mail<br>
 		<img class="buscar_campo_ordenado_desc" src="images/down.png"  width="16" height="16" border="0" title="Sort Descending" />
+		E-mail
 		<img class="buscar_campo_ordenado_asc" src="images/up.png"  width="16" height="16" border="0" title="Sort ascending" />
 		</th>
 		<th class="renewal">
-		Renewal<br>
 		<img class="buscar_campo_ordenado_desc" src="images/down.png"  width="16" height="16" border="0" title="Sort Descending" />
+		Renewal
 		<img class="buscar_campo_ordenado_asc" src="images/up.png"  width="16" height="16" border="0" title="Sort ascending" />
 		</th>
 		<th class="type">
-		Member type<br>
 		<img class="buscar_campo_ordenado_desc" src="images/down.png"  width="16" height="16" border="0" title="Sort Descending" />
+		Member type
 		<img class="buscar_campo_ordenado_asc" src="images/up.png"  width="16" height="16" border="0" title="Sort ascending" />
 		</th>
+		<th>Status</th>
 		<th>Quota</th>
 		<th class="option">Options</th>
 		</tr>';
@@ -364,6 +369,7 @@ if ( $_REQUEST['tab'] == 'buscar_ordenado'){
 			$contenido .= '<td>'.htmlspecialchars($row['email']).'</td>';
 			$contenido .= '<td class="ta-center">'.date("d/m/Y",strtotime($row['renewal'])).'</td>';
 			$contenido .= '<td>'.htmlspecialchars($tipos[$row['type']]).'</td>';
+			$contenido .= '<td>'.obtener("status","cod",$row['status'],"status").'</td>';
 			$contenido .= '<td>'.htmlspecialchars($row['quota']).' &euro;</td>';
 			$contenido .= '<td id="member'.$row['cod'].'" class="options-width">';
 			$contenido .= '<a href="renovar-user.php?cod='.$row['cod'].'" title="Renewal" class="renovar"><img src="images/update.png" /></a>&nbsp;';

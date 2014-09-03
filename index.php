@@ -14,28 +14,6 @@ echo "<pre>";
 echo var_dump($_POST);	
 echo "</pre>";
 */
-/*
-if(!isset($_SESSION['tipo'])){
-	$_SESSION['id']= session_id();
-	$_SESSION['tipo']= 'invitado';
-	header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
-}
-
-$candado = explode(':',desencriptar($_SESSION['tipo']));
-if($candado[0]!='registrado'){
-	$_SESSION['tipo']= 'invitado';
-	header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
-}else{
-	$link = conectar();
-	$sql =  "SELECT * FROM users WHERE cod='".$candado[1]."';";
-	$result = $link->query($sql);
-	if($result->num_rows==0){
-		$_SESSION['tipo']= 'invitado';
-		header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
-	}
-}
-*/
-/* echo "<pre>".var_dump($_SESSION)."</pre>"; */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +64,7 @@ if($candado[0]!='registrado'){
 		e.preventDefault();
 	  	e.stopPropagation();
 		var vcod = $(this).parent().attr("id");
-		$("#result_edit").html('<div class="center"><br /><img src="img/nyro/ajaxLoader.gif" alt="cargando" /></div>');
+		$("#result_edit").html('<div class="center"><br /><img src="images/nyro/ajaxLoader.gif" alt="cargando" /></div>');
 		$.post("funciones/configuracion_searcher.php",{tab:"edit_member",cod:vcod},
 			   function(data){
 				   if(data.status == "false"){
@@ -191,7 +169,7 @@ if($candado[0]!='registrado'){
 <div class="wrapper">
 <!-- Title/Logo - can use text instead of image -->
 <div id="title">
-<img alt="Members Management" src="img/logo.png">
+<img alt="Members Management" src="images/logo.png">
 <!--<span>Administry</span> demo-->
 </div>
 <!-- Top navigation -->
@@ -358,21 +336,22 @@ $aux = $result->fetch_assoc();
 
 
 <?php 
-$sql = "SELECT * FROM members WHERE email_renewal='1' ORDER BY renewal ASC;";
+$sql = "SELECT * FROM members WHERE renewal > DATE_SUB(NOW(), INTERVAL 1 WEEK)  AND renewal < DATE_SUB(NOW(),INTERVAL -3 WEEK) ORDER BY renewal ASC";
 $result = $link->query($sql);
 ?>
 <div class="colgroup leading">
 <div class="width6">
-<h4>
-Member renewal notice:
+<h4 style="display:inline-block; margin-bottom:0;">
+Members with next expiration date:
 <a href="#"><?php echo $result->num_rows; ?></a>
 </h4>
+<a style="float:right" href="cron.php" title="Execute cron"><img src="images/cron.png" style="margin-top:10px" alt="cron"></a>
 <hr>
 <?php 
 if($result->num_rows>0){
 	echo '<div id="result_searcher" align="center">';
 	echo '<table class="stylized"  width="100%">';
-	echo '<tr><th>N</th><th class="name">Name</th><th class="surname">Surname</th><th class="email">E-mail</th><th class="renewal">Renewal</th><th class="option">Options</th></tr>';
+	echo '<tr><th>N</th><th class="name">Name</th><th class="surname">Surname</th><th class="email">E-mail</th><th class="renewal">Renewal</th><th class=ta-center">Renewal notice</th><th class="option">Options</th></tr>';
 	$i = 0;
 	while($row = $result->fetch_assoc()){
 		$i += 1;
@@ -386,6 +365,12 @@ if($result->num_rows>0){
 		echo '<td>'.htmlspecialchars($row['surname']).'</td>';
 		echo '<td>'.htmlspecialchars($row['email']).'</td>';
 		echo '<td class="ta-center">'.date("d/m/Y",strtotime($row['renewal'])).'</td>';
+		
+		if($row['email_renewal'] == '1'){
+			echo '<td class="ta-center" style="background:#A5DF00;"><strong>Yes</strong></td>';
+		}else{
+			echo '<td class="ta-center" style="background:#F5D0A9;"><strong>No</strong></td>';
+		}
 		echo '<td id="member'.$row['cod'].'" class="options-width">';
 		echo '<a href="renovar-user.php?cod='.$row['cod'].'" title="Renewal" class="renovar"><img src="images/update.png" /></a>&nbsp;';
 		echo '<a href="edit-user.php?cod='.$row['cod'].'" title="Edit '.$row['usuario'].'" class="icon-1 info-tooltip"><img src="images/note_edit.png" /></a>&nbsp;';
