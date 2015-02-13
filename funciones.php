@@ -5,33 +5,33 @@ include_once 'clases/class.phpmailer.php';
 ini_set("error_reporting",0);
 
 function conectar(){
-	require __DIR__.'/config.php';
+    require __DIR__.'/config.php';
     $link = new mysqli(
         $config['db']['host'],
         $config['db']['user'],
         $config['db']['pass'],
         $config['db']['name']
     );
-	if ($link->connect_errno) {
-		die('No pudo conectarse: ' . $link->connect_error);
-	}
-	$link->set_charset('utf8');
-	return $link;
+    if ($link->connect_errno) {
+        die('No pudo conectarse: ' . $link->connect_error);
+    }
+    $link->set_charset('utf8');
+    return $link;
 }
 
 function conectar2(){
-	require __DIR__.'/config.php';
+    require __DIR__.'/config.php';
     $link = new mysqli(
         $config['db']['host'],
         $config['db']['user'],
         $config['db']['pass'],
         $config['db']['name']
     );
-	if ($link->connect_errno) {
-		die('No pudo conectarse: ' . $link->connect_error);
-	}
-	//mysql_set_charset('utf8',$link);
-	return $link;
+    if ($link->connect_errno) {
+        die('No pudo conectarse: ' . $link->connect_error);
+    }
+    //mysql_set_charset('utf8',$link);
+    return $link;
 }
 
 
@@ -72,20 +72,6 @@ function obtener2( $tabla, $iden, $id, $campo )
     $result->free_result();  
     return $segm;  
 } 
-
-function datosreg( $id, $tabla, $campo, $iden )  
-{  
-    $sql_link = conectar();  
-    if( $id == "" || empty($id) )  
-        return "";  
-    // obtener datos del usuario  
-    $q = "SELECT * FROM ".$tabla." WHERE ".$iden." = '".$id."'";  
-    $result = $sql_link->query($q) or oiError($sql_link->error());  
-    $ret = $result->fetch_array();  
-    $segm = $ret[$campo];  
-    $result->free_result();  
-    return $segm;  
-}
 
 /**
 * function obtener (de_la_tabla, donde_este_campo, es_igual_a_esto, este_campo_quiero);
@@ -307,19 +293,31 @@ function Comprobariexplorer2($user_agent) {
 	return false;
 }
 
- // ENCRIPTAR
-
+/**
+* function encriptar ($cad);
+* We obtain the encrypted string
+* @$cad: string
+*
+* return string
+*/
 function encriptar($cad){ 
- $cc = base64_encode($cad); 
- $key = 'rnvoxjnj'; 
- $iv = '12345678'; 
- $cipher = mcrypt_module_open(MCRYPT_BLOWFISH,'','cbc',''); 
- mcrypt_generic_init($cipher, $key, $iv); 
- $encrypted = mcrypt_generic($cipher,$cc); 
- mcrypt_generic_deinit($cipher); 
- return base64_encode($encrypted); 
+    $cc = base64_encode($cad); 
+    $key = 'rnvoxjnj'; 
+    $iv = '12345678'; 
+    $cipher = mcrypt_module_open(MCRYPT_BLOWFISH,'','cbc',''); 
+    mcrypt_generic_init($cipher, $key, $iv); 
+    $encrypted = mcrypt_generic($cipher,$cc); 
+    mcrypt_generic_deinit($cipher); 
+    return base64_encode($encrypted); 
 }
 
+/**
+* function desenencriptar ($cad);
+* We obtain the original string
+* @$cad: string
+*
+* return string
+*/
 function desencriptar($cad)
 {
    $cc = base64_decode($cad);
@@ -332,99 +330,30 @@ function desencriptar($cad)
    return base64_decode($decrypted);
 }
 
-// COMPLETAR CON CEROS A LA IZQUIERDA
-/////////////////////////////////////
-function completar($valor, $digitos){
-	$resultado='';
-	if(strlen($valor)<$digitos){
-		
-		$ceros=$digitos-strlen(ceil($valor));
-		for($i=0;$i<$ceros;$i++){
+/**
+* function completar ($valor, $digitos);
+* Completed variable with zeros to the left
+* @$valor: variable
+* @digitos: size of variable
+*
+* return string
+*/
+function completar($valor, $digitos)
+{
+    $resultado='';
+    if(strlen($valor)<$digitos)
+    {
+        $ceros=$digitos-strlen(ceil($valor));
+        for($i=0;$i<$ceros;$i++)
+		{
 			$resultado.='0';
 		}
 	}
-$resultado.=$valor;
-return $resultado;
+    $resultado .= $valor;
+    return $resultado;
 }
 
-////////////////////////////////////////////////////
-
-//Convierte fecha de mysql a normal
-
-////////////////////////////////////////////////////
-
-function fechanormal($fecha){
-	if($fecha>0){
-    ereg( "([0-9]{2,4})-([0-9]{1,2})-([0-9]{1,2})", $fecha, $mifecha);
-
-    $lafecha=$mifecha[3]."/".$mifecha[2]."/".$mifecha[1];
-	}
-	else {
-	$lafecha="";
-	}
-    return $lafecha;
-
-}
-
-// MESES EN ESPAÑOL DE ESPAÑA
-/////////////////////////////////
-function meses($valor){
-	if($valor==1){
-		$resultado="Enero";
-	}
-	if($valor==2){
-		$resultado="Febrero";
-	}
-	if($valor==3){
-		$resultado="Marzo";
-	}
-	if($valor==4){
-		$resultado="Abril";
-	}
-	if($valor==5){
-		$resultado="Mayo";
-	}
-	if($valor==6){
-		$resultado="Junio";
-	}
-	if($valor==7){
-		$resultado="Julio";
-	}
-	if($valor==8){
-		$resultado="Agosto";
-	}
-	if($valor==9){
-		$resultado="Septiembre";
-	}
-	if($valor==10){
-		$resultado="Octubre";
-	}
-	if($valor==11){
-		$resultado="Noviembre";
-	}
-	if($valor==12){
-		$resultado="Diciembre";
-	}
-	return $resultado;
-}
-
-// DATOS TABLA POR COD
-/////////////////////
-/*
-function datosreg($codigo, $tabla, $campo, $campocod='cod'){
-	$query=mysql_query("select ".$campo." as valor from ".$tabla." where ".$campocod."='".$codigo."';" );
-	if(mysql_errno()!=0){
-	$resultado=mysql_error();
-	} else {
-	while($rows=mysql_fetch_array($query)){
-		$resultado=$rows["valor"];
-	}
-	}
-	return $resultado;
-}
-*/
 //QUITAR CODIFICACION HTML ACENTOS, EÑES...
-
 function quitar_html($cadena){
 	$txt=str_replace("<br />",chr(13).chr(10),$cadena);
 	$txt=str_replace("<br>",chr(13).chr(10),$txt);
@@ -455,7 +384,7 @@ function quitar_html($cadena){
 	$txt=str_replace("&ordm;",'º',$txt);
 	$txt=str_replace("&amp;",'&',$txt);
 	$txt=str_replace("&bull;",'•',$txt);
-	$txt=str_replace("&euro;",'€',$txt); 
+	$txt=str_replace("&euro;",'€',$txt);
 	
 	return $txt;
 }
