@@ -218,7 +218,7 @@ Customize the message that members receive for each situation:
 <div id="tabs-3">
 <br>
 <h3>Customize invoice template:</h3>
-<form id="form_invoice" method="post" action="setting" enctype="multipart/form-data">
+<form id="form_invoice" method="post" action="setting.php" enctype="multipart/form-data">
 <?php
 $sql = "SELECT * FROM invoice;";
 $result = $link->query($sql);
