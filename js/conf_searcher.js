@@ -81,11 +81,12 @@ function Editarusuario()
 										$("#result_edit").html('');
 										//Actualizar los 3 campos de la tabla que se ha editado
 										alert("updated correctly");
-										$("#"+data.cod).prev().prev().prev().prev().prev().prev().html(data.name);
-										$("#"+data.cod).prev().prev().prev().prev().prev().html(data.surname);
-										$("#"+data.cod).prev().prev().prev().prev().html(data.email);
-										$("#"+data.cod).prev().prev().prev().html(data.renewal);
-										$("#"+data.cod).prev().prev().html(data.type);
+										$("#"+data.cod).prev().prev().prev().prev().prev().prev().prev().html(data.name);
+										$("#"+data.cod).prev().prev().prev().prev().prev().prev().html(data.surname);
+										$("#"+data.cod).prev().prev().prev().prev().prev().html(data.email);
+										$("#"+data.cod).prev().prev().prev().prev().html(data.renewal);
+										$("#"+data.cod).prev().prev().prev().html(data.type);
+										$("#"+data.cod).prev().prev().html(data.status);
 										$("#"+data.cod).prev().html(data.quota+' &euro;');
 									}
 								}, "json"); 

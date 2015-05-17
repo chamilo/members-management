@@ -512,7 +512,43 @@ if ( $_REQUEST['tab'] == 'editar'){
 		$postal_code = '';
 		$vat = '';
 	}
-	$sql = "UPDATE members SET name='".$name."',surname='".$surname."',country='".$country."',language='".$language."',phone='".$phone."',email='".$email."',renewal='".date("Y-m-d",strtotime($renewal))."',quota='".$quota."',type='".$type."',comment='".$comment."',status='".$status."', institution='".$institution."', address='".$address."', postal_code='".$postal_code."', vat='".$vat."' WHERE cod='".$cod."'";
+	
+	$sql = "SELECT renewal,email_renewal,email_expired FROM members WHERE cod='".$cod."'";
+	$result = $link->query($sql);
+	$row = $result->fetch_assoc();
+	if( $row['renewal'] == date("Y-m-d",strtotime($renewal))){
+		$email_renewal = $row['email_renewal'];
+		$email_expired = $row['email_expired'];
+		if($row['email_renewal'] == '1'){
+			$notice_email = "Yes";
+		}else{
+			$notice_email = "No";
+		}
+	}else{
+		$email_renewal = 0;
+		$email_expired = 0;
+		$notice_email = "No";
+	}
+	
+	$sql = "UPDATE members SET 
+			name='".$name."',
+			surname='".$surname."',
+			country='".$country."',
+			language='".$language."',
+			phone='".$phone."',
+			email='".$email."',
+			renewal='".date("Y-m-d",strtotime($renewal))."',
+			email_renewal='".$email_renewal."',
+			email_expired='".$email_expired."',
+			quota='".$quota."',
+			type='".$type."',
+			comment='".$comment."',
+			status='".$status."', 
+			institution='".$institution."', 
+			address='".$address."', 
+			postal_code='".$postal_code."', 
+			vat='".$vat."' 
+			WHERE cod='".$cod."'";
 	//echo $sql;
 	$result = $link->query($sql);
 	if (!$result) {									
@@ -522,7 +558,8 @@ if ( $_REQUEST['tab'] == 'editar'){
 	$result = $link->query($sql);
 	$aux = $result->fetch_assoc();
 	
-	echo json_encode(array("status"=>"true","name"=>$name,"surname"=>$surname,"email"=>$email,"cod"=>"member".$cod,"renewal"=>date("d/m/Y",strtotime($renewal)),"type"=>$aux['name'],"quota"=>$quota));	
+	$status_name = obtener("status","cod",$status,"status");
+	echo json_encode(array("status"=>"true","name"=>$name,"surname"=>$surname,"email"=>$email,"cod"=>"member".$cod,"renewal"=>date("d/m/Y",strtotime($renewal)),"type"=>$aux['name'],"quota"=>$quota,"status"=>$status_name,"notice_email"=>$notice_email));	
 }
 
 if ( $_REQUEST['tab'] == 'renovar_miembro'){

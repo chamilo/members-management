@@ -467,6 +467,9 @@ if($link->affected_rows<=0){
 echo '</div>';
 ?>
 <br>
+<h4>Database: data and structure</h4>
+<?php require 'config.php'; ?>
+<a href="adminer/loader.adminer.php?username=<?php echo $config['db']['user']; ?>">Adminer extension</a>
 
 </div>
 </div>

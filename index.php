@@ -30,6 +30,7 @@ echo "</pre>";
 <link rel="stylesheet" type="text/css" href="css/custom.css" media="screen">
 <!-- <link type="text/css" href="css/green.css" rel="stylesheet">-->
 <!-- Your Custom Stylesheet -->
+<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.17.custom.css" media="screen">
 
 <!--swfobject - needed only if you require <video> tag support for older browsers -->
 <script src="js/swfobject.js" type="text/javascript"></script>
@@ -55,12 +56,13 @@ echo "</pre>";
 <!--[if IE]> <link rel="stylesheet" type="text/css" media="all" href="css/ie.css"/> <script src="js/html5.js"></script> <![endif]-->
 <!--Upgrade MSIE5.5-7 to be compatible with MSIE8: http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE8.js -->
 <!--[if lt IE 8]> <script src="js/IE8.js"></script> <![endif]-->
+<script src="js/jquery-ui.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 	/* setup navigation, content boxes, etc... */
 	Administry.setup();
 	
-	$(".icon-1").click(function(e) {
+	$(".edit-member").click(function(e) {
 		e.preventDefault();
 	  	e.stopPropagation();
 		var vcod = $(this).parent().attr("id");
@@ -100,10 +102,17 @@ echo "</pre>";
 										$("#result_edit").html('');
 										//Actualizar los 3 campos de la tabla que se ha editado
 										alert("updated correctly");
-										$("#"+data.cod).prev().prev().prev().prev().html(data.name);
-										$("#"+data.cod).prev().prev().prev().html(data.surname);
-										$("#"+data.cod).prev().prev().html(data.email);
-										$("#"+data.cod).prev().html(data.renewal);
+										$("#"+data.cod).prev().prev().prev().prev().prev().html(data.name);
+										$("#"+data.cod).prev().prev().prev().prev().html(data.surname);
+										$("#"+data.cod).prev().prev().prev().html(data.email);
+										$("#"+data.cod).prev().prev().html(data.renewal);
+										if(data.notice_email == "YES"){
+											$("#"+data.cod).prev().css("background","#A5DF00");
+											$("#"+data.cod).prev().html('<strong>'+data.notice_email+'</strong>');
+										}else{
+											$("#"+data.cod).prev().css("background","#F5D0A9");
+											$("#"+data.cod).prev().html('<strong>'+data.notice_email+'</strong>');
+										}
 									}
 								}, "json"); 
 							
@@ -120,6 +129,12 @@ echo "</pre>";
 								$("#company").hide();
 								$("#institution").attr("disabled","disabled");
 							}						  
+						});
+						
+						$("#renewal").datepicker({
+							dateFormat: 'dd/mm/yy',
+							changeMonth: true,
+							changeYear: true
 						});
 				   }
 			   },"json");
@@ -373,7 +388,7 @@ if($result->num_rows>0){
 		}
 		echo '<td id="member'.$row['cod'].'" class="options-width">';
 		echo '<a href="renovar-user.php?cod='.$row['cod'].'" title="Renewal" class="renovar"><img src="images/update.png" /></a>&nbsp;';
-		echo '<a href="edit-user.php?cod='.$row['cod'].'" title="Edit '.$row['usuario'].'" class="icon-1 info-tooltip"><img src="images/note_edit.png" /></a>&nbsp;';
+		echo '<a href="edit-user.php?cod='.$row['cod'].'" title="Edit '.$row['usuario'].'" class="edit-member info-tooltip"><img src="images/note_edit.png" /></a>&nbsp;';
 		echo '<a href="delete-user.php?cod='.$row['cod'].'" title="Delete" '.$row['usuario'].'" class="eliminar-usuario"><img src="images/delete.png" /></a>';
 		echo '</td>';
 		echo '</tr>';
